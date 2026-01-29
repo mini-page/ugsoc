@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UG-SOC | Umang Gupta - Security Operations Console</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Devicon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                        body: ['"DM Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        soc: {
+                            dark: '#0F172A',
+                            panel: '#1E293B',
+                            primary: '#8B5CF6',
+                            accent: '#F97316',
+                            success: '#10B981',
+                            danger: '#EF4444',
+                            base: '#F8FAFC',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'fadeIn': 'fadeIn 0.2s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base & Noise */
+        :root {
+            --bg-base: #F8FAFC;
+            --bg-panel: rgba(255, 255, 255, 0.75);
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --border-color: #e2e8f0;
+            --border-panel: rgba(255, 255, 255, 0.9);
+        }
+
+        [data-theme="dark"] {
+            --bg-base: #0F172A;
+            --bg-panel: rgba(30, 41, 59, 0.75);
+            --bg-card: rgba(30, 41, 59, 0.9);
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --border-color: #334155;
+            --border-panel: rgba(51, 65, 85, 0.5);
+        }
+
+        body { 
+            background-color: var(--bg-base); 
+            color: var(--text-primary);
+            overflow-x: hidden; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 50; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Glass & Borders */
+        .glass-panel {
+            background: var(--bg-panel);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-panel);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+
+        [data-theme="dark"] .glass-panel {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-block {
+            font-family: 'JetBrains Mono', monospace;
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .code-block::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #8B5CF6, #F97316);
+        }
+
+        /* Table Styles */
+        .data-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        .data-table th { text-align: left; font-family: 'Space Grotesk', sans-serif; color: var(--text-secondary); font-weight: 500; font-size: 0.875rem; padding-bottom: 1rem; }
+        .data-table td { padding: 0.75rem 0; border-bottom: 1px solid var(--border-color); font-size: 0.95rem; }
+        .data-table tr:last-child td { border-bottom: none; }
+
+        /* Utilities */
+        .section-label { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #8B5CF6; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 0.5rem; }
+
+        /* Command Palette Styles */
+        .command-palette-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .command-palette-overlay.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 10vh;
+        }
+
+        .command-palette {
+            width: 90%;
+            max-width: 640px;
+            background: #1e293b;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            overflow: hidden;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .command-search {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 20px 24px;
+            font-size: 16px;
+            color: #e2e8f0;
+            outline: none;
+            font-family: 'JetBrains Mono', monospace;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .command-search::placeholder {
+            color: #64748b;
+        }
+
+        .command-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .command-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: #cbd5e1;
+        }
+
+        .command-item:hover,
+        .command-item.selected {
+            background: rgba(139, 92, 246, 0.2);
+            color: #e2e8f0;
+        }
+
+        .command-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 6px;
+            color: #8b5cf6;
+            font-size: 14px;
+        }
+
+        .command-details {
+            flex: 1;
+        }
+
+        .command-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .command-subtitle {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .command-hint {
+            font-size: 11px;
+            color: #64748b;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(100, 116, 139, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .command-footer {
+            padding: 12px 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+            color: #64748b;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .command-footer-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .command-key {
+            background: rgba(100, 116, 139, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+
+        /* Skill Map Styles */
+        .map-point {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+        
+        .map-point:hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            z-index: 10;
+        }
+        
+        .lvl-high { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25); }
+        .lvl-mid { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25); }
+        .lvl-low { box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.25); }
+        .lvl-experimental { box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.25); }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 1000;
+            white-space: nowrap;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tooltip.show { opacity: 1; }
+
+        /* Skill Badge Styles */
+        .skill-badge {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .skill-badge:hover {
+            transform: translateY(-5px);
+            border-color: #8B5CF6;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .skill-badge::after {
+            content: attr(data-name);
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #21262d;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            opacity: 0;
+            white-space: nowrap;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border: 1px solid #30363d;
+            z-index: 10;
+        }
+
+        .skill-badge:hover::after { opacity: 1; }
+
+        .custom-icon {
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Social Card Glow */
+        .glow-card {
+            position: relative;
+            isolation: isolate;
+        }
+        
+        .glow-card::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 1rem;
+            padding: 1px;
+            background: linear-gradient(120deg, rgba(59,130,246,0.5), rgba(236,72,153,0.6), rgba(59,130,246,0.3));
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .glow-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Scrollbar */
+        .command-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .command-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .command-list::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 3px;
+        }
+
+        .command-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.5);
+        }
+
+        /* Dark mode specific overrides */
+        [data-theme="dark"] .text-slate-800 {
+            color: #F8FAFC !important;
+        }
+
+        [data-theme="dark"] .text-slate-600 {
+            color: #94A3B8 !important;
+        }
+
+        [data-theme="dark"] .text-slate-500 {
+            color: #64748B !important;
+        }
+
+        [data-theme="dark"] .text-slate-400 {
+            color: #64748B !important;
+        }
+
+        [data-theme="dark"] .bg-slate-100 {
+            background-color: #334155 !important;
+        }
+
+        [data-theme="dark"] .border-slate-100 {
+            border-color: #334155 !important;
+        }
+
+        [data-theme="dark"] .border-slate-200 {
+            border-color: #475569 !important;
+        }
+    </style>
+</head>
+<body class="text-soc-dark font-body selection:bg-soc-primary selection:text-white">
+
+    <div class="noise-overlay"></div>
+
+    <!-- Background Decor -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-soc-primary/20 rounded-full blur-[100px] mix-blend-multiply"></div>
+        <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-soc-accent/20 rounded-full blur-[100px] mix-blend-multiply"></div>
+    </div>
+
+    <!-- Command Palette Overlay -->
+    <div class="command-palette-overlay" id="commandPaletteOverlay">
+        <div class="command-palette">
+            <input 
+                type="text" 
+                class="command-search" 
+                id="commandSearch" 
+                placeholder="Search portfolio or type '>' for commands..."
+                autocomplete="off"
+            />
+            <div class="command-list" id="commandList">
+                <!-- Commands will be populated here -->
+            </div>
+            <div class="command-footer">
+                <div class="command-footer-item">
+                    <span class="command-key">↑↓</span>
+                    <span>Navigate</span>
+                </div>
+                <div class="command-footer-item">
+                    <span class="command-key">Enter</span>
+                    <span>Select</span>
+                </div>
+                <div class="command-footer-item">
+                    <span class="command-key">Esc</span>
+                    <span>Close</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="fixed w-full z-40 top-0 p-6 transition-all duration-300">
+        <div class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-6 py-3 rounded-full">
+            <a href="#hero" class="font-display font-bold text-xl tracking-tight text-soc-dark">
+                UG<span class="text-soc-primary">-SOC</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <button 
+                    onclick="toggleTheme()" 
+                    class="flex items-center gap-2 text-xs font-mono text-gray-500 hover:text-soc-primary transition-colors px-3 py-1.5 rounded-lg hover:bg-white/50"
+                    title="Toggle theme"
+                >
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+                <button 
+                    onclick="toggleCommandPalette()" 
+                    class="flex items-center gap-2 text-xs font-mono text-gray-500 hover:text-soc-primary transition-colors px-3 py-1.5 rounded-lg hover:bg-white/50"
+                >
+                    <i class="fa-solid fa-search"></i>
+                    <span class="hidden md:inline">Search</span>
+                    <span class="command-key text-[10px] ml-1">Ctrl+K</span>
+                </button>
+                <div class="flex items-center gap-2 text-xs font-mono">
+                    <span class="w-2 h-2 rounded-full bg-soc-success animate-pulse"></span>
+                    <span class="text-gray-500">ONLINE</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-6 pt-32 pb-20 space-y-24">
+
+        <!-- HERO SECTION -->
+        <header class="relative" id="hero">
+            <div class="mb-6 flex flex-wrap gap-4 font-mono text-sm">
+                <span class="px-3 py-1 bg-soc-primary/10 text-soc-primary rounded-full font-bold border border-soc-primary/20">UG-SOC v1.0</span>
+                <span class="px-3 py-1 bg-slate-100 text-slate-500 rounded-full">SECURITY AUTOMATION ENGINEER</span>
+            </div>
+            
+            <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight mb-6 max-w-4xl">
+                I build security tools that <span class="text-transparent bg-clip-text bg-gradient-to-r from-soc-primary to-soc-accent">reduce human friction.</span>
+            </h1>
+            
+            <p class="text-xl text-slate-600 mb-8 max-w-2xl font-light">
+                Security engineer in formation. Automation-first. Tool-driven. System-level thinking.
+            </p>
+
+            <div class="flex flex-wrap gap-4 items-center">
+                <a href="https://github.com/mini-page" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-soc-dark text-white font-bold hover:bg-soc-primary transition-colors">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/ug5711/" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-xl glass-panel hover:bg-white transition-colors">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://x.com/ug_5711" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-xl glass-panel hover:bg-white transition-colors">
+                    <i class="fa-brands fa-x-twitter"></i> X/Twitter
+                </a>
+            </div>
+        </header>
+
+        <!-- ABOUT SECTION -->
+        <section id="about">
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">About Me</span>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-panel p-6 rounded-2xl">
+                    <h3 class="font-bold text-xl mb-4 text-soc-dark">Who I Am</h3>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        I'm Umang Gupta, a security-focused developer passionate about building automation tools that make cybersecurity workflows more efficient. I specialize in creating practical tools for ethical hacking and security operations.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        My approach combines deep technical knowledge with a focus on developer experience, creating tools that security professionals actually want to use.
+                    </p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl">
+                    <h3 class="font-bold text-xl mb-4 text-soc-dark">What I Do</h3>
+                    <ul class="space-y-3 text-slate-600">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-shield-halved text-soc-primary mt-1"></i>
+                            <span>Build security automation tools and frameworks</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-code text-soc-primary mt-1"></i>
+                            <span>Develop ethical hacking utilities and scripts</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-terminal text-soc-primary mt-1"></i>
+                            <span>Create command-line tools for security workflows</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-brain text-soc-primary mt-1"></i>
+                            <span>Research and implement security best practices</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills">
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Core Skills</span>
+            
+            <!-- Skills Grid -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="glass-panel p-6 rounded-2xl">
+                    <div class="w-12 h-12 bg-soc-primary/10 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-server text-soc-primary text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">Systems</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Linux / Kali</span>
+                            <span class="text-xs font-mono text-soc-primary">Expert</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Windows Security</span>
+                            <span class="text-xs font-mono text-soc-primary">Advanced</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Bash/PowerShell</span>
+                            <span class="text-xs font-mono text-soc-primary">Expert</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">System Architecture</span>
+                            <span class="text-xs font-mono text-soc-primary">Advanced</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl">
+                    <div class="w-12 h-12 bg-soc-accent/10 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-shield-halved text-soc-accent text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">Security</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Tool Building</span>
+                            <span class="text-xs font-mono text-soc-accent">Core</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Security Automation</span>
+                            <span class="text-xs font-mono text-soc-accent">Core</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">OSINT</span>
+                            <span class="text-xs font-mono text-soc-accent">Advanced</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Threat Analysis</span>
+                            <span class="text-xs font-mono text-soc-accent">Advanced</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl">
+                    <div class="w-12 h-12 bg-soc-success/10 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-code text-soc-success text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">Development</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Python</span>
+                            <span class="text-xs font-mono text-soc-success">Advanced</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Git/GitHub</span>
+                            <span class="text-xs font-mono text-soc-success">Expert</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Documentation</span>
+                            <span class="text-xs font-mono text-soc-success">Advanced</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">UI/UX</span>
+                            <span class="text-xs font-mono text-soc-success">Growing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skill Heatmap -->
+            <div class="glass-panel p-8 rounded-2xl">
+                <h3 class="font-bold text-2xl mb-2">Skill Heatmap</h3>
+                <p class="text-slate-500 text-sm mb-6">Execution vs Strategic Depth</p>
+                
+                <div class="relative bg-soc-dark rounded-xl h-[400px] overflow-hidden" id="skillMap">
+                    <!-- Axes -->
+                    <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-700"></div>
+                    <div class="absolute top-1/2 left-0 right-0 h-px bg-slate-700"></div>
+                    
+                    <!-- Labels -->
+                    <div class="absolute top-2 left-1/2 -translate-x-1/2 text-xs text-slate-400">Strategic Depth →</div>
+                    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs text-slate-400">Tactical Detail ↓</div>
+                    <div class="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">Structured →</div>
+                    <div class="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">← Rapid</div>
+                    
+                    <!-- SKILL POINTS -->
+                    <div class="map-point lvl-high bg-green-500" style="left:82%; top:18%" data-title="Tool Building" data-level="Core Strength"></div>
+                    <div class="map-point lvl-high bg-green-500" style="left:75%; top:22%" data-title="Security Automation" data-level="Core Strength"></div>
+                    <div class="map-point lvl-high bg-green-500" style="left:70%; top:30%" data-title="System Architecture" data-level="Core Strength"></div>
+                    <div class="map-point lvl-high bg-green-500" style="left:65%; top:35%" data-title="Security Research" data-level="Core Strength"></div>
+                    
+                    <div class="map-point lvl-mid bg-blue-500" style="left:35%; top:20%" data-title="OSINT" data-level="Strong"></div>
+                    <div class="map-point lvl-mid bg-blue-500" style="left:60%; top:45%" data-title="Linux" data-level="Strong"></div>
+                    <div class="map-point lvl-mid bg-blue-500" style="left:68%; top:55%" data-title="Bash" data-level="Strong"></div>
+                    <div class="map-point lvl-mid bg-blue-500" style="left:72%; top:60%" data-title="PowerShell" data-level="Strong"></div>
+                    <div class="map-point lvl-mid bg-blue-500" style="left:55%; top:28%" data-title="Threat Analysis" data-level="Strong"></div>
+                    
+                    <div class="map-point lvl-low bg-purple-500" style="left:50%; top:70%" data-title="Python" data-level="Growing"></div>
+                    <div class="map-point lvl-low bg-purple-500" style="left:45%; top:78%" data-title="Documentation" data-level="Growing"></div>
+                    <div class="map-point lvl-low bg-purple-500" style="left:48%; top:65%" data-title="Packaging" data-level="Growing"></div>
+                    <div class="map-point lvl-low bg-purple-500" style="left:40%; top:60%" data-title="UI/UX" data-level="Growing"></div>
+                    
+                    <div class="map-point lvl-experimental bg-amber-400" style="left:25%; top:75%" data-title="Rapid Prototyping" data-level="Experimental"></div>
+                    <div class="map-point lvl-experimental bg-amber-400" style="left:30%; top:65%" data-title="New Tech Exploration" data-level="Experimental"></div>
+                    <div class="map-point lvl-experimental bg-amber-400" style="left:22%; top:55%" data-title="Research Experiments" data-level="Experimental"></div>
+                    
+                    <div class="tooltip" id="tooltip"></div>
+                </div>
+                
+                <div class="mt-6 flex flex-wrap gap-4 text-sm">
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-green-500 rounded"></div>
+                        <span class="text-slate-600">Core Strength</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-blue-500 rounded"></div>
+                        <span class="text-slate-600">Strong</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-purple-500 rounded"></div>
+                        <span class="text-slate-600">Growing</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-amber-400 rounded"></div>
+                        <span class="text-slate-600">Experimental</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="mt-8 glass-panel p-8 rounded-2xl bg-soc-dark text-white">
+                <h3 class="font-bold text-2xl mb-6">Tech Stack</h3>
+                
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="flex items-center gap-2 text-slate-300 text-sm mb-4 font-mono">
+                            <i class="fa-solid fa-network-wired text-soc-primary"></i>
+                            NETWORKING & INFRASTRUCTURE
+                        </h4>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="skill-badge" data-name="Nginx">
+                                <i class="devicon-nginx-original colored" style="color: #009639;"></i>
+                            </div>
+                            <div class="skill-badge" data-name="SSH">
+                                <i class="devicon-ssh-original colored"></i>
+                            </div>
+                            <div class="skill-badge" data-name="Putty">
+                                <i class="devicon-putty-plain colored"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center gap-2 text-slate-300 text-sm mb-4 font-mono">
+                            <i class="fa-solid fa-chart-line text-soc-accent"></i>
+                            MONITORING & SIEM
+                        </h4>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="skill-badge" data-name="Log Analysis">
+                                <i class="devicon-matcha-plain colored" style="color: #61d384;"></i>
+                            </div>
+                            <div class="skill-badge" data-name="Grafana">
+                                <i class="devicon-grafana-original colored"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center gap-2 text-slate-300 text-sm mb-4 font-mono">
+                            <i class="fa-solid fa-shield text-soc-success"></i>
+                            SECURITY & OPERATING SYSTEMS
+                        </h4>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="skill-badge" data-name="Linux/Kali">
+                                <i class="devicon-linux-plain colored"></i>
+                            </div>
+                            <div class="skill-badge" data-name="Windows">
+                                <i class="devicon-windows11-original colored"></i>
+                            </div>
+                            <div class="skill-badge" data-name="PowerShell">
+                                <i class="devicon-powershell-plain colored" style="color: #5391fe;"></i>
+                            </div>
+                            <div class="skill-badge" data-name="Bash">
+                                <i class="devicon-bash-plain colored"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center gap-2 text-slate-300 text-sm mb-4 font-mono">
+                            <i class="fa-solid fa-code text-soc-primary"></i>
+                            SCRIPTING & AUTOMATION
+                        </h4>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="skill-badge" data-name="Python">
+                                <i class="devicon-python-plain colored"></i>
+                            </div>
+                            <div class="skill-badge" data-name="GitHub">
+                                <i class="devicon-github-original" style="color: white;"></i>
+                            </div>
+                            <div class="skill-badge" data-name="Git">
+                                <i class="devicon-git-plain colored"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects">
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Mission Log / Deployed Tools</span>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- PROJECT 1: asllock -->
+                <a href="https://github.com/mini-page/asllock" target="_blank" class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    <div class="w-full h-32 bg-soc-dark rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <div class="absolute inset-0 opacity-20 bg-gradient-to-br from-soc-primary to-slate-900"></div>
+                        <i class="fa-solid fa-lock text-4xl text-soc-primary relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">ACCESS CONTROL / TUI</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-soc-primary transition-colors">asllock</h3>
+                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+                            A Windows tool to lock/unlock directories using NTFS ACLs (icacls) via a TUI interface.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">PowerShell</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">TUI</span>
+                    </div>
+                </a>
+
+                <!-- PROJECT 2: TheSecretJuice -->
+                <a href="https://github.com/mini-page/TheSecretJuice" target="_blank" class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    <div class="w-full h-32 bg-slate-800 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <div class="absolute inset-0 opacity-20 bg-gradient-to-br from-soc-accent to-slate-900"></div>
+                        <i class="fa-solid fa-bolt text-4xl text-soc-accent relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">CLI ENHANCER</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-soc-accent transition-colors">TheSecretJuice</h3>
+                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+                            A PowerShell module designed to supercharge standard command-line tools with extended capabilities.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">PowerShell</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Automation</span>
+                    </div>
+                </a>
+
+                <!-- PROJECT 3: SejdaCrack -->
+                <a href="https://github.com/mini-page/SejdaCrack" target="_blank" class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    <div class="w-full h-32 bg-slate-700 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <div class="absolute inset-0 opacity-20 bg-gradient-to-br from-red-500 to-slate-900"></div>
+                        <i class="fa-solid fa-file-pdf text-4xl text-red-400 relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">PDF TOOL / PATCH</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-red-500 transition-colors">SejdaCrack</h3>
+                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+                            Enables full permission work with PDFs for educational purposes on Windows, Linux, and Mac.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Python</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">HTML</span>
+                    </div>
+                </a>
+
+                <!-- PROJECT 4: trackify -->
+                <a href="https://github.com/mini-page/trackify" target="_blank" class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    <div class="w-full h-32 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <i class="fa-solid fa-heart-pulse text-4xl text-emerald-500 relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">WELLNESS / WEB APP</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-emerald-600 transition-colors">trackify</h3>
+                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+                            A comprehensive health app to monitor well-being metrics like water intake, mood, sleep, and nutrition.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Next.js</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">TypeScript</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">React</span>
+                    </div>
+                </a>
+
+                <!-- PROJECT 5: sniprun -->
+                <a href="https://github.com/mini-page/sniprun" target="_blank" class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    <div class="w-full h-32 bg-indigo-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <div class="absolute inset-0 opacity-30 bg-gradient-to-br from-indigo-500 to-purple-600"></div>
+                        <i class="fa-solid fa-terminal text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">CLI ALIASER</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-indigo-600 transition-colors">sniprun</h3>
+                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+                            Simplifies complex shell command execution using short, memorable aliases called "snips."
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Go</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Shell</span>
+                    </div>
+                </a>
+
+                <!-- PROJECT 6: SyncMaster -->
+                <a href="https://github.com/mini-page/SyncMaster" target="_blank" class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    <div class="w-full h-32 bg-blue-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <div class="absolute inset-0 opacity-30 bg-gradient-to-br from-blue-500 to-cyan-500"></div>
+                        <i class="fa-solid fa-rotate text-4xl text-white relative z-10 group-hover:rotate-180 transition-transform duration-700"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">BACKUP / SYNC</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-blue-600 transition-colors">SyncMaster</h3>
+                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+                            Advanced file synchronization for Windows wrapping Robocopy with an interactive UI and scheduling.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">PowerShell</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Robocopy</span>
+                    </div>
+                </a>
+
+                <!-- PROJECT 7: Cyber-path -->
+                <a href="https://github.com/mini-page/Cyber-path" target="_blank" class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    <div class="w-full h-32 bg-teal-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <div class="absolute inset-0 opacity-30 bg-gradient-to-br from-teal-500 to-emerald-600"></div>
+                        <i class="fa-solid fa-map-signs text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">EDUCATION / GUIDE</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-teal-600 transition-colors">Cyber-path</h3>
+                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+                            A roadmap to guide beginners ("confused nerds") through the learning path of cybersecurity.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">TypeScript</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Docs</span>
+                    </div>
+                </a>
+
+                <!-- PROJECT 8: skfitness -->
+                <a href="https://github.com/mini-page/skfitness" target="_blank" class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    <div class="w-full h-32 bg-orange-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <i class="fa-solid fa-dumbbell text-4xl text-orange-500 relative z-10 group-hover:rotate-12 transition-transform"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">BUSINESS / WEB</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-orange-500 transition-colors">skfitness</h3>
+                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+                            A premium-feel website for "Mr. Kishan" providing fitness guidance and gym information.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">HTML</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">CSS</span>
+                    </div>
+                </a>
+
+                <!-- PROJECT 9: rahulsoni.in -->
+                <a href="https://github.com/mini-page/rahulsoni.in" target="_blank" class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    <div class="w-full h-32 bg-gray-100 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <i class="fa-solid fa-globe text-4xl text-gray-400 relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">PERSONAL / PORTFOLIO</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-soc-dark transition-colors">rahulsoni.in</h3>
+                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+                            Public personal website or portfolio for Rahul Soni focusing on personal branding.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">HTML</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Design</span>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="mt-10 text-center">
+                <a href="https://github.com/mini-page?tab=repositories" target="_blank" class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
+                    View Full GitHub Archive <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS -->
+        <section id="certifications">
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Certifications & Learning</span>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Certification 1: NMAP Mastery -->
+                <div class="group glass-panel border border-zinc-800/50 p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:border-pink-500/30 hover:shadow-lg hover:shadow-pink-500/10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400">
+                            <i class="fa-solid fa-shield-halved text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-pink-400 uppercase tracking-wider">Security</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-pink-300 transition-colors">NMAP Mastery</h3>
+                    <p class="text-sm text-slate-500 mb-4 leading-relaxed">Ultimate Guide to Network Scanning</p>
+                    <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-200 pt-4">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            Udemy
+                        </span>
+                        <span class="bg-slate-100 px-2 py-1 rounded-full">Jan 2026</span>
+                    </div>
+                    <div class="mt-3 text-xs text-slate-400">
+                        <span class="font-mono">UC-cc72d051-6d84-4964-b59f-cb4a4d0654f0</span>
+                    </div>
+                </div>
+
+                <!-- Certification 2: AWS Security Incident Response -->
+                <div class="group glass-panel border border-zinc-800/50 p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+                            <i class="fa-brands fa-aws text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-cyan-400 uppercase tracking-wider">Cloud Security</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">AWS Security Incident Response</h3>
+                    <p class="text-sm text-slate-500 mb-4 leading-relaxed">Ransomware Use-Case Handling</p>
+                    <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-200 pt-4">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-cloud"></i>
+                            AWS Training
+                        </span>
+                        <span class="bg-slate-100 px-2 py-1 rounded-full">Jan 2026</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="inline-flex items-center gap-1 text-xs text-cyan-600 bg-cyan-50 px-2 py-1 rounded">
+                            <i class="fa-solid fa-check-circle"></i>
+                            AWS · Ransomware · Malware Detection
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Certification 3: Network Hacking -->
+                <div class="group glass-panel border border-zinc-800/50 p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
+                            <i class="fa-solid fa-network-wired text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-purple-400 uppercase tracking-wider">Ethical Hacking</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-purple-300 transition-colors">Complete Network Hacking Course</h3>
+                    <p class="text-sm text-slate-500 mb-4 leading-relaxed">Beginner to Advanced</p>
+                    <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-200 pt-4">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            Udemy
+                        </span>
+                        <span class="bg-slate-100 px-2 py-1 rounded-full">Nov 2025</span>
+                    </div>
+                    <div class="mt-3 text-xs text-slate-400">
+                        <span class="font-mono">UC-8c5de17-2510-423a-b206-c97ee5537349</span>
+                    </div>
+                </div>
+
+                <!-- Certification 4: Wireshark -->
+                <div class="group glass-panel border border-zinc-800/50 p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:border-green-500/30 hover:shadow-lg hover:shadow-green-500/10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center text-green-400">
+                            <i class="fa-solid fa-magnifying-glass-chart text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-green-400 uppercase tracking-wider">Network Analysis</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-green-300 transition-colors">Learn Wireshark Like a Pro</h3>
+                    <p class="text-sm text-slate-500 mb-4 leading-relaxed">Hands-On Packet Capture & View</p>
+                    <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-200 pt-4">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            Udemy
+                        </span>
+                        <span class="bg-slate-100 px-2 py-1 rounded-full">Dec 2025</span>
+                    </div>
+                    <div class="mt-3 text-xs text-slate-400">
+                        <span class="font-mono">UC-b97e386a-7f3a-4e12-b52c-0615e62cf7f7</span>
+                    </div>
+                </div>
+
+                <!-- Certification 5: Responsive Web Design -->
+                <div class="group glass-panel border border-zinc-800/50 p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:border-orange-500/30 hover:shadow-lg hover:shadow-orange-500/10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-400">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-orange-400 uppercase tracking-wider">Web Development</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-orange-300 transition-colors">Responsive Web Design</h3>
+                    <p class="text-sm text-slate-500 mb-4 leading-relaxed">UED & Graphic Design Fundamentals</p>
+                    <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-200 pt-4">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-laptop-code"></i>
+                            freeCodeCamp
+                        </span>
+                        <span class="bg-slate-100 px-2 py-1 rounded-full">Jan 2025</span>
+                    </div>
+                    <div class="mt-3 text-xs text-slate-400">
+                        <span class="font-mono">raghav5711-rwd</span>
+                    </div>
+                </div>
+
+                <!-- Certification 6: Ongoing Learning -->
+                <div class="group glass-panel border border-zinc-800/50 p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:border-soc-primary/30 hover:shadow-lg hover:shadow-soc-primary/10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-soc-primary/20 flex items-center justify-center text-soc-primary">
+                            <i class="fa-solid fa-bolt text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-soc-primary uppercase tracking-wider">Ongoing</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-soc-primary transition-colors">Continuous Learning</h3>
+                    <p class="text-sm text-slate-500 mb-4 leading-relaxed">Security tools, automation, and research</p>
+                    <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-200 pt-4">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-user"></i>
+                            Self-Driven
+                        </span>
+                        <span class="bg-soc-primary/10 text-soc-primary px-2 py-1 rounded-full border border-soc-primary/20">Active</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience">
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Experience & Journey</span>
+            
+            <div class="glass-panel p-8 rounded-2xl">
+                <h3 class="font-bold text-2xl mb-6">Current Focus</h3>
+                <div class="space-y-6">
+                    <div class="border-l-4 border-soc-primary pl-6 py-2">
+                        <h4 class="font-bold text-lg mb-2">Security Tool Development</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Building automation tools that simplify complex security workflows. Focus on creating practical utilities that security professionals and ethical hackers can use in their daily work.
+                        </p>
+                    </div>
+                    <div class="border-l-4 border-soc-accent pl-6 py-2">
+                        <h4 class="font-bold text-lg mb-2">Open Source Contribution</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Contributing to security tools and frameworks. Sharing knowledge through well-documented projects and helping others learn security automation.
+                        </p>
+                    </div>
+                    <div class="border-l-4 border-soc-success pl-6 py-2">
+                        <h4 class="font-bold text-lg mb-2">Continuous Learning</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Constantly exploring new security techniques, tools, and methodologies. Staying updated with the latest trends in cybersecurity and ethical hacking.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT / SOCIAL -->
+        <section id="contact">
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Connect & Collaborate</span>
+            
+            <div class="text-center mb-8">
+                <h2 class="font-display text-3xl font-bold mb-3">Find Me Online</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    Whether you're looking for a collab, mentoring, or simply a friendly hello, I'm always just a click away.
+                </p>
+            </div>
+
+            <!-- Professional & Development Platforms -->
+            <div class="mb-8">
+                <h3 class="text-sm font-mono text-soc-primary uppercase tracking-wider mb-4">Professional & Development</h3>
+                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <a href="https://github.com/mini-page" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-900 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-github text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">GitHub</p>
+                                <p class="text-xs text-slate-500">Code & Projects</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://linkedin.com/in/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-cyan-600/90 to-blue-900 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-linkedin text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">LinkedIn</p>
+                                <p class="text-xs text-slate-500">Professional</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://codepen.io/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-slate-900 to-black rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-codepen text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">CodePen</p>
+                                <p class="text-xs text-slate-500">Frontend Demos</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://discord.com/users/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-discord text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">Discord</p>
+                                <p class="text-xs text-slate-500">Community</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Security & Learning Platforms -->
+            <div class="mb-8">
+                <h3 class="text-sm font-mono text-soc-accent uppercase tracking-wider mb-4">Security & Learning</h3>
+                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <a href="https://app.hackthebox.com/profile/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-cube text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">HackTheBox</p>
+                                <p class="text-xs text-slate-500">CTF Platform</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://letsdefend.io/user/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-shield-halved text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">LetsDefend</p>
+                                <p class="text-xs text-slate-500">SOC Training</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://tryhackme.com/p/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-terminal text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">TryHackMe</p>
+                                <p class="text-xs text-slate-500">Cyber Range</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://medium.com/@ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-slate-800 to-black rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-medium text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">Medium</p>
+                                <p class="text-xs text-slate-500">Tech Articles</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="mb-8">
+                <h3 class="text-sm font-mono text-soc-success uppercase tracking-wider mb-4">Social Media</h3>
+                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <a href="https://x.com/ug_5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-500 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-x-twitter text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">X / Twitter</p>
+                                <p class="text-xs text-slate-500">Tech Updates</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://threads.net/@ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-slate-900 to-black rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-threads text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">Threads</p>
+                                <p class="text-xs text-slate-500">Quick Thoughts</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://instagram.com/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-pink-500 via-red-500 to-orange-500 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-instagram text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">Instagram</p>
+                                <p class="text-xs text-slate-500">Visual Stories</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://youtube.com/@ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-youtube text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">YouTube</p>
+                                <p class="text-xs text-slate-500">Video Content</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://reddit.com/u/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-reddit text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">Reddit</p>
+                                <p class="text-xs text-slate-500">Discussions</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://pinterest.com/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-red-600 to-pink-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-pinterest text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">Pinterest</p>
+                                <p class="text-xs text-slate-500">Inspiration</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://snapchat.com/add/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-snapchat text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">Snapchat</p>
+                                <p class="text-xs text-slate-500">Quick Snaps</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://t.me/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-cyan-400 to-sky-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-brands fa-telegram text-white text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-sm">Telegram</p>
+                                <p class="text-xs text-slate-500">Fast Chat</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h3 class="text-sm font-mono text-slate-600 uppercase tracking-wider mb-4">Direct Contact</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <a href="mailto:umanggupta@example.com" class="glow-card group relative block glass-panel p-5 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-envelope text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Email</p>
+                                <p class="text-sm text-slate-500">Professional inquiries</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://cal.com/ug5711" target="_blank" class="glow-card group relative block glass-panel p-5 rounded-xl transition hover:-translate-y-1">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-calendar text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Schedule Meeting</p>
+                                <p class="text-sm text-slate-500">Book a time slot</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRATEGY & PATH -->
+        <section class="bg-soc-dark text-white rounded-3xl p-8 md:p-12 relative overflow-hidden">
+            <div class="relative z-10 grid md:grid-cols-2 gap-12">
+                <div>
+                    <span class="font-mono text-soc-primary text-xs uppercase tracking-widest mb-2 block">Strategic Summary</span>
+                    <h2 class="font-display text-3xl font-bold mb-6">Intelligence Report</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-soc-primary pl-4">
+                            <div class="text-xs text-gray-400 font-mono mb-1">CORE LEVERAGE</div>
+                            <div class="text-lg">Building security automation tools that simplify complex workflows.</div>
+                        </div>
+                        <div class="border-l-2 border-soc-accent pl-4">
+                            <div class="text-xs text-gray-400 font-mono mb-1">PRIMARY BOTTLENECK</div>
+                            <div class="text-lg">Failure to finish, document, and ship consistently.</div>
+                        </div>
+                        <div class="border-l-2 border-soc-success pl-4">
+                            <div class="text-xs text-gray-400 font-mono mb-1">HIGHEST ROI ADJUSTMENT</div>
+                            <div class="text-lg">Ship small, finished tools even when bored.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-8 rounded-2xl border border-white/10">
+                    <h3 class="font-bold text-xl mb-4 text-soc-accent">Fastest Viable Path</h3>
+                    <p class="text-xl font-display mb-4">Security Automation Engineer</p>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Matches skills and energy</li>
+                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Minimal meetings</li>
+                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Tool-centric leverage</li>
+                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Strong income trajectory</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXECUTION STATUS -->
+        <section class="relative group">
+            <div class="absolute inset-0 bg-soc-accent blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+            <div class="relative glass-panel p-8 rounded-3xl border-l-4 border-soc-accent">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="inline-flex items-center px-3 py-1 rounded bg-soc-accent/10 text-soc-accent text-xs font-bold font-mono mb-2 animate-pulse">
+                            <i class="fa-solid fa-crosshairs mr-2"></i> ACTIVE OBJECTIVE
+                        </span>
+                        <h3 class="font-display text-2xl font-bold text-soc-dark">Next 30 Days</h3>
+                        <p class="text-slate-600 mt-1 max-w-lg">
+                            Build and publicly ship one complete security automation tool with minimal but clear documentation.
+                        </p>
+                    </div>
+                    <div class="text-right hidden md:block">
+                        <div class="text-4xl font-mono font-bold text-slate-200 group-hover:text-soc-accent transition-colors">01</div>
+                        <div class="text-xs text-slate-400 font-mono uppercase">Priority Target</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center pt-12 border-t border-slate-200">
+            <p class="font-mono text-sm text-slate-500">
+                UG-SOC <span class="text-slate-300">//</span> Built with focus <span class="text-slate-300">//</span> Updated regularly
+            </p>
+            <p class="text-xs text-slate-400 mt-2">
+                © 2025 Umang Gupta. All rights reserved.
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Command Palette Data
+        const commands = [
+            // Navigation Sections
+            { icon: '📁', title: 'About', subtitle: 'Section', type: 'section', target: 'about' },
+            { icon: '💼', title: 'Projects', subtitle: 'Section', type: 'section', target: 'projects' },
+            { icon: '⚡', title: 'Skills', subtitle: 'Section', type: 'section', target: 'skills' },
+            { icon: '🎓', title: 'Certifications', subtitle: 'Section', type: 'section', target: 'certifications' },
+            { icon: '💡', title: 'Experience', subtitle: 'Section', type: 'section', target: 'experience' },
+            { icon: '📧', title: 'Contact', subtitle: 'Section', type: 'section', target: 'contact' },
+            { icon: '🏠', title: 'Go to Top', subtitle: 'Navigation', type: 'section', target: 'hero' },
+            
+            // Settings & Theme
+            { icon: '🌙', title: 'Toggle Dark Mode', subtitle: 'Settings', type: 'action', action: 'toggleTheme' },
+            { icon: '🎨', title: 'Light Theme', subtitle: 'Settings', type: 'action', action: 'setLightTheme' },
+            { icon: '🌑', title: 'Dark Theme', subtitle: 'Settings', type: 'action', action: 'setDarkTheme' },
+            { icon: '↻', title: 'Reload Page', subtitle: 'Settings', type: 'action', action: 'reload' },
+            { icon: '🔍', title: 'Scroll to Skills Heatmap', subtitle: 'Navigation', type: 'action', action: 'scrollToSkillMap' },
+            
+            // Professional & Development
+            { icon: '<i class="fa-brands fa-github"></i>', title: 'GitHub', subtitle: 'Code & Projects', type: 'link', target: 'https://github.com/mini-page' },
+            { icon: '<i class="fa-brands fa-linkedin"></i>', title: 'LinkedIn', subtitle: 'Professional Network', type: 'link', target: 'https://linkedin.com/in/ug5711' },
+            { icon: '<i class="fa-brands fa-codepen"></i>', title: 'CodePen', subtitle: 'Frontend Demos', type: 'link', target: 'https://codepen.io/ug5711' },
+            { icon: '<i class="fa-brands fa-discord"></i>', title: 'Discord', subtitle: 'Community', type: 'link', target: 'https://discord.com/users/ug5711' },
+            
+            // Security & Learning
+            { icon: '🔐', title: 'HackTheBox', subtitle: 'CTF Platform', type: 'link', target: 'https://app.hackthebox.com/profile/ug5711' },
+            { icon: '🛡️', title: 'LetsDefend', subtitle: 'SOC Training', type: 'link', target: 'https://letsdefend.io/user/ug5711' },
+            { icon: '💻', title: 'TryHackMe', subtitle: 'Cyber Range', type: 'link', target: 'https://tryhackme.com/p/ug5711' },
+            { icon: '<i class="fa-brands fa-medium"></i>', title: 'Medium', subtitle: 'Tech Articles', type: 'link', target: 'https://medium.com/@ug5711' },
+            
+            // Social Media
+            { icon: '<i class="fa-brands fa-x-twitter"></i>', title: 'X / Twitter', subtitle: 'Tech Updates', type: 'link', target: 'https://x.com/ug_5711' },
+            { icon: '<i class="fa-brands fa-threads"></i>', title: 'Threads', subtitle: 'Quick Thoughts', type: 'link', target: 'https://threads.net/@ug5711' },
+            { icon: '<i class="fa-brands fa-instagram"></i>', title: 'Instagram', subtitle: 'Visual Stories', type: 'link', target: 'https://instagram.com/ug5711' },
+            { icon: '<i class="fa-brands fa-youtube"></i>', title: 'YouTube', subtitle: 'Video Content', type: 'link', target: 'https://youtube.com/@ug5711' },
+            { icon: '<i class="fa-brands fa-reddit"></i>', title: 'Reddit', subtitle: 'Discussions', type: 'link', target: 'https://reddit.com/u/ug5711' },
+            { icon: '<i class="fa-brands fa-pinterest"></i>', title: 'Pinterest', subtitle: 'Inspiration', type: 'link', target: 'https://pinterest.com/ug5711' },
+            { icon: '<i class="fa-brands fa-snapchat"></i>', title: 'Snapchat', subtitle: 'Quick Snaps', type: 'link', target: 'https://snapchat.com/add/ug5711' },
+            { icon: '<i class="fa-brands fa-telegram"></i>', title: 'Telegram', subtitle: 'Fast Chat', type: 'link', target: 'https://t.me/ug5711' },
+            
+            // Projects
+            { icon: '🔐', title: 'asllock', subtitle: 'Project - Access Control', type: 'link', target: 'https://github.com/mini-page/asllock' },
+            { icon: '⚡', title: 'TheSecretJuice', subtitle: 'Project - CLI Enhancer', type: 'link', target: 'https://github.com/mini-page/TheSecretJuice' },
+            { icon: '📄', title: 'SejdaCrack', subtitle: 'Project - PDF Tool', type: 'link', target: 'https://github.com/mini-page/SejdaCrack' },
+            { icon: '💚', title: 'trackify', subtitle: 'Project - Wellness App', type: 'link', target: 'https://github.com/mini-page/trackify' },
+            { icon: '💻', title: 'sniprun', subtitle: 'Project - CLI Aliaser', type: 'link', target: 'https://github.com/mini-page/sniprun' },
+            { icon: '🔄', title: 'SyncMaster', subtitle: 'Project - File Sync', type: 'link', target: 'https://github.com/mini-page/SyncMaster' },
+            { icon: '🛣️', title: 'Cyber-path', subtitle: 'Project - Learning Guide', type: 'link', target: 'https://github.com/mini-page/Cyber-path' },
+            { icon: '💪', title: 'skfitness', subtitle: 'Project - Fitness Website', type: 'link', target: 'https://github.com/mini-page/skfitness' },
+            { icon: '🌐', title: 'rahulsoni.in', subtitle: 'Project - Portfolio', type: 'link', target: 'https://github.com/mini-page/rahulsoni.in' },
+        ];
+
+        let selectedIndex = 0;
+        let filteredCommands = [...commands];
+
+        // Toggle Command Palette
+        function toggleCommandPalette() {
+            const overlay = document.getElementById('commandPaletteOverlay');
+            const search = document.getElementById('commandSearch');
+            
+            if (overlay.classList.contains('active')) {
+                overlay.classList.remove('active');
+            } else {
+                overlay.classList.add('active');
+                search.value = '';
+                selectedIndex = 0;
+                renderCommands();
+                setTimeout(() => search.focus(), 100);
+            }
+        }
+
+        // Render Commands
+        function renderCommands() {
+            const list = document.getElementById('commandList');
+            list.innerHTML = '';
+            
+            filteredCommands.forEach((cmd, index) => {
+                const item = document.createElement('div');
+                item.className = `command-item ${index === selectedIndex ? 'selected' : ''}`;
+                item.innerHTML = `
+                    <div class="command-icon">${cmd.icon}</div>
+                    <div class="command-details">
+                        <div class="command-title">${cmd.title}</div>
+                        <div class="command-subtitle">${cmd.subtitle}</div>
+                    </div>
+                    <div class="command-hint">Enter</div>
+                `;
+                item.addEventListener('click', () => executeCommand(cmd));
+                list.appendChild(item);
+            });
+        }
+
+        // Search Commands
+        function searchCommands(query) {
+            query = query.toLowerCase().trim();
+            
+            if (!query) {
+                filteredCommands = [...commands];
+            } else {
+                filteredCommands = commands.filter(cmd => 
+                    cmd.title.toLowerCase().includes(query) || 
+                    cmd.subtitle.toLowerCase().includes(query)
+                );
+            }
+            
+            selectedIndex = 0;
+            renderCommands();
+        }
+
+        // Execute Command
+        function executeCommand(cmd) {
+            if (cmd.type === 'section') {
+                const element = document.getElementById(cmd.target);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else if (cmd.type === 'link') {
+                window.open(cmd.target, '_blank');
+            } else if (cmd.type === 'action') {
+                switch(cmd.action) {
+                    case 'toggleTheme':
+                        toggleTheme();
+                        break;
+                    case 'setLightTheme':
+                        setTheme('light');
+                        break;
+                    case 'setDarkTheme':
+                        setTheme('dark');
+                        break;
+                    case 'reload':
+                        location.reload();
+                        break;
+                    case 'scrollToSkillMap':
+                        document.getElementById('skillMap').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        break;
+                }
+            }
+            toggleCommandPalette();
+        }
+
+        // Theme Functions
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            updateThemeIcon(theme);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            if (icon) {
+                icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            }
+        }
+
+        // Load saved theme on page load
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            const overlay = document.getElementById('commandPaletteOverlay');
+            
+            // Ctrl+K or Cmd+K to toggle
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                toggleCommandPalette();
+                return;
+            }
+            
+            if (!overlay.classList.contains('active')) return;
+            
+            // Escape to close
+            if (e.key === 'Escape') {
+                toggleCommandPalette();
+                return;
+            }
+            
+            // Arrow navigation
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = (selectedIndex + 1) % filteredCommands.length;
+                renderCommands();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = selectedIndex === 0 ? filteredCommands.length - 1 : selectedIndex - 1;
+                renderCommands();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (filteredCommands[selectedIndex]) {
+                    executeCommand(filteredCommands[selectedIndex]);
+                }
+            }
+        });
+
+        // Search Input
+        document.getElementById('commandSearch').addEventListener('input', (e) => {
+            searchCommands(e.target.value);
+        });
+
+        // Close on overlay click
+        document.getElementById('commandPaletteOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'commandPaletteOverlay') {
+                toggleCommandPalette();
+            }
+        });
+
+        // Skill Map Tooltips
+        const tooltip = document.getElementById('tooltip');
+        const mapPoints = document.querySelectorAll('.map-point');
+        const skillMap = document.getElementById('skillMap');
+        
+        mapPoints.forEach(point => {
+            point.addEventListener('mouseenter', (e) => {
+                const title = e.target.getAttribute('data-title');
+                const level = e.target.getAttribute('data-level');
+                tooltip.innerHTML = `<strong>${title}</strong><br><span style="opacity: 0.7;">${level}</span>`;
+                tooltip.classList.add('show');
+            });
+            
+            point.addEventListener('mousemove', (e) => {
+                const mapRect = skillMap.getBoundingClientRect();
+                const x = e.clientX - mapRect.left;
+                const y = e.clientY - mapRect.top;
+                
+                let tooltipX = x + 15;
+                let tooltipY = y + 15;
+                
+                if (tooltipX + tooltip.offsetWidth > mapRect.width) {
+                    tooltipX = x - tooltip.offsetWidth - 15;
+                }
+                if (tooltipY + tooltip.offsetHeight > mapRect.height) {
+                    tooltipY = y - tooltip.offsetHeight - 15;
+                }
+                
+                tooltip.style.left = tooltipX + 'px';
+                tooltip.style.top = tooltipY + 'px';
+            });
+            
+            point.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('show');
+            });
+        });
+
+        // Initialize
+        renderCommands();
+        loadTheme();
+    </script>
+
+</body>
+</html>
