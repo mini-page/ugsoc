@@ -134,8 +134,8 @@
         .command-palette-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.170);
+            backdrop-filter: blur(5px);
             z-index: 9999;
             display: none;
             animation: fadeIn 0.2s ease-out;
@@ -151,8 +151,8 @@
         .command-palette {
             width: 90%;
             max-width: 640px;
-            background: #1e293b;
-            border-radius: 16px;
+            background: #0f1423;
+            border-radius: 20px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(139, 92, 246, 0.3);
             overflow: hidden;
@@ -172,21 +172,21 @@
         }
 
         .command-search::placeholder {
-            color: #64748b;
+            color: #536174;
         }
 
         .command-list {
             max-height: 400px;
             overflow-y: auto;
-            padding: 8px;
+            padding: 10px;
         }
 
         .command-item {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             padding: 12px 16px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.15s ease;
             color: #cbd5e1;
@@ -194,7 +194,7 @@
 
         .command-item:hover,
         .command-item.selected {
-            background: rgba(139, 92, 246, 0.2);
+            background: rgba(92, 46, 199, 0.2);
             color: #e2e8f0;
         }
 
@@ -403,7 +403,7 @@
             color: #64748B !important;
         }
 
-        [data-theme="dark"] .text-slate-400 {
+        [data-theme="dark"] .text-slate-300 {
             color: #64748B !important;
         }
 
@@ -426,13 +426,13 @@
 
     <!-- Background Decor -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-soc-primary/20 rounded-full blur-[100px] mix-blend-multiply"></div>
-        <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-soc-accent/20 rounded-full blur-[100px] mix-blend-multiply"></div>
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-soc-primary/20 rounded-full blur-[50px] mix-blend-multiply"></div>
+        <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-soc-accent/20 rounded-full blur-[50px] mix-blend-multiply"></div>
     </div>
 
     <!-- Command Palette Overlay -->
     <div class="command-palette-overlay" id="commandPaletteOverlay">
-        <div class="command-palette">
+        <div class="command-palette glass-panel">
             <input 
                 type="text" 
                 class="command-search" 
@@ -464,12 +464,14 @@
     <nav class="fixed w-full z-40 top-0 p-6 transition-all duration-300">
         <div class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-6 py-3 rounded-full">
             <a href="#hero" class="font-display font-bold text-xl tracking-tight text-soc-dark">
-                UG<span class="text-soc-primary">-SOC</span>
+                U<span class="hidden md:inline">mang</span>
+                G<span class="hidden md:inline">upta</span>
+                <span class="text-soc-primary">-SOC</span>
             </a>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-1">
                 <button 
                     onclick="toggleTheme()" 
-                    class="flex items-center gap-2 text-xs font-mono text-gray-500 hover:text-soc-primary transition-colors px-3 py-1.5 rounded-lg hover:bg-white/50"
+                    class="flex items-center gap-2 text-xs font-mono text-gray-500 hover:text-soc-primary transition-colors px-2 py-1.5 rounded-lg hover:bg-white/50"
                     title="Toggle theme"
                 >
                     <i class="fa-solid fa-moon" id="themeIcon"></i>
@@ -480,11 +482,11 @@
                 >
                     <i class="fa-solid fa-search"></i>
                     <span class="hidden md:inline">Search</span>
-                    <span class="command-key text-[10px] ml-1">Ctrl+K</span>
+                    <span class="command-key text-[10px] hidden md:inline ml-1">Ctrl+K</span>
                 </button>
-                <div class="flex items-center gap-2 text-xs font-mono">
+                <div class="flex items-center gap-1 text-xs font-mono">
                     <span class="w-2 h-2 rounded-full bg-soc-success animate-pulse"></span>
-                    <span class="text-gray-500">ONLINE</span>
+                    <span class="text-gray-500 text-[10px]">ONLINE</span>
                 </div>
             </div>
         </div>
@@ -509,14 +511,11 @@
             </p>
 
             <div class="flex flex-wrap gap-4 items-center">
-                <a href="https://github.com/mini-page" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-soc-dark text-white font-bold hover:bg-soc-primary transition-colors">
+                <a href="https://github.com/mini-page" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-soc-dark text-white font-bold hover:bg-gray-700 transition-colors">
                     <i class="fa-brands fa-github"></i> GitHub
                 </a>
-                <a href="https://www.linkedin.com/in/ug5711/" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-xl glass-panel hover:bg-white transition-colors">
+                <a href="https://www.linkedin.com/in/ug5711/" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-soc-dark glass-panel text-white font-bold hover:bg-blue-500 transition-colors">
                     <i class="fa-brands fa-linkedin"></i> LinkedIn
-                </a>
-                <a href="https://x.com/ug_5711" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-xl glass-panel hover:bg-white transition-colors">
-                    <i class="fa-brands fa-x-twitter"></i> X/Twitter
                 </a>
             </div>
         </header>
@@ -528,10 +527,12 @@
                 <div class="glass-panel p-6 rounded-2xl">
                     <h3 class="font-bold text-xl mb-4 text-soc-dark">Who I Am</h3>
                     <p class="text-slate-600 leading-relaxed mb-4">
-                        I'm Umang Gupta, a security-focused developer passionate about building automation tools that make cybersecurity workflows more efficient. I specialize in creating practical tools for ethical hacking and security operations.
+                        <span class="w-2 h-2 rounded-full bg-green-500 text-green-500 animate-pulse">I</span>
+                        I'm <span class="text-soc-success font-bold">Umang Gupta</span>, a security-focused developer passionate about building automation tools that make cybersecurity workflows more efficient. I specialize in creating practical tools for ethical hacking and security operations.
                     </p>
                     <p class="text-slate-600 leading-relaxed">
-                        My approach combines deep technical knowledge with a focus on developer experience, creating tools that security professionals actually want to use.
+                        <span class="w-2 h-2 rounded-full bg-blue-500 text-blue-500 animate-pulse">I</span>
+                        My approach combines <span class="text-blue-500 font-semibold">deep technical knowledge</span> with a focus on developer experience, creating tools that security professionals actually want to use.
                     </p>
                 </div>
                 <div class="glass-panel p-6 rounded-2xl">
@@ -645,16 +646,16 @@
                 <h3 class="font-bold text-2xl mb-2">Skill Heatmap</h3>
                 <p class="text-slate-500 text-sm mb-6">Execution vs Strategic Depth</p>
                 
-                <div class="relative bg-soc-dark rounded-xl h-[400px] overflow-hidden" id="skillMap">
+                <div class="relative bg-soc rounded-xl h-[400px] overflow-hidden" id="skillMap">
                     <!-- Axes -->
-                    <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-700"></div>
-                    <div class="absolute top-1/2 left-0 right-0 h-px bg-slate-700"></div>
+                    <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-500"></div>
+                    <div class="absolute top-1/2 left-0 right-0 h-px bg-slate-500"></div>
                     
                     <!-- Labels -->
-                    <div class="absolute top-2 left-1/2 -translate-x-1/2 text-xs text-slate-400">Strategic Depth →</div>
-                    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs text-slate-400">Tactical Detail ↓</div>
-                    <div class="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">Structured →</div>
-                    <div class="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">← Rapid</div>
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 text-xs text-slate-400">Strategic Depth →</div>
+                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 text-xs text-slate-400">Tactical Detail ↓</div>
+                    <div class="absolute -right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">Structured →</div>
+                    <div class="absolute -left-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">← Rapid</div>
                     
                     <!-- SKILL POINTS -->
                     <div class="map-point lvl-high bg-green-500" style="left:82%; top:18%" data-title="Tool Building" data-level="Core Strength"></div>
@@ -701,45 +702,45 @@
             </div>
 
             <!-- Tech Stack -->
-            <div class="mt-8 glass-panel p-8 rounded-2xl bg-soc-dark text-white">
+            <div class="mt-8 glass-panel p-8 rounded-2xl bg-soc ">
                 <h3 class="font-bold text-2xl mb-6">Tech Stack</h3>
                 
                 <div class="space-y-8">
                     <div>
-                        <h4 class="flex items-center gap-2 text-slate-300 text-sm mb-4 font-mono">
+                        <h4 class="flex items-center gap-2 text-sm mb-4 font-mono">
                             <i class="fa-solid fa-network-wired text-soc-primary"></i>
                             NETWORKING & INFRASTRUCTURE
                         </h4>
                         <div class="flex flex-wrap gap-4">
                             <div class="skill-badge" data-name="Nginx">
-                                <i class="devicon-nginx-original colored" style="color: #009639;"></i>
+                                <i class="devicon-nginx-original colored" style="color: #35f780;"></i>
                             </div>
                             <div class="skill-badge" data-name="SSH">
-                                <i class="devicon-ssh-original colored"></i>
+                                <i class="devicon-ssh-original colored" style="color: #77e2ff;"></i>
                             </div>
                             <div class="skill-badge" data-name="Putty">
-                                <i class="devicon-putty-plain colored"></i>
+                                <i class="devicon-putty-plain colored" style="color: #ffd582;"></i>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <h4 class="flex items-center gap-2 text-slate-300 text-sm mb-4 font-mono">
+                        <h4 class="flex items-center gap-2 text-sm mb-4 font-mono">
                             <i class="fa-solid fa-chart-line text-soc-accent"></i>
                             MONITORING & SIEM
                         </h4>
                         <div class="flex flex-wrap gap-4">
                             <div class="skill-badge" data-name="Log Analysis">
-                                <i class="devicon-matcha-plain colored" style="color: #61d384;"></i>
+                                <i class="devicon-spss colored" style="color: #61d384;"></i>
                             </div>
                             <div class="skill-badge" data-name="Grafana">
-                                <i class="devicon-grafana-original colored"></i>
+                                <i class="devicon-grafana-original colored" style="color: bisque;"></i>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <h4 class="flex items-center gap-2 text-slate-300 text-sm mb-4 font-mono">
+                        <h4 class="flex items-center gap-2 text-sm mb-4 font-mono">
                             <i class="fa-solid fa-shield text-soc-success"></i>
                             SECURITY & OPERATING SYSTEMS
                         </h4>
@@ -760,7 +761,7 @@
                     </div>
 
                     <div>
-                        <h4 class="flex items-center gap-2 text-slate-300 text-sm mb-4 font-mono">
+                        <h4 class="flex items-center gap-2 text-sm mb-4 font-mono">
                             <i class="fa-solid fa-code text-soc-primary"></i>
                             SCRIPTING & AUTOMATION
                         </h4>
@@ -987,6 +988,12 @@
                     <div class="mt-3 text-xs text-slate-400">
                         <span class="font-mono">UC-cc72d051-6d84-4964-b59f-cb4a4d0654f0</span>
                     </div>
+                    <div class="mt-3">
+                        <span class="inline-flex items-center gap-1 text-xs text-pink-500 bg-pink-50 px-2 py-1 rounded">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Network Scanning · NMAP · Security
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Certification 2: AWS Security Incident Response -->
@@ -1034,6 +1041,12 @@
                     <div class="mt-3 text-xs text-slate-400">
                         <span class="font-mono">UC-8c5de17-2510-423a-b206-c97ee5537349</span>
                     </div>
+                    <div class="mt-3">
+                        <span class="inline-flex items-center gap-1 text-xs text-purple-500 bg-purple-50 px-2 py-1 rounded">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Network Hacking · Ethical Hacking · Pentesting
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Certification 4: Wireshark -->
@@ -1055,6 +1068,12 @@
                     </div>
                     <div class="mt-3 text-xs text-slate-400">
                         <span class="font-mono">UC-b97e386a-7f3a-4e12-b52c-0615e62cf7f7</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="inline-flex items-center gap-1 text-xs text-green-500 bg-green-50 px-2 py-1 rounded">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Wireshark · Packet Analysis · Network Monitoring
+                        </span>
                     </div>
                 </div>
 
@@ -1078,6 +1097,12 @@
                     <div class="mt-3 text-xs text-slate-400">
                         <span class="font-mono">raghav5711-rwd</span>
                     </div>
+                    <div class="mt-3">
+                        <span class="inline-flex items-center gap-1 text-xs text-orange-500 bg-orange-50 px-2 py-1 rounded">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Responsive Design · HTML · CSS
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Certification 6: Ongoing Learning -->
@@ -1096,6 +1121,12 @@
                             Self-Driven
                         </span>
                         <span class="bg-soc-primary/10 text-soc-primary px-2 py-1 rounded-full border border-soc-primary/20">Active</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="inline-flex items-center gap-1 text-xs text-soc-primary bg-purple-50 px-2 py-1 rounded">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Linux · Scripting · Security Research · Labs
+                        </span>
                     </div>
                 </div>
             </div>
@@ -1144,7 +1175,7 @@
             <!-- Professional & Development Platforms -->
             <div class="mb-8">
                 <h3 class="text-sm font-mono text-soc-primary uppercase tracking-wider mb-4">Professional & Development</h3>
-                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     <a href="https://github.com/mini-page" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-900 rounded-xl flex items-center justify-center">
@@ -1198,7 +1229,7 @@
             <!-- Security & Learning Platforms -->
             <div class="mb-8">
                 <h3 class="text-sm font-mono text-soc-accent uppercase tracking-wider mb-4">Security & Learning</h3>
-                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     <a href="https://app.hackthebox.com/profile/ug5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
@@ -1252,7 +1283,7 @@
             <!-- Social Media -->
             <div class="mb-8">
                 <h3 class="text-sm font-mono text-soc-success uppercase tracking-wider mb-4">Social Media</h3>
-                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     <a href="https://x.com/ug_5711" target="_blank" class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-500 rounded-xl flex items-center justify-center">
@@ -1354,7 +1385,7 @@
             <!-- Contact -->
             <div>
                 <h3 class="text-sm font-mono text-slate-600 uppercase tracking-wider mb-4">Direct Contact</h3>
-                <div class="grid md:grid-cols-2 gap-4">
+                <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-4">
                     <a href="mailto:umanggupta@example.com" class="glow-card group relative block glass-panel p-5 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center">
@@ -1446,7 +1477,7 @@
                 UG-SOC <span class="text-slate-300">//</span> Built with focus <span class="text-slate-300">//</span> Updated regularly
             </p>
             <p class="text-xs text-slate-400 mt-2">
-                © 2025 Umang Gupta. All rights reserved.
+                © 2026 Umang Gupta. All rights reserved.
             </p>
         </footer>
 
@@ -1457,17 +1488,15 @@
         const commands = [
             // Navigation Sections
             { icon: '📁', title: 'About', subtitle: 'Section', type: 'section', target: 'about' },
-            { icon: '💼', title: 'Projects', subtitle: 'Section', type: 'section', target: 'projects' },
             { icon: '⚡', title: 'Skills', subtitle: 'Section', type: 'section', target: 'skills' },
+            { icon: '💼', title: 'Projects', subtitle: 'Section', type: 'section', target: 'projects' },
             { icon: '🎓', title: 'Certifications', subtitle: 'Section', type: 'section', target: 'certifications' },
             { icon: '💡', title: 'Experience', subtitle: 'Section', type: 'section', target: 'experience' },
             { icon: '📧', title: 'Contact', subtitle: 'Section', type: 'section', target: 'contact' },
             { icon: '🏠', title: 'Go to Top', subtitle: 'Navigation', type: 'section', target: 'hero' },
             
             // Settings & Theme
-            { icon: '🌙', title: 'Toggle Dark Mode', subtitle: 'Settings', type: 'action', action: 'toggleTheme' },
-            { icon: '🎨', title: 'Light Theme', subtitle: 'Settings', type: 'action', action: 'setLightTheme' },
-            { icon: '🌑', title: 'Dark Theme', subtitle: 'Settings', type: 'action', action: 'setDarkTheme' },
+            { icon: '🌙', title: 'Toggle Theme', subtitle: 'Settings', type: 'action', action: 'toggleTheme' },
             { icon: '↻', title: 'Reload Page', subtitle: 'Settings', type: 'action', action: 'reload' },
             { icon: '🔍', title: 'Scroll to Skills Heatmap', subtitle: 'Navigation', type: 'action', action: 'scrollToSkillMap' },
             
@@ -1609,7 +1638,7 @@
         function updateThemeIcon(theme) {
             const icon = document.getElementById('themeIcon');
             if (icon) {
-                icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+                icon.className = theme === 'dark' ? 'fa-solid fa-circle' : 'fa-solid fa-moon';
             }
         }
 
