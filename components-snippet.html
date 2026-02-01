@@ -1,0 +1,163 @@
+<!-- 
+    PORTFOLIO ENHANCEMENT COMPONENTS
+    Copy these components into your index.html body tag
+-->
+
+<!-- Loading Screen (Add at the very beginning of <body>) -->
+<div class="loading-screen">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Initializing UG-SOC...</div>
+</div>
+
+<!-- Matrix Rain Canvas (Add after loading screen) -->
+<canvas id="matrix-canvas"></canvas>
+
+<!-- Scroll Progress Bar (Add after matrix canvas) -->
+<div class="scroll-progress"></div>
+
+<!-- Back to Top Button (Add before closing </body> tag) -->
+<div class="back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+</div>
+
+<!-- Resume Download Section (Add after Projects section) -->
+<section id="resume" class="scroll-reveal">
+    <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Resume & CV</span>
+    
+    <div class="glass-panel rounded-3xl p-8 md:p-12 grid lg:grid-cols-2 gap-12">
+        <!-- Left: Overview -->
+        <div class="scroll-reveal-left">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-3 h-3 rounded-full bg-soc-success animate-pulse"></div>
+                <span class="font-mono text-sm text-soc-primary uppercase tracking-wider">Interactive Terminal</span>
+            </div>
+            
+            <h2 class="font-display text-4xl font-bold mb-4">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-soc-primary to-soc-accent">Resume</span> Console
+            </h2>
+            
+            <p class="text-lg text-slate-600 mb-8">
+                A dynamic snapshot of technical profile & capabilities. Download the complete PDF resume with detailed project portfolio.
+            </p>
+            
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="glass-panel p-4 rounded-xl hover-lift">
+                    <div class="flex items-center justify-between mb-2">
+                        <i class="fa-solid fa-code-branch text-blue-400 text-xl"></i>
+                        <span class="text-xs text-slate-400 font-mono">#001</span>
+                    </div>
+                    <p class="text-slate-500 text-sm">Projects</p>
+                    <p class="text-2xl font-bold">15+</p>
+                </div>
+                
+                <div class="glass-panel p-4 rounded-xl hover-lift">
+                    <div class="flex items-center justify-between mb-2">
+                        <i class="fa-solid fa-tools text-purple-400 text-xl"></i>
+                        <span class="text-xs text-slate-400 font-mono">#002</span>
+                    </div>
+                    <p class="text-slate-500 text-sm">Tools Built</p>
+                    <p class="text-2xl font-bold">10+</p>
+                </div>
+                
+                <div class="glass-panel p-4 rounded-xl hover-lift">
+                    <div class="flex items-center justify-between mb-2">
+                        <i class="fa-solid fa-shield-halved text-emerald-400 text-xl"></i>
+                        <span class="text-xs text-slate-400 font-mono">#003</span>
+                    </div>
+                    <p class="text-slate-500 text-sm">Focus Area</p>
+                    <p class="text-xl font-bold">Security</p>
+                </div>
+                
+                <div class="glass-panel p-4 rounded-xl hover-lift">
+                    <div class="flex items-center justify-between mb-2">
+                        <i class="fa-solid fa-brain text-amber-400 text-xl"></i>
+                        <span class="text-xs text-slate-400 font-mono">#004</span>
+                    </div>
+                    <p class="text-slate-500 text-sm">Work Style</p>
+                    <p class="text-xl font-bold">Autonomous</p>
+                </div>
+            </div>
+            
+            <!-- Tech Tags -->
+            <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm">Security</span>
+                <span class="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-sm">Automation</span>
+                <span class="px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-sm">Linux</span>
+                <span class="px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-sm">Research</span>
+                <span class="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-sm">CLI/TUI</span>
+                <span class="px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-sm">Python</span>
+                <span class="px-3 py-1 bg-violet-50 text-violet-600 rounded-full text-sm">PowerShell</span>
+                <span class="px-3 py-1 bg-rose-50 text-rose-600 rounded-full text-sm">OSINT</span>
+            </div>
+        </div>
+        
+        <!-- Right: Download Action -->
+        <div class="flex flex-col justify-center scroll-reveal-right">
+            <div class="font-mono text-soc-primary mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-terminal"></i>
+                <span>$ resume --download --format=pdf</span>
+            </div>
+            
+            <a href="/resume.pdf" download class="download-btn-enhanced w-full inline-flex items-center justify-center gap-4 px-8 py-6 rounded-2xl text-white font-semibold text-lg mb-4 hover-glow">
+                <i class="fa-solid fa-download text-2xl"></i>
+                <div class="text-left">
+                    <div class="text-xl">Download Full Resume</div>
+                    <div class="text-sm opacity-90 font-normal">Complete technical profile & portfolio (PDF)</div>
+                </div>
+                <i class="fa-solid fa-arrow-right ml-auto"></i>
+            </a>
+            
+            <div class="flex items-center justify-between text-sm text-slate-500">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-file-pdf text-red-400"></i>
+                    <span>resume_ug_2026.pdf (v2.0)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-database text-blue-400"></i>
+                    <span>~2.4 MB</span>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <div class="flex items-start gap-3">
+                    <i class="fa-solid fa-info-circle text-soc-primary mt-1"></i>
+                    <div class="text-sm text-slate-600">
+                        <strong>Includes:</strong> Detailed project descriptions, technical skills breakdown, certifications, work experience, and references.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Script Includes (Add before closing </body> tag) -->
+<script src="/enhancements.js"></script>
+
+<!-- 
+    ADDITIONAL CLASSES TO ADD TO EXISTING ELEMENTS:
+    
+    1. Add class="typing-text" to the hero headline span that you want to animate
+    2. Add class="scroll-reveal" to each <section> tag
+    3. Add class="scroll-reveal-left" to left-side content
+    4. Add class="scroll-reveal-right" to right-side content
+    5. Add class="scroll-reveal-scale" to cards you want to scale in
+    6. Add class="hover-lift" to cards that should lift on hover
+    7. Add class="hover-glow" to elements that should glow on hover
+    8. Add class="parallax" data-speed="0.5" to background elements for parallax
+    9. Add data-src="/path/to/image.jpg" instead of src for lazy loading images
+-->
+
+<!-- Example of adding scroll reveal to existing section: -->
+<!-- 
+<section id="projects" class="scroll-reveal">
+    ...
+</section>
+-->
+
+<!-- Example of typing animation: -->
+<!-- 
+<span class="typing-text text-transparent bg-clip-text bg-gradient-to-r from-soc-primary to-soc-accent">
+    reduce human friction
+</span>
+-->
