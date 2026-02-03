@@ -1,0 +1,21 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Env
+.env
+.env.*
+
+# Node / tooling
+node_modules/
+dist/
+.parcel-cache/
+
+# IDE folders
+.vscode/
+.gemini/

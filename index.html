@@ -5,6 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UG-SOC | Umang Gupta - Security Operations Console</title>
+    <meta name="description" content="UG-SOC is Umang Gupta's security automation portfolio featuring tools, projects, and systems thinking for modern security operations.">
+    <meta name="author" content="Umang Gupta">
+    <meta name="theme-color" content="#8B5CF6">
+    <meta name="color-scheme" content="light dark">
+
+    <meta property="og:title" content="UG-SOC | Umang Gupta - Security Operations Console">
+    <meta property="og:description" content="Security automation engineer in formation. Tool-driven, systems-first, and focused on reducing human friction.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/project-secretjuice.svg">
+    <meta property="og:url" content="/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UG-SOC | Umang Gupta">
+    <meta name="twitter:description" content="Security automation tools, projects, and systems thinking.">
+    <meta name="twitter:image" content="assets/project-secretjuice.svg">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,28 +34,49 @@
     <!-- Devicon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Tailwind Config -->
+    <script src="scripts.js"></script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
-    <script src="scripts.js"></script>
 
-    <!-- Custom JS -->
-    <script src="script.js" defer></script>
-    <script src="CommandPalette.js"></script>
+    <!-- App Scripts -->
+    <script src="CommandPalette.js" defer></script>
+    <script src="enhancements.js" defer></script>
     
 </head>
 
 <body class="text-slate-500 font-body selection:bg-soc-primary selection:text-white">
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Initializing UG-SOC...</div>
+    </div>
+
+    <!-- Matrix Rain Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+
+    <a href="#hero" class="skip-link">Skip to content</a>
 
     <div class="noise-overlay"></div>
 
     <!-- Background Decor -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
         <div
-            class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-soc-primary/20 rounded-full blur-[50px] mix-blend-multiply">
+            class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-soc-primary/20 rounded-full blur-[50px] mix-blend-multiply parallax"
+            data-speed="0.15">
         </div>
         <div
-            class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-soc-accent/20 rounded-full blur-[50px] mix-blend-multiply">
+            class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-soc-accent/20 rounded-full blur-[50px] mix-blend-multiply parallax"
+            data-speed="0.1">
         </div>
     </div>
 
@@ -70,27 +106,27 @@
     </div>
 
     <!-- Nav -->
-    <nav class="fixed w-full z-40 top-0 p-6 transition-all duration-300">
-        <div class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-6 py-3 rounded-full">
+    <nav class="fixed w-full z-40 top-0 p-4 sm:p-6 transition-all duration-300">
+        <div class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-4 sm:px-6 py-2 sm:py-3 rounded-full">
             <a href="#hero" class="font-display font-bold text-xl tracking-tight text-slate-500">
                 U<span class="hidden md:inline">mang</span>
                 G<span class="hidden md:inline">upta</span>
                 <span class="text-soc-primary">-SOC</span>
             </a>
             <div class="flex items-center gap-1">
-                <button onclick="toggleTheme()"
+                <button onclick="toggleTheme()" aria-label="Toggle theme"
                     class="flex items-center gap-2 text-xs font-mono text-gray-500 hover:text-soc-primary transition-colors px-2 py-1.5 rounded-lg hover:bg-white/50"
                     title="Toggle theme">
                     <i class="fa-solid fa-moon" id="themeIcon"></i>
                 </button>
-                <button onclick="toggleCommandPalette()"
+                <button onclick="toggleCommandPalette()" aria-label="Open command palette"
                     class="flex items-center gap-2 text-xs font-mono text-gray-500 hover:text-soc-primary transition-colors px-3 py-1.5 rounded-lg hover:bg-white/50">
                     <i class="fa-solid fa-search"></i>
                     <span class="hidden md:inline">Search</span>
                     <span class="command-key text-[10px] hidden md:inline ml-1">Ctrl+K</span>
                 </button>
                 <div class="flex items-center gap-1 text-xs font-mono">
-                    <span class="w-2 h-2 rounded-full bg-soc-success animate-pulse"></span>
+                    <span class="status-dot"></span>
                     <span class="text-gray-500 text-[10px]">ONLINE</span>
                 </div>
             </div>
@@ -98,10 +134,10 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-6 pt-32 pb-20 space-y-24">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-16 sm:pb-20 space-y-20 sm:space-y-24">
 
         <!-- HERO SECTION -->
-        <header class="relative" id="hero">
+        <header class="relative scroll-reveal" id="hero">
             <div class="mb-6 flex flex-wrap gap-4 font-mono text-sm">
                 <span
                     class="px-3 py-1 bg-soc-primary/10 text-soc-primary rounded-full font-bold border border-soc-primary/20">UG-SOC
@@ -109,48 +145,137 @@
                 <span class="px-3 py-1 bg-slate-100 text-slate-500 rounded-full">SECURITY AUTOMATION ENGINEER</span>
             </div>
 
-            <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight mb-6 max-w-4xl">
+            <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 max-w-4xl">
                 I build security tools that <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-soc-primary to-soc-accent">reduce human
+                    class="typing-text"
+                    data-phrases="reduce human friction.,compress response time.,eliminate repetitive work.,make security feel effortless.">reduce human
                     friction.</span>
             </h1>
 
-            <p class="text-xl text-slate-600 mb-8 max-w-2xl font-light">
+            <p class="text-lg sm:text-xl text-slate-600 mb-8 max-w-2xl font-light">
                 Security engineer in formation. Automation-first. Tool-driven. System-level thinking.
             </p>
 
             <div class="flex flex-wrap gap-4 items-center">
-                <a href="https://github.com/mini-page" target="_blank"
+                <a href="https://github.com/mini-page" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-2 px-6 py-3 rounded-xl bg-soc-dark text-white font-bold hover:bg-gray-700 transition-colors">
                     <i class="fa-brands fa-github"></i> GitHub
                 </a>
-                <a href="https://www.linkedin.com/in/ug5711/" target="_blank"
+                <a href="https://www.linkedin.com/in/ug5711/" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-2 px-6 py-3 rounded-xl bg-soc-dark text-white font-bold hover:bg-blue-500 transition-colors">
                     <i class="fa-brands fa-linkedin"></i> LinkedIn
                 </a>
             </div>
+
+            <div class="mt-4 flex flex-wrap gap-3 text-xs font-mono">
+                <a href="#projects"
+                    class="px-3 py-2 rounded-lg bg-soc-primary/10 text-soc-primary border border-soc-primary/20 hover:bg-soc-primary/20 transition-colors">View Projects</a>
+                <a href="#resume"
+                    class="px-3 py-2 rounded-lg bg-soc-accent/10 text-soc-accent border border-soc-accent/20 hover:bg-soc-accent/20 transition-colors">Download Resume</a>
+                <a href="#contact"
+                    class="px-3 py-2 rounded-lg bg-soc-success/10 text-soc-success border border-soc-success/20 hover:bg-soc-success/20 transition-colors">Contact</a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 mt-8 hero-proof-grid">
+                <div class="glass-panel p-4 rounded-2xl hover-lift hero-proof">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-soc-primary/10 flex items-center justify-center proof-icon">
+                            <i class="fa-solid fa-toolbox text-soc-primary"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-mono text-slate-400">Proof</p>
+                            <p class="font-semibold text-slate-600">10+ CLI/TUI tools built</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl hover-lift hero-proof">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-soc-accent/10 flex items-center justify-center proof-icon">
+                            <i class="fa-solid fa-rocket text-soc-accent"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-mono text-slate-400">Shipping</p>
+                            <p class="font-semibold text-slate-600">15+ projects deployed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl hover-lift hero-proof">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-soc-success/10 flex items-center justify-center proof-icon">
+                            <i class="fa-solid fa-bolt text-soc-success"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-mono text-slate-400">Focus</p>
+                            <p class="font-semibold text-slate-600">Automation-first security</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 glass-panel p-4 rounded-2xl">
+                <div class="flex flex-wrap items-center gap-3 text-xs font-mono">
+                    <span class="px-3 py-1 chip">Certs: Google Cybersecurity</span>
+                    <span class="px-3 py-1 chip">Wireshark</span>
+                    <span class="px-3 py-1 chip">ISC2</span>
+                    <span class="px-3 py-1 chip">HTB</span>
+                    <span class="px-3 py-1 chip">LetsDefend</span>
+                    <span class="px-3 py-1 chip">TryHackMe</span>
+                </div>
+            </div>
+
+            <div class="mt-6 grid md:grid-cols-3 gap-4 metrics-grid metrics-section" id="metrics">
+                <div class="glass-panel p-5 rounded-2xl metric-card">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-slate-400">Automation Wins</span>
+                        <i class="fa-solid fa-gauge-high text-soc-accent"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-slate-600 metric-value" data-count="35">0</div>
+                    <p class="text-xs text-slate-400 mt-1">Routine steps automated</p>
+                </div>
+                <div class="glass-panel p-5 rounded-2xl metric-card">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-slate-400">Time Saved</span>
+                        <i class="fa-solid fa-clock text-soc-success"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-slate-600 metric-value" data-count="120">0</div>
+                    <p class="text-xs text-slate-400 mt-1">Hours reduced from manual work</p>
+                </div>
+                <div class="glass-panel p-5 rounded-2xl metric-card metric-collapsible">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-slate-400">Tools Shipped</span>
+                        <i class="fa-solid fa-toolbox text-soc-primary"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-slate-600 metric-value" data-count="12">0</div>
+                    <p class="text-xs text-slate-400 mt-1">Security tools delivered</p>
+                </div>
+            </div>
+
+            <div class="metrics-toggle-wrap mt-3 text-left">
+                <button id="metricsToggle" class="metrics-toggle inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-soc-primary/30 text-soc-primary hover:bg-soc-primary/10 transition-colors" aria-expanded="false">
+                    <span>Show more metrics</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
         </header>
 
         <!-- ABOUT SECTION -->
-        <section id="about">
+        <section id="about" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">About Me</span>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass-panel p-6 rounded-2xl">
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="glass-panel p-6 rounded-2xl hover-lift scroll-reveal-left">
                     <h3 class="font-bold text-xl mb-4 text-slate-500">Who I Am</h3>
                     <p class="text-slate-600 leading-relaxed mb-4">
-                        <span class="w-2 h-2 rounded-full bg-green-500 text-green-500 animate-pulse">I</span>
                         I'm <span class="text-soc-success font-bold">Umang Gupta</span>, a security-focused developer
                         passionate about building automation tools that make cybersecurity workflows more efficient. I
                         specialize in creating practical tools for ethical hacking and security operations.
                     </p>
                     <p class="text-slate-600 leading-relaxed">
-                        <span class="w-2 h-2 rounded-full bg-blue-500 text-blue-500 animate-pulse">I</span>
                         My approach combines <span class="text-blue-500 font-semibold">deep technical knowledge</span>
                         with a focus on developer experience, creating tools that security professionals actually want
                         to use.
                     </p>
                 </div>
-                <div class="glass-panel p-6 rounded-2xl">
+                <div class="glass-panel p-6 rounded-2xl hover-lift scroll-reveal-right">
                     <h3 class="font-bold text-xl mb-4 text-slate-500">What I Do</h3>
                     <ul class="space-y-3 text-slate-600">
                         <li class="flex items-start gap-3">
@@ -175,308 +300,197 @@
         </section>
 
         <!-- SKILLS SECTION -->
-        <section id="skills">
+        <section id="skills" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Core Skills</span>
 
-            <!-- Skills Grid -->
-            <div class="grid md:grid-cols-3 gap-6 mb-12">
-                <div class="glass-panel p-6 rounded-2xl">
-                    <div class="w-12 h-12 bg-soc-primary/10 rounded-xl flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-server text-soc-primary text-xl"></i>
+            <!-- Tech Stack (Workflow Grouped) -->
+            <div class="grid lg:grid-cols-2 gap-6 mb-12">
+                <div class="stack-card glass-panel p-6 rounded-2xl">
+                    <div class="stack-header">
+                        <div class="stack-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Security Ops</h4>
+                            <p class="text-xs text-slate-500">Detection, analysis, and tooling</p>
+                        </div>
+                        <div class="stack-ring" data-level="85"></div>
                     </div>
-                    <h4 class="font-bold text-lg mb-3">Systems</h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">Linux / Kali</span>
-                            <span class="text-xs font-mono text-soc-primary">Expert</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">Windows Security</span>
-                            <span class="text-xs font-mono text-soc-primary">Advanced</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">Bash/PowerShell</span>
-                            <span class="text-xs font-mono text-soc-primary">Expert</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">System Architecture</span>
-                            <span class="text-xs font-mono text-soc-primary">Advanced</span>
-                        </div>
+                    <div class="stack-badges">
+                        <span class="chip">OSINT</span>
+                        <span class="chip">Threat Analysis</span>
+                        <span class="chip">Tool Building</span>
+                        <span class="chip">Automation</span>
+                    </div>
+                    <div class="stack-usedin">
+                        Used in: asllock, TheSecretJuice, SyncMaster
                     </div>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl">
-                    <div class="w-12 h-12 bg-soc-accent/10 rounded-xl flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-shield-halved text-soc-accent text-xl"></i>
+                <div class="stack-card glass-panel p-6 rounded-2xl">
+                    <div class="stack-header">
+                        <div class="stack-icon">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Automation</h4>
+                            <p class="text-xs text-slate-500">CLI-first workflows</p>
+                        </div>
+                        <div class="stack-ring" data-level="90"></div>
                     </div>
-                    <h4 class="font-bold text-lg mb-3">Security</h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">Tool Building</span>
-                            <span class="text-xs font-mono text-soc-accent">Core</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">Security Automation</span>
-                            <span class="text-xs font-mono text-soc-accent">Core</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">OSINT</span>
-                            <span class="text-xs font-mono text-soc-accent">Advanced</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">Threat Analysis</span>
-                            <span class="text-xs font-mono text-soc-accent">Advanced</span>
-                        </div>
+                    <div class="stack-badges">
+                        <span class="chip">PowerShell</span>
+                        <span class="chip">Bash</span>
+                        <span class="chip">Python</span>
+                        <span class="chip">Go</span>
+                    </div>
+                    <div class="stack-usedin">
+                        Used in: TheSecretJuice, sniprun, SyncMaster
                     </div>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl">
-                    <div class="w-12 h-12 bg-soc-success/10 rounded-xl flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-code text-soc-success text-xl"></i>
+                <div class="stack-card glass-panel p-6 rounded-2xl">
+                    <div class="stack-header">
+                        <div class="stack-icon">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Systems</h4>
+                            <p class="text-xs text-slate-500">Linux + Windows security</p>
+                        </div>
+                        <div class="stack-ring" data-level="80"></div>
                     </div>
-                    <h4 class="font-bold text-lg mb-3">Development</h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">Python</span>
-                            <span class="text-xs font-mono text-soc-success">Advanced</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">Git/GitHub</span>
-                            <span class="text-xs font-mono text-soc-success">Expert</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">Documentation</span>
-                            <span class="text-xs font-mono text-soc-success">Advanced</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-600">UI/UX</span>
-                            <span class="text-xs font-mono text-soc-success">Growing</span>
-                        </div>
+                    <div class="stack-badges">
+                        <span class="chip">Linux/Kali</span>
+                        <span class="chip">Windows</span>
+                        <span class="chip">NTFS ACLs</span>
+                        <span class="chip">Robocopy</span>
+                    </div>
+                    <div class="stack-usedin">
+                        Used in: asllock, SyncMaster
                     </div>
                 </div>
-            </div>
 
-            <!-- Skill Heatmap -->
-            <div class="glass-panel p-8 rounded-2xl">
-                <h3 class="font-bold text-2xl mb-2">Skill Heatmap</h3>
-                <p class="text-slate-500 text-sm mb-6">Execution vs Strategic Depth</p>
-
-                <div class="relative bg-soc rounded-xl h-[400px] overflow-hidden" id="skillMap">
-                    <!-- Axes -->
-                    <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-500"></div>
-                    <div class="absolute top-1/2 left-0 right-0 h-px bg-slate-500"></div>
-
-                    <!-- Labels -->
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 text-xs text-slate-400">Strategic Depth →</div>
-                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 text-xs text-slate-400">Tactical Detail ↓
+                <div class="stack-card glass-panel p-6 rounded-2xl">
+                    <div class="stack-header">
+                        <div class="stack-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Web + UI</h4>
+                            <p class="text-xs text-slate-500">Interfaces and docs</p>
+                        </div>
+                        <div class="stack-ring" data-level="70"></div>
                     </div>
-                    <div class="absolute -right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">Structured →</div>
-                    <div class="absolute -left-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">← Rapid</div>
-
-                    <!-- SKILL POINTS -->
-                    <div class="map-point lvl-high bg-green-500" style="left:82%; top:18%" data-title="Tool Building"
-                        data-level="Core Strength"></div>
-                    <div class="map-point lvl-high bg-green-500" style="left:75%; top:22%"
-                        data-title="Security Automation" data-level="Core Strength"></div>
-                    <div class="map-point lvl-high bg-green-500" style="left:70%; top:30%"
-                        data-title="System Architecture" data-level="Core Strength"></div>
-                    <div class="map-point lvl-high bg-green-500" style="left:65%; top:35%"
-                        data-title="Security Research" data-level="Core Strength"></div>
-
-                    <div class="map-point lvl-mid bg-blue-500" style="left:35%; top:20%" data-title="OSINT"
-                        data-level="Strong"></div>
-                    <div class="map-point lvl-mid bg-blue-500" style="left:60%; top:45%" data-title="Linux"
-                        data-level="Strong"></div>
-                    <div class="map-point lvl-mid bg-blue-500" style="left:68%; top:55%" data-title="Bash"
-                        data-level="Strong"></div>
-                    <div class="map-point lvl-mid bg-blue-500" style="left:72%; top:60%" data-title="PowerShell"
-                        data-level="Strong"></div>
-                    <div class="map-point lvl-mid bg-blue-500" style="left:55%; top:28%" data-title="Threat Analysis"
-                        data-level="Strong"></div>
-
-                    <div class="map-point lvl-low bg-purple-500" style="left:50%; top:70%" data-title="Python"
-                        data-level="Growing"></div>
-                    <div class="map-point lvl-low bg-purple-500" style="left:45%; top:78%" data-title="Documentation"
-                        data-level="Growing"></div>
-                    <div class="map-point lvl-low bg-purple-500" style="left:48%; top:65%" data-title="Packaging"
-                        data-level="Growing"></div>
-                    <div class="map-point lvl-low bg-purple-500" style="left:40%; top:60%" data-title="UI/UX"
-                        data-level="Growing"></div>
-
-                    <div class="map-point lvl-experimental bg-amber-400" style="left:25%; top:75%"
-                        data-title="Rapid Prototyping" data-level="Experimental"></div>
-                    <div class="map-point lvl-experimental bg-amber-400" style="left:30%; top:65%"
-                        data-title="New Tech Exploration" data-level="Experimental"></div>
-                    <div class="map-point lvl-experimental bg-amber-400" style="left:22%; top:55%"
-                        data-title="Research Experiments" data-level="Experimental"></div>
-
-                    <div class="tooltip" id="tooltip"></div>
-                </div>
-
-                <div class="mt-6 flex flex-wrap gap-4 text-sm">
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4 bg-green-500 rounded"></div>
-                        <span class="text-slate-600">Core Strength</span>
+                    <div class="stack-badges">
+                        <span class="chip">HTML</span>
+                        <span class="chip">CSS</span>
+                        <span class="chip">React</span>
+                        <span class="chip">TypeScript</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4 bg-blue-500 rounded"></div>
-                        <span class="text-slate-600">Strong</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4 bg-purple-500 rounded"></div>
-                        <span class="text-slate-600">Growing</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-4 h-4 bg-amber-400 rounded"></div>
-                        <span class="text-slate-600">Experimental</span>
+                    <div class="stack-usedin">
+                        Used in: skfitness, rahulsoni.in, trackify
                     </div>
                 </div>
             </div>
 
-            <!-- Tech Stack -->
-            <div class="mt-8 glass-panel p-8 rounded-2xl bg-soc ">
-                <h3 class="font-bold text-2xl mb-6">Tech Stack</h3>
-
-                <div class="space-y-8">
+            <div class="glass-panel p-6 rounded-2xl">
+                <div class="flex items-center justify-between">
                     <div>
-                        <h4 class="flex items-center gap-2 text-sm mb-4 font-mono">
-                            <i class="fa-solid fa-network-wired text-soc-primary"></i>
-                            NETWORKING & INFRASTRUCTURE
-                        </h4>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="skill-badge" data-name="Nginx">
-                                <i class="devicon-nginx-original colored" style="color: #35f780;"></i>
-                            </div>
-                            <div class="skill-badge" data-name="SSH">
-                                <i class="devicon-ssh-original colored" style="color: #77e2ff;"></i>
-                            </div>
-                            <div class="skill-badge" data-name="Putty">
-                                <i class="devicon-putty-plain colored" style="color: #ffd582;"></i>
-                            </div>
-                        </div>
+                        <h3 class="font-bold text-2xl mb-1">Skill Heatmap</h3>
+                        <p class="text-slate-500 text-sm">Open the floating Skill Map panel to explore details.</p>
                     </div>
-
-                    <div>
-                        <h4 class="flex items-center gap-2 text-sm mb-4 font-mono">
-                            <i class="fa-solid fa-chart-line text-soc-accent"></i>
-                            MONITORING & SIEM
-                        </h4>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="skill-badge" data-name="Log Analysis">
-                                <i class="devicon-spss colored" style="color: #61d384;"></i>
-                            </div>
-                            <div class="skill-badge" data-name="Grafana">
-                                <i class="devicon-grafana-original colored" style="color: bisque;"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="flex items-center gap-2 text-sm mb-4 font-mono">
-                            <i class="fa-solid fa-shield text-soc-success"></i>
-                            SECURITY & OPERATING SYSTEMS
-                        </h4>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="skill-badge" data-name="Linux/Kali">
-                                <i class="devicon-linux-plain colored"></i>
-                            </div>
-                            <div class="skill-badge" data-name="Windows">
-                                <i class="devicon-windows11-original colored"></i>
-                            </div>
-                            <div class="skill-badge" data-name="PowerShell">
-                                <i class="devicon-powershell-plain colored" style="color: #5391fe;"></i>
-                            </div>
-                            <div class="skill-badge" data-name="Bash">
-                                <i class="devicon-bash-plain colored"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="flex items-center gap-2 text-sm mb-4 font-mono">
-                            <i class="fa-solid fa-code text-soc-primary"></i>
-                            SCRIPTING & AUTOMATION
-                        </h4>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="skill-badge" data-name="Python">
-                                <i class="devicon-python-plain colored"></i>
-                            </div>
-                            <div class="skill-badge" data-name="GitHub">
-                                <i class="devicon-github-original" style="color: white;"></i>
-                            </div>
-                            <div class="skill-badge" data-name="Git">
-                                <i class="devicon-git-plain colored"></i>
-                            </div>
-                        </div>
-                    </div>
+                    <button class="btn btn-primary" type="button" data-skillmap-toggle onclick="toggleSkillMapPanel(true)">
+                        Open Skill Map
+                    </button>
                 </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <a href="#projects"
+                    class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
+                    See Skills Applied in Projects <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
             </div>
         </section>
 
         <!-- PROJECTS SECTION -->
-        <section id="projects">
+        <section id="projects" class="scroll-reveal projects-section">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Mission Log / Deployed
                 Tools</span>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="projectsGrid" class="projects-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- PROJECT 1: asllock -->
-                <a href="https://github.com/mini-page/asllock" target="_blank"
-                    class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                <a href="https://github.com/mini-page/asllock" target="_blank" rel="noopener noreferrer"
+                    class="project-card group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
                     <div
                         class="w-full h-32 bg-soc-dark rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
-                        <div class="absolute inset-0 opacity-20 bg-gradient-to-br from-soc-primary to-slate-900"></div>
+                        <img src="assets/project-asllock.svg" alt="asllock thumbnail" class="project-thumb">
                         <i
-                            class="fa-solid fa-lock text-4xl text-soc-primary relative z-10 group-hover:scale-110 transition-transform"></i>
+                            class="fa-solid fa-lock text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">ACCESS CONTROL / TUI</div>
                         <h3
                             class="font-bold text-lg mb-2 text-slate-800 group-hover:text-soc-primary transition-colors">
                             asllock</h3>
-                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                            A Windows tool to lock/unlock directories using NTFS ACLs (icacls) via a TUI interface.
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            TUI tool to lock/unlock directories safely on Windows using NTFS ACLs.
                         </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Manual ACLs are error-prone.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> TUI wrapper over `icacls`.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> One-flow access control.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster lock/unlock cycles.</div>
+                        </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">PowerShell</span>
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">TUI</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">PowerShell</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">TUI</span>
                     </div>
                 </a>
 
                 <!-- PROJECT 2: TheSecretJuice -->
-                <a href="https://github.com/mini-page/TheSecretJuice" target="_blank"
-                    class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                <div onclick="window.location.href='https://github.com/mini-page/TheSecretJuice'"
+                    class="project-card group cursor-pointer glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
                     <div
                         class="w-full h-32 bg-slate-800 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
-                        <div class="absolute inset-0 opacity-20 bg-gradient-to-br from-soc-accent to-slate-900"></div>
+                        <img src="assets/project-secretjuice.svg" alt="TheSecretJuice thumbnail" class="project-thumb">
                         <i
-                            class="fa-solid fa-bolt text-4xl text-soc-accent relative z-10 group-hover:scale-110 transition-transform"></i>
+                            class="fa-solid fa-bolt text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">CLI ENHANCER</div>
                         <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-soc-accent transition-colors">
                             TheSecretJuice</h3>
-                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                            A PowerShell module designed to supercharge standard command-line tools with extended
-                            capabilities.
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            PowerShell module that extends common CLI tools to speed up security workflows.
                         </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Repetitive CLI tasks slow down workflows.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Module layer that adds capabilities.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Faster, richer commands.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Reduced friction and quicker execution.</div>
+                        </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">PowerShell</span>
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Automation</span>
+                    <div class="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">PowerShell</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Automation</span>
+                        <a href="https://the-secret-juice.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation()"
+                            class="live-demo ml-auto text-xs font-mono px-3 py-1 rounded-lg bg-soc-accent text-white hover:bg-orange-500 transition-colors">
+                            Live Demo
+                        </a>
                     </div>
-                </a>
+                </div>
 
                 <!-- PROJECT 3: SejdaCrack -->
                 <div onclick="window.location.href='https://github.com/mini-page/SejdaCrack'"
-                    class="group cursor-pointer glass-panel p-6 rounded-2xl flex flex-col h-full    hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                    class="project-card group cursor-pointer glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
 
                     <!-- IMAGE -->
                     <div class="w-full h-32 bg-slate-700 rounded-lg mb-4 overflow-hidden relative">
-                        <div class="absolute inset-0 opacity-20 bg-gradient-to-br from-red-500 to-slate-900 z-10"></div>
-
-                        <img src="assets/sejdaCrack.png"
-                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-300">
+                        <img src="assets/project-sejdacrack.svg" alt="SejdaCrack thumbnail" class="project-thumb">
                     </div>
 
                     <!-- TEXT -->
@@ -490,10 +504,15 @@
                             SejdaCrack
                         </h3>
 
-                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                            Enables full permission work with PDFs for educational purposes
-                            on Windows, Linux, and Mac.
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            Cross-platform PDF permissions tooling for educational use.
                         </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Locked PDFs block workflows.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Patch-based tooling.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Full-permission access.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster document tasks.</div>
+                        </div>
                     </div>
 
                     <!-- TAGS + BUTTON ROW -->
@@ -501,16 +520,11 @@
                           border-t border-slate-100">
 
                         <!-- TAGS -->
-                        <span class="text-xs font-mono px-3 py-1 rounded-xl bg-red-800 text-white">
-                            Python
-                        </span>
-
-                        <span class="text-xs font-mono px-3 py-1 rounded-xl bg-red-800 text-white">
-                            HTML
-                        </span>
+                        <span class="text-xs font-mono tag-colored">Python</span>
+                        <span class="text-xs font-mono tag-colored">HTML</span>
 
                         <!-- HOVER BUTTON -->
-                        <a href="https://mini-page.github.io/SejdaCrack/" target="_blank"
+                        <a href="https://mini-page.github.io/SejdaCrack/" target="_blank" rel="noopener noreferrer"
                             onclick="event.stopPropagation()" class="ml-auto text-xs font-mono px-4 py-2 rounded-lg
                           bg-red-600 text-white
                           opacity-0 translate-y-2
@@ -526,36 +540,42 @@
 
 
                 <!-- PROJECT 4: trackify -->
-                <a href="https://github.com/mini-page/trackify" target="_blank"
-                    class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                <a href="https://github.com/mini-page/trackify" target="_blank" rel="noopener noreferrer"
+                    class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
                     <div
                         class="w-full h-32 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <img src="assets/project-trackify.svg" alt="trackify thumbnail" class="project-thumb">
                         <i
-                            class="fa-solid fa-heart-pulse text-4xl text-emerald-500 relative z-10 group-hover:scale-110 transition-transform"></i>
+                            class="fa-solid fa-heart-pulse text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">WELLNESS / WEB APP</div>
                         <h3
                             class="font-bold text-lg mb-2 text-slate-800 group-hover:text-emerald-600 transition-colors">
                             trackify</h3>
-                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                            A comprehensive health app to monitor well-being metrics like water intake, mood, sleep, and
-                            nutrition.
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            Unified wellness tracker for hydration, sleep, mood, and nutrition.
                         </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Wellness data is scattered.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Unified daily tracking.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Single dashboard.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Easier progress visibility.</div>
+                        </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Next.js</span>
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">TypeScript</span>
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">React</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Next.js</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">TypeScript</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">React</span>
                     </div>
                 </a>
 
                 <!-- PROJECT 5: sniprun -->
-                <a href="https://github.com/mini-page/sniprun" target="_blank"
-                    class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                <a href="https://github.com/mini-page/sniprun" target="_blank" rel="noopener noreferrer"
+                    class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
                     <div
                         class="w-full h-32 bg-indigo-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
-                        <div class="absolute inset-0 opacity-30 bg-gradient-to-br from-indigo-500 to-purple-600"></div>
+                        <img src="assets/project-sniprun.svg" alt="sniprun thumbnail" class="project-thumb">
                         <i
                             class="fa-solid fa-terminal text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
@@ -563,22 +583,28 @@
                         <div class="text-xs font-mono text-slate-400 mb-1">CLI alias</div>
                         <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-indigo-600 transition-colors">
                             sniprun</h3>
-                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                            Simplifies complex shell command execution using short, memorable aliases called "snips."
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            Short aliases for complex shell commands to speed up execution.
                         </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Long commands are error-prone.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Map to short aliases.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Reusable “snips”.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster, safer execution.</div>
+                        </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Go</span>
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Shell</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Go</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Shell</span>
                     </div>
                 </a>
 
                 <!-- PROJECT 6: SyncMaster -->
-                <a href="https://github.com/mini-page/SyncMaster" target="_blank"
-                    class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                <a href="https://github.com/mini-page/SyncMaster" target="_blank" rel="noopener noreferrer"
+                    class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
                     <div
                         class="w-full h-32 bg-blue-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
-                        <div class="absolute inset-0 opacity-30 bg-gradient-to-br from-blue-500 to-cyan-500"></div>
+                        <img src="assets/project-syncmaster.svg" alt="SyncMaster thumbnail" class="project-thumb">
                         <i
                             class="fa-solid fa-rotate text-4xl text-white relative z-10 group-hover:rotate-180 transition-transform duration-700"></i>
                     </div>
@@ -586,23 +612,28 @@
                         <div class="text-xs font-mono text-slate-400 mb-1">BACKUP / SYNC</div>
                         <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-blue-600 transition-colors">
                             SyncMaster</h3>
-                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                            Advanced file synchronization for Windows wrapping Robocopy with an interactive UI and
-                            scheduling.
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            Guided Robocopy UI with scheduling for reliable file sync.
                         </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Robocopy is cumbersome.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> UI + scheduling.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Repeatable syncs.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Fewer errors, faster backups.</div>
+                        </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">PowerShell</span>
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Robocopy</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">PowerShell</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Robocopy</span>
                     </div>
                 </a>
 
                 <!-- PROJECT 7: Cyber-path -->
-                <a href="https://github.com/mini-page/Cyber-path" target="_blank"
-                    class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                <a href="https://github.com/mini-page/Cyber-path" target="_blank" rel="noopener noreferrer"
+                    class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
                     <div
                         class="w-full h-32 bg-teal-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
-                        <div class="absolute inset-0 opacity-30 bg-gradient-to-br from-teal-500 to-emerald-600"></div>
+                        <img src="assets/project-cyberpath.svg" alt="Cyber-path thumbnail" class="project-thumb">
                         <i
                             class="fa-solid fa-map-signs text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
@@ -610,71 +641,211 @@
                         <div class="text-xs font-mono text-slate-400 mb-1">EDUCATION / GUIDE</div>
                         <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-teal-600 transition-colors">
                             Cyber-path</h3>
-                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                            A roadmap to guide beginners ("confused nerds") through the learning path of cybersecurity.
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            Structured cybersecurity roadmap for beginners with clear milestones.
                         </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> No clear learning path.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Curated roadmap.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Step-by-step progression.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster learning momentum.</div>
+                        </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">TypeScript</span>
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Docs</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">TypeScript</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Docs</span>
                     </div>
                 </a>
 
                 <!-- PROJECT 8: skfitness -->
-                <a href="https://github.com/mini-page/skfitness" target="_blank"
-                    class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                <div onclick="window.location.href='https://github.com/mini-page/skfitness'"
+                    class="project-card project-collapsible group cursor-pointer glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
                     <div
                         class="w-full h-32 bg-orange-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <img src="assets/project-skfitness.svg" alt="skfitness thumbnail" class="project-thumb">
                         <i
-                            class="fa-solid fa-dumbbell text-4xl text-orange-500 relative z-10 group-hover:rotate-12 transition-transform"></i>
+                            class="fa-solid fa-dumbbell text-4xl text-white relative z-10 group-hover:rotate-12 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">BUSINESS / WEB</div>
                         <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-orange-500 transition-colors">
                             skfitness</h3>
-                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                            A premium-feel website for "Mr. Kishan" providing fitness guidance and gym information.
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            Premium gym website with clean layout, clear services, and strong branding.
                         </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> No modern online presence.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Clean UI + clear info.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Premium feel and trust.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Easier outreach and clarity.</div>
+                        </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">HTML</span>
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">CSS</span>
+                    <div class="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">HTML</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">CSS</span>
+                        <a href="https://mini-page.github.io/skfitness/" target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation()"
+                            class="live-demo ml-auto text-xs font-mono px-3 py-1 rounded-lg bg-soc-accent text-white hover:bg-orange-500 transition-colors">
+                            Live Demo
+                        </a>
                     </div>
-                </a>
+                </div>
 
                 <!-- PROJECT 9: rahulsoni.in -->
-                <a href="https://github.com/mini-page/rahulsoni.in" target="_blank"
-                    class="group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                <a href="https://github.com/mini-page/rahulsoni.in" target="_blank" rel="noopener noreferrer"
+                    class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
                     <div
                         class="w-full h-32 bg-gray-100 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                        <img src="assets/project-rahulsoni.svg" alt="rahulsoni.in thumbnail" class="project-thumb">
                         <i
-                            class="fa-solid fa-globe text-4xl text-gray-400 relative z-10 group-hover:scale-110 transition-transform"></i>
+                            class="fa-solid fa-globe text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">PERSONAL / PORTFOLIO</div>
                         <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-slate-500 transition-colors">
                             rahulsoni.in</h3>
-                        <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                            Public personal website or portfolio for Rahul Soni focusing on personal branding.
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            Minimal personal site that highlights identity and work.
                         </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Personal branding needed a home.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Minimal layout.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Fast, elegant site.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Stronger online presence.</div>
+                        </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">HTML</span>
-                        <span class="text-xs font-mono px-2 py-1 bg-slate-100 rounded text-slate-600">Design</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">HTML</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Design</span>
                     </div>
                 </a>
             </div>
 
+            <div class="projects-toggle-wrap mt-6 text-center">
+                <button id="projectsToggle" class="projects-toggle inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-soc-primary/30 text-soc-primary hover:bg-soc-primary/10 transition-colors" aria-expanded="false">
+                    <span>Show more projects</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+
             <div class="mt-10 text-center">
-                <a href="https://github.com/mini-page?tab=repositories" target="_blank"
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a href="tool-index.html"
+                        class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
+                        Open Tool Index <i class="fa-solid fa-toolbox ml-2"></i>
+                    </a>
+                    <a href="case-studies.html"
+                        class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
+                        View Case Studies <i class="fa-solid fa-book-open ml-2"></i>
+                    </a>
+                    <a href="blog.html"
+                        class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
+                        Read Blog <i class="fa-solid fa-pen-nib ml-2"></i>
+                    </a>
+                    <a href="https://github.com/mini-page?tab=repositories" target="_blank" rel="noopener noreferrer"
+                        class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
+                        View Full GitHub Archive <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESUME -->
+        <section id="resume" class="scroll-reveal">
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Resume Console</span>
+
+            <div class="glass-panel rounded-3xl p-8 lg:p-12 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-10 items-start">
+                <!-- Left: Overview -->
+                <div class="scroll-reveal-left">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-3 h-3 rounded-full bg-soc-success animate-pulse"></div>
+                        <span class="font-mono text-sm text-soc-primary uppercase tracking-wider">Interactive Terminal</span>
+                    </div>
+
+                    <h2 class="font-display text-4xl font-bold mb-4">
+                        <span class="resume-accent">Resume</span>
+                        Console
+                    </h2>
+
+                    <p class="text-lg text-slate-600 mb-8">
+                        A dynamic snapshot of technical profile and capabilities. Download the complete PDF resume with
+                        detailed project portfolio and certifications.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm">Security</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-sm">Automation</span>
+                        <span class="px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-sm">Linux</span>
+                        <span class="px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-sm">Research</span>
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-sm">CLI/TUI</span>
+                        <span class="px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-sm">Python</span>
+                        <span class="px-3 py-1 bg-violet-50 text-violet-600 rounded-full text-sm">PowerShell</span>
+                        <span class="px-3 py-1 bg-rose-50 text-rose-600 rounded-full text-sm">OSINT</span>
+                    </div>
+                </div>
+
+                <!-- Right: Download Action -->
+                <div class="flex flex-col gap-6 scroll-reveal-right lg:pt-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <a href="/assets/UmangGupta_Resume.pdf" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-primary btn-solid btn-orange inline-flex items-center justify-center gap-2 w-full">
+                            <i class="fa-solid fa-eye"></i> Preview
+                        </a>
+                        <a href="/assets/UmangGupta_Resume.pdf" download
+                            class="btn btn-primary btn-solid btn-green inline-flex items-center justify-center gap-2 w-full">
+                            <i class="fa-solid fa-download"></i> Download
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-panel p-4 rounded-xl hover-lift">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fa-solid fa-code-branch text-blue-400 text-xl"></i>
+                                <span class="text-xs text-slate-400 font-mono">#001</span>
+                            </div>
+                            <p class="text-slate-500 text-sm">Projects</p>
+                            <p class="text-2xl font-bold">15+</p>
+                        </div>
+
+                        <div class="glass-panel p-4 rounded-xl hover-lift">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fa-solid fa-tools text-purple-400 text-xl"></i>
+                                <span class="text-xs text-slate-400 font-mono">#002</span>
+                            </div>
+                            <p class="text-slate-500 text-sm">Tools Built</p>
+                            <p class="text-2xl font-bold">10+</p>
+                        </div>
+
+                        <div class="glass-panel p-4 rounded-xl hover-lift">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fa-solid fa-shield-halved text-emerald-400 text-xl"></i>
+                                <span class="text-xs text-slate-400 font-mono">#003</span>
+                            </div>
+                            <p class="text-slate-500 text-sm">Focus Area</p>
+                            <p class="text-xl font-bold">Security</p>
+                        </div>
+
+                        <div class="glass-panel p-4 rounded-xl hover-lift">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fa-solid fa-brain text-amber-400 text-xl"></i>
+                                <span class="text-xs text-slate-400 font-mono">#004</span>
+                            </div>
+                            <p class="text-slate-500 text-sm">Work Style</p>
+                            <p class="text-xl font-bold">Autonomous</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 text-center">
+                <a href="/assets/UmangGupta_Resume.pdf" target="_blank" rel="noopener noreferrer"
                     class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
-                    View Full GitHub Archive <i class="fa-solid fa-arrow-right ml-2"></i>
+                    Preview Resume PDF <i class="fa-solid fa-eye ml-2"></i>
                 </a>
             </div>
         </section>
 
         <!-- CERTIFICATIONS -->
-        <section id="certifications">
+        <section id="certifications" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Certifications &
                 Learning</span>
 
@@ -873,7 +1044,7 @@
         </section>
 
         <!-- EXPERIENCE -->
-        <section id="experience">
+        <section id="experience" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Experience & Journey</span>
 
             <div class="glass-panel p-8 rounded-2xl">
@@ -906,7 +1077,7 @@
         </section>
 
         <!-- CONTACT / SOCIAL -->
-        <section id="contact">
+        <section id="contact" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Connect & Collaborate</span>
 
             <div class="text-center mb-8">
@@ -922,7 +1093,7 @@
                 <h3 class="text-sm font-mono text-soc-primary uppercase tracking-wider mb-4">Professional & Development
                 </h3>
                 <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <a href="https://github.com/mini-page" target="_blank"
+                    <a href="https://github.com/mini-page" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -936,7 +1107,7 @@
                         </div>
                     </a>
 
-                    <a href="https://linkedin.com/in/ug5711" target="_blank"
+                    <a href="https://linkedin.com/in/ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -949,34 +1120,6 @@
                             </div>
                         </div>
                     </a>
-
-                    <a href="https://codepen.io/ug5711" target="_blank"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-slate-900 to-black rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-codepen text-white text-lg"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">CodePen</p>
-                                <p class="text-xs text-slate-500">Frontend Demos</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="https://discord.com/users/ug5711" target="_blank"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-discord text-white text-lg"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">Discord</p>
-                                <p class="text-xs text-slate-500">Community</p>
-                            </div>
-                        </div>
-                    </a>
                 </div>
             </div>
 
@@ -984,7 +1127,7 @@
             <div class="mb-8">
                 <h3 class="text-sm font-mono text-soc-accent uppercase tracking-wider mb-4">Security & Learning</h3>
                 <div class="grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <a href="https://app.hackthebox.com/profile/ug5711" target="_blank"
+                    <a href="https://app.hackthebox.com/profile/ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -998,7 +1141,7 @@
                         </div>
                     </a>
 
-                    <a href="https://letsdefend.io/user/ug5711" target="_blank"
+                    <a href="https://letsdefend.io/user/ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -1011,42 +1154,20 @@
                             </div>
                         </div>
                     </a>
-
-                    <a href="https://tryhackme.com/p/ug5711" target="_blank"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl flex items-center justify-center">
-                                <i class="fa-solid fa-terminal text-white text-lg"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">TryHackMe</p>
-                                <p class="text-xs text-slate-500">Cyber Range</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="https://medium.com/@ug5711" target="_blank"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-slate-800 to-black rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-medium text-white text-lg"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">Medium</p>
-                                <p class="text-xs text-slate-500">Tech Articles</p>
-                            </div>
-                        </div>
-                    </a>
                 </div>
             </div>
 
-            <!-- Social Media -->
-            <div class="mb-8">
-                <h3 class="text-sm font-mono text-soc-success uppercase tracking-wider mb-4">Social Media</h3>
-                <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <a href="https://x.com/ug_5711" target="_blank"
+            <!-- More Links -->
+            <details class="mb-8 glass-panel p-4 rounded-2xl">
+                <summary class="cursor-pointer font-mono text-sm text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-soc-primary"></i>
+                    More Links (Social + Extras)
+                </summary>
+
+                <div class="mt-4">
+                    <h3 class="text-sm font-mono text-soc-success uppercase tracking-wider mb-4">Social Media</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <a href="https://x.com/ug_5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -1060,7 +1181,7 @@
                         </div>
                     </a>
 
-                    <a href="https://threads.net/@ug5711" target="_blank"
+                    <a href="https://threads.net/@ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -1074,7 +1195,7 @@
                         </div>
                     </a>
 
-                    <a href="https://instagram.com/ug5711" target="_blank"
+                    <a href="https://instagram.com/ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -1088,7 +1209,7 @@
                         </div>
                     </a>
 
-                    <a href="https://youtube.com/@ug5711" target="_blank"
+                    <a href="https://youtube.com/@ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -1102,7 +1223,7 @@
                         </div>
                     </a>
 
-                    <a href="https://reddit.com/u/ug5711" target="_blank"
+                    <a href="https://reddit.com/u/ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -1116,7 +1237,7 @@
                         </div>
                     </a>
 
-                    <a href="https://pinterest.com/ug5711" target="_blank"
+                    <a href="https://pinterest.com/ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -1130,7 +1251,7 @@
                         </div>
                     </a>
 
-                    <a href="https://snapchat.com/add/ug5711" target="_blank"
+                    <a href="https://snapchat.com/add/ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -1144,7 +1265,7 @@
                         </div>
                     </a>
 
-                    <a href="https://t.me/ug5711" target="_blank"
+                    <a href="https://t.me/ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-3">
                             <div
@@ -1157,14 +1278,75 @@
                             </div>
                         </div>
                     </a>
+                    </div>
+
+                    <h3 class="text-sm font-mono text-soc-primary uppercase tracking-wider mb-4 mt-6">Extras</h3>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <a href="https://codepen.io/ug5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-slate-900 to-black rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-codepen text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">CodePen</p>
+                                    <p class="text-xs text-slate-500">Frontend Demos</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://discord.com/users/ug5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-discord text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">Discord</p>
+                                    <p class="text-xs text-slate-500">Community</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://tryhackme.com/p/ug5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl flex items-center justify-center">
+                                    <i class="fa-solid fa-terminal text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">TryHackMe</p>
+                                    <p class="text-xs text-slate-500">Cyber Range</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://medium.com/@ug5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-slate-800 to-black rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-medium text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">Medium</p>
+                                    <p class="text-xs text-slate-500">Tech Articles</p>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Contact -->
             <div>
                 <h3 class="text-sm font-mono text-slate-600 uppercase tracking-wider mb-4">Direct Contact</h3>
                 <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-4">
-                    <a href="mailto:umanggupta@example.com"
+                    <a href="mailto:raghavans5711+portfolio@gmail.com"
                         class="glow-card group relative block glass-panel p-5 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-4">
                             <div
@@ -1178,7 +1360,7 @@
                         </div>
                     </a>
 
-                    <a href="https://cal.com/ug5711" target="_blank"
+                    <a href="https://cal.com/ug5711" target="_blank" rel="noopener noreferrer"
                         class="glow-card group relative block glass-panel p-5 rounded-xl transition hover:-translate-y-1">
                         <div class="flex items-center gap-4">
                             <div
@@ -1193,11 +1375,17 @@
                     </a>
                 </div>
             </div>
+            <div class="mt-8 text-center">
+                <a href="mailto:raghavans5711+portfolio@gmail.com"
+                    class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
+                    Start a Conversation <i class="fa-solid fa-paper-plane ml-2"></i>
+                </a>
+            </div>
         </section>
 
         <!-- STRATEGY & PATH -->
-        <section class="bg-soc-dark text-white rounded-3xl p-8 md:p-12 relative overflow-hidden">
-            <div class="relative z-10 grid md:grid-cols-2 gap-12">
+        <section class="bg-soc-dark text-white rounded-3xl p-8 lg:p-12 relative overflow-hidden scroll-reveal">
+            <div class="relative z-10 grid lg:grid-cols-2 gap-12">
                 <div>
                     <span class="font-mono text-soc-primary text-xs uppercase tracking-widest mb-2 block">Strategic
                         Summary</span>
@@ -1234,11 +1422,11 @@
         </section>
 
         <!-- EXECUTION STATUS -->
-        <section class="relative group">
+        <section class="relative group scroll-reveal">
             <div class="absolute inset-0 bg-soc-accent blur-xl opacity-20 group-hover:opacity-30 transition-opacity">
             </div>
             <div class="relative glass-panel p-8 rounded-3xl border-l-4 border-soc-accent">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
                     <div>
                         <span
                             class="inline-flex items-center px-3 py-1 rounded bg-soc-accent/10 text-soc-accent text-xs font-bold font-mono mb-2 animate-pulse">
@@ -1250,7 +1438,7 @@
                             documentation.
                         </p>
                     </div>
-                    <div class="text-right hidden md:block">
+                    <div class="text-right hidden lg:block">
                         <div
                             class="text-4xl font-mono font-bold text-slate-200 group-hover:text-soc-accent transition-colors">
                             01</div>
@@ -1259,6 +1447,35 @@
                 </div>
             </div>
         </section>
+
+        <!-- INTERACTIVE TERMINAL -->
+        <section id="terminal" class="scroll-reveal">
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Interactive Terminal</span>
+
+            <div class="glass-panel p-6 rounded-2xl terminal-shell">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-title">ug-soc — secure console</div>
+                </div>
+
+                <div id="terminalOutput" class="terminal-output">
+                    <div class="terminal-line">Type <span class="terminal-accent">help</span> to see available commands.</div>
+                </div>
+
+                <div class="terminal-input-row">
+                    <span class="terminal-prompt">$</span>
+                    <input id="terminalInput" class="terminal-input" type="text" placeholder="help, projects, resume..." autocomplete="off">
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS (Loaded from testimonials.html) -->
+        <div id="testimonials-container"></div>
+
 
         <!-- FOOTER -->
         <footer class="text-center pt-12 border-t border-slate-200">
@@ -1273,6 +1490,93 @@
 
     </main>
 
+    <!-- Back to Top Button -->
+    <button class="back-to-top" type="button" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Skill Map Toggle -->
+    <button class="skillmap-toggle" type="button" aria-label="Open Skill Map" data-skillmap-toggle onclick="toggleSkillMapPanel()">
+        <i class="fa-solid fa-map"></i>
+    </button>
+
+    <!-- Skill Map Panel -->
+    <div class="skillmap-panel" id="skillMapPanel" aria-hidden="true">
+        <div class="skillmap-header">
+            <div>
+                <h3 class="font-bold text-lg">Skill Heatmap</h3>
+                <p class="text-xs text-slate-500">Execution vs Strategic Depth</p>
+            </div>
+            <button class="skillmap-close" type="button" aria-label="Close Skill Map" onclick="toggleSkillMapPanel(false)">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="relative bg-soc-panel rounded-xl h-[360px] overflow-hidden" id="skillMap">
+            <!-- Axes -->
+            <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-500"></div>
+            <div class="absolute top-1/2 left-0 right-0 h-px bg-slate-500"></div>
+
+            <!-- Labels -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 text-xs text-slate-400">Strategic Depth →</div>
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 text-xs text-slate-400">Tactical Detail ↓</div>
+            <div class="absolute -right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">Structured →</div>
+            <div class="absolute -left-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">← Rapid</div>
+
+            <!-- SKILL POINTS -->
+            <div class="map-point lvl-high bg-green-500" style="left:82%; top:18%" data-title="Tool Building"
+                data-level="Core Strength"></div>
+            <div class="map-point lvl-high bg-green-500" style="left:75%; top:22%"
+                data-title="Security Automation" data-level="Core Strength"></div>
+            <div class="map-point lvl-high bg-green-500" style="left:70%; top:30%"
+                data-title="System Architecture" data-level="Core Strength"></div>
+            <div class="map-point lvl-high bg-green-500" style="left:65%; top:35%"
+                data-title="Security Research" data-level="Core Strength"></div>
+
+            <div class="map-point lvl-mid bg-blue-500" style="left:35%; top:20%" data-title="OSINT"
+                data-level="Strong"></div>
+            <div class="map-point lvl-mid bg-blue-500" style="left:60%; top:45%" data-title="Linux"
+                data-level="Strong"></div>
+            <div class="map-point lvl-mid bg-blue-500" style="left:68%; top:55%" data-title="Bash"
+                data-level="Strong"></div>
+            <div class="map-point lvl-mid bg-blue-500" style="left:72%; top:60%" data-title="PowerShell"
+                data-level="Strong"></div>
+            <div class="map-point lvl-mid bg-blue-500" style="left:55%; top:28%" data-title="Threat Analysis"
+                data-level="Strong"></div>
+
+            <div class="map-point lvl-low bg-purple-500" style="left:50%; top:70%" data-title="Python"
+                data-level="Growing"></div>
+            <div class="map-point lvl-low bg-purple-500" style="left:45%; top:78%" data-title="Documentation"
+                data-level="Growing"></div>
+            <div class="map-point lvl-low bg-purple-500" style="left:48%; top:65%" data-title="Packaging"
+                data-level="Growing"></div>
+            <div class="map-point lvl-low bg-purple-500" style="left:40%; top:60%" data-title="UI/UX"
+                data-level="Growing"></div>
+
+            <div class="map-point lvl-experimental bg-amber-400" style="left:25%; top:75%"
+                data-title="Rapid Prototyping" data-level="Experimental"></div>
+            <div class="map-point lvl-experimental bg-amber-400" style="left:30%; top:65%"
+                data-title="New Tech Exploration" data-level="Experimental"></div>
+            <div class="map-point lvl-experimental bg-amber-400" style="left:22%; top:55%"
+                data-title="Research Experiments" data-level="Experimental"></div>
+
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+
+        <div class="mt-4 flex flex-wrap gap-3 text-xs">
+            <span class="chip chip-core">Core Strength</span>
+            <span class="chip chip-strong">Strong</span>
+            <span class="chip chip-growing">Growing</span>
+            <span class="chip chip-experimental">Experimental</span>
+        </div>
+    </div>
+
 </body>
 
 </html>
+
+
+
+
+
+
