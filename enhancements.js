@@ -254,7 +254,11 @@ function initTypingCycle() {
     }
 
     const maxLen = items.reduce((max, text) => Math.max(max, text.length), 0);
-    typingElement.style.minWidth = maxLen ? `${maxLen}ch` : '';
+    if (window.matchMedia('(max-width: 767px)').matches) {
+        typingElement.style.minWidth = '';
+    } else {
+        typingElement.style.minWidth = maxLen ? `${maxLen}ch` : '';
+    }
 
     let phraseIndex = 0;
     let charIndex = 0;
@@ -648,6 +652,46 @@ function initProjectsToggle() {
 
 initTerminal();
 initProjectsToggle();
+
+// ========== 22.5 METRICS TOGGLE (MOBILE ONLY) ==========
+function initMetricsToggle() {
+    const section = document.getElementById('metrics');
+    const button = document.getElementById('metricsToggle');
+    if (!section || !button) return;
+
+    const label = button.querySelector('span');
+    const media = window.matchMedia('(max-width: 767px)');
+    let isCollapsed = true;
+
+    const applyState = () => {
+        if (media.matches) {
+            section.classList.toggle('metrics-collapsed', isCollapsed);
+            button.style.display = 'inline-flex';
+            button.setAttribute('aria-expanded', String(!isCollapsed));
+            button.classList.toggle('is-expanded', !isCollapsed);
+            if (label) {
+                label.textContent = isCollapsed ? 'Show more metrics' : 'Show fewer metrics';
+            }
+        } else {
+            section.classList.remove('metrics-collapsed');
+            button.style.display = 'none';
+        }
+    };
+
+    button.addEventListener('click', () => {
+        isCollapsed = !isCollapsed;
+        applyState();
+    });
+
+    applyState();
+    if (media.addEventListener) {
+        media.addEventListener('change', applyState);
+    } else if (media.addListener) {
+        media.addListener(applyState);
+    }
+}
+
+initMetricsToggle();
 
 // ========== 23. STACK RINGS ==========
 document.querySelectorAll('.stack-ring').forEach(ring => {

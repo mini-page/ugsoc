@@ -106,8 +106,8 @@
     </div>
 
     <!-- Nav -->
-    <nav class="fixed w-full z-40 top-0 p-6 transition-all duration-300">
-        <div class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-6 py-3 rounded-full">
+    <nav class="fixed w-full z-40 top-0 p-4 sm:p-6 transition-all duration-300">
+        <div class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-4 sm:px-6 py-2 sm:py-3 rounded-full">
             <a href="#hero" class="font-display font-bold text-xl tracking-tight text-slate-500">
                 U<span class="hidden md:inline">mang</span>
                 G<span class="hidden md:inline">upta</span>
@@ -134,7 +134,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-6 pt-32 pb-20 space-y-24">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-16 sm:pb-20 space-y-20 sm:space-y-24">
 
         <!-- HERO SECTION -->
         <header class="relative scroll-reveal" id="hero">
@@ -145,14 +145,14 @@
                 <span class="px-3 py-1 bg-slate-100 text-slate-500 rounded-full">SECURITY AUTOMATION ENGINEER</span>
             </div>
 
-            <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight mb-6 max-w-4xl">
+            <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 max-w-4xl">
                 I build security tools that <span
                     class="typing-text"
                     data-phrases="reduce human friction.,compress response time.,eliminate repetitive work.,make security feel effortless.">reduce human
                     friction.</span>
             </h1>
 
-            <p class="text-xl text-slate-600 mb-8 max-w-2xl font-light">
+            <p class="text-lg sm:text-xl text-slate-600 mb-8 max-w-2xl font-light">
                 Security engineer in formation. Automation-first. Tool-driven. System-level thinking.
             </p>
 
@@ -176,10 +176,10 @@
                     class="px-3 py-2 rounded-lg bg-soc-success/10 text-soc-success border border-soc-success/20 hover:bg-soc-success/20 transition-colors">Contact</a>
             </div>
 
-            <div class="grid sm:grid-cols-3 gap-4 mt-8">
-                <div class="glass-panel p-4 rounded-2xl hover-lift">
+            <div class="grid md:grid-cols-3 gap-4 mt-8 hero-proof-grid">
+                <div class="glass-panel p-4 rounded-2xl hover-lift hero-proof">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-soc-primary/10 flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-xl bg-soc-primary/10 flex items-center justify-center proof-icon">
                             <i class="fa-solid fa-toolbox text-soc-primary"></i>
                         </div>
                         <div>
@@ -188,9 +188,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="glass-panel p-4 rounded-2xl hover-lift">
+                <div class="glass-panel p-4 rounded-2xl hover-lift hero-proof">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-soc-accent/10 flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-xl bg-soc-accent/10 flex items-center justify-center proof-icon">
                             <i class="fa-solid fa-rocket text-soc-accent"></i>
                         </div>
                         <div>
@@ -199,9 +199,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="glass-panel p-4 rounded-2xl hover-lift">
+                <div class="glass-panel p-4 rounded-2xl hover-lift hero-proof">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-soc-success/10 flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-xl bg-soc-success/10 flex items-center justify-center proof-icon">
                             <i class="fa-solid fa-bolt text-soc-success"></i>
                         </div>
                         <div>
@@ -223,38 +223,45 @@
                 </div>
             </div>
 
-            <div class="mt-6 grid sm:grid-cols-3 gap-4" id="metrics">
-                <div class="glass-panel p-5 rounded-2xl">
+            <div class="mt-6 grid md:grid-cols-3 gap-4 metrics-grid metrics-section" id="metrics">
+                <div class="glass-panel p-5 rounded-2xl metric-card">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-mono text-slate-400">Automation Wins</span>
                         <i class="fa-solid fa-gauge-high text-soc-accent"></i>
                     </div>
-                    <div class="text-3xl font-bold text-slate-600" data-count="35">0</div>
+                    <div class="text-3xl font-bold text-slate-600 metric-value" data-count="35">0</div>
                     <p class="text-xs text-slate-400 mt-1">Routine steps automated</p>
                 </div>
-                <div class="glass-panel p-5 rounded-2xl">
+                <div class="glass-panel p-5 rounded-2xl metric-card">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-mono text-slate-400">Time Saved</span>
                         <i class="fa-solid fa-clock text-soc-success"></i>
                     </div>
-                    <div class="text-3xl font-bold text-slate-600" data-count="120">0</div>
+                    <div class="text-3xl font-bold text-slate-600 metric-value" data-count="120">0</div>
                     <p class="text-xs text-slate-400 mt-1">Hours reduced from manual work</p>
                 </div>
-                <div class="glass-panel p-5 rounded-2xl">
+                <div class="glass-panel p-5 rounded-2xl metric-card metric-collapsible">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-mono text-slate-400">Tools Shipped</span>
                         <i class="fa-solid fa-toolbox text-soc-primary"></i>
                     </div>
-                    <div class="text-3xl font-bold text-slate-600" data-count="12">0</div>
+                    <div class="text-3xl font-bold text-slate-600 metric-value" data-count="12">0</div>
                     <p class="text-xs text-slate-400 mt-1">Security tools delivered</p>
                 </div>
+            </div>
+
+            <div class="metrics-toggle-wrap mt-3 text-left">
+                <button id="metricsToggle" class="metrics-toggle inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-soc-primary/30 text-soc-primary hover:bg-soc-primary/10 transition-colors" aria-expanded="false">
+                    <span>Show more metrics</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
             </div>
         </header>
 
         <!-- ABOUT SECTION -->
         <section id="about" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">About Me</span>
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid lg:grid-cols-2 gap-8">
                 <div class="glass-panel p-6 rounded-2xl hover-lift scroll-reveal-left">
                     <h3 class="font-bold text-xl mb-4 text-slate-500">Who I Am</h3>
                     <p class="text-slate-600 leading-relaxed mb-4">
@@ -297,7 +304,7 @@
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Core Skills</span>
 
             <!-- Tech Stack (Workflow Grouped) -->
-            <div class="grid md:grid-cols-2 gap-6 mb-12">
+            <div class="grid lg:grid-cols-2 gap-6 mb-12">
                 <div class="stack-card glass-panel p-6 rounded-2xl">
                     <div class="stack-header">
                         <div class="stack-icon">
@@ -747,7 +754,7 @@
         <section id="resume" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Resume Console</span>
 
-            <div class="glass-panel rounded-3xl p-8 md:p-12 grid md:grid-cols-[1.2fr_0.8fr] gap-8 md:gap-10 items-start">
+            <div class="glass-panel rounded-3xl p-8 lg:p-12 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-10 items-start">
                 <!-- Left: Overview -->
                 <div class="scroll-reveal-left">
                     <div class="flex items-center gap-3 mb-6">
@@ -778,7 +785,7 @@
                 </div>
 
                 <!-- Right: Download Action -->
-                <div class="flex flex-col gap-6 scroll-reveal-right md:pt-2">
+                <div class="flex flex-col gap-6 scroll-reveal-right lg:pt-2">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <a href="/assets/UmangGupta_Resume.pdf" target="_blank" rel="noopener noreferrer"
                             class="btn btn-primary btn-solid btn-orange inline-flex items-center justify-center gap-2 w-full">
@@ -1377,8 +1384,8 @@
         </section>
 
         <!-- STRATEGY & PATH -->
-        <section class="bg-soc-dark text-white rounded-3xl p-8 md:p-12 relative overflow-hidden scroll-reveal">
-            <div class="relative z-10 grid md:grid-cols-2 gap-12">
+        <section class="bg-soc-dark text-white rounded-3xl p-8 lg:p-12 relative overflow-hidden scroll-reveal">
+            <div class="relative z-10 grid lg:grid-cols-2 gap-12">
                 <div>
                     <span class="font-mono text-soc-primary text-xs uppercase tracking-widest mb-2 block">Strategic
                         Summary</span>
@@ -1419,7 +1426,7 @@
             <div class="absolute inset-0 bg-soc-accent blur-xl opacity-20 group-hover:opacity-30 transition-opacity">
             </div>
             <div class="relative glass-panel p-8 rounded-3xl border-l-4 border-soc-accent">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
                     <div>
                         <span
                             class="inline-flex items-center px-3 py-1 rounded bg-soc-accent/10 text-soc-accent text-xs font-bold font-mono mb-2 animate-pulse">
@@ -1431,7 +1438,7 @@
                             documentation.
                         </p>
                     </div>
-                    <div class="text-right hidden md:block">
+                    <div class="text-right hidden lg:block">
                         <div
                             class="text-4xl font-mono font-bold text-slate-200 group-hover:text-soc-accent transition-colors">
                             01</div>
