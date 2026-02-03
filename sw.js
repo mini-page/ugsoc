@@ -10,11 +10,27 @@ const RUNTIME_CACHE = 'ug-soc-runtime-v1.0.0';
 const PRECACHE_URLS = [
     '/',
     '/index.html',
+    '/blog.html',
+    '/case-studies.html',
+    '/tool-index.html',
+    '/testimonials.html',
+    '/style.css',
+    '/scripts.js',
+    '/CommandPalette.js',
     '/enhancements.js',
     '/manifest.json',
-    'https://cdn.tailwindcss.com',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-    'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap'
+    '/assets/resume-preview.svg',
+    '/assets/project-asllock.svg',
+    '/assets/project-secretjuice.svg',
+    '/assets/project-sejdacrack.svg',
+    '/assets/project-trackify.svg',
+    '/assets/project-sniprun.svg',
+    '/assets/project-syncmaster.svg',
+    '/assets/project-cyberpath.svg',
+    '/assets/project-skfitness.svg',
+    '/assets/project-rahulsoni.svg',
+    '/assets/UmangGupta_Resume.pdf',
+    '/icon.svg'
 ];
 
 // Install event - cache resources

@@ -4,6 +4,7 @@ const commands = [
     { icon: '📁', title: 'About', subtitle: 'Section', type: 'section', target: 'about' },
     { icon: '⚡', title: 'Skills', subtitle: 'Section', type: 'section', target: 'skills' },
     { icon: '💼', title: 'Projects', subtitle: 'Section', type: 'section', target: 'projects' },
+    { icon: '📄', title: 'Resume', subtitle: 'Section', type: 'section', target: 'resume' },
     { icon: '🎓', title: 'Certifications', subtitle: 'Section', type: 'section', target: 'certifications' },
     { icon: '💡', title: 'Experience', subtitle: 'Section', type: 'section', target: 'experience' },
     { icon: '📧', title: 'Contact', subtitle: 'Section', type: 'section', target: 'contact' },
@@ -46,10 +47,18 @@ const commands = [
     { icon: '🛣️', title: 'Cyber-path', subtitle: 'Project - Learning Guide', type: 'link', target: 'https://github.com/mini-page/Cyber-path' },
     { icon: '💪', title: 'skfitness', subtitle: 'Project - Fitness Website', type: 'link', target: 'https://github.com/mini-page/skfitness' },
     { icon: '🌐', title: 'rahulsoni.in', subtitle: 'Project - Portfolio', type: 'link', target: 'https://github.com/mini-page/rahulsoni.in' },
+
+    // Pages
+    { icon: '🧰', title: 'Tool Index', subtitle: 'Page', type: 'link', target: 'tool-index.html' },
+    { icon: '📘', title: 'Case Studies', subtitle: 'Page', type: 'link', target: 'case-studies.html' },
+    { icon: '📝', title: 'Blog', subtitle: 'Page', type: 'link', target: 'blog.html' },
+    { icon: '⌨️', title: 'Interactive Terminal', subtitle: 'Section', type: 'section', target: 'terminal' },
 ];
 
 let selectedIndex = 0;
 let filteredCommands = [...commands];
+let secretUnlocked = false;
+let secretTimer = null;
 
 // Toggle Command Palette
 function toggleCommandPalette() {
@@ -81,9 +90,11 @@ function renderCommands() {
         <div class="command-title">${cmd.title}</div>
         <div class="command-subtitle">${cmd.subtitle}</div>
     </div>
-    <div class="command-hint">Enter</div>
+    <div class="command-hint">${cmd.type === 'info' ? '' : 'Enter'}</div>
     `;
-        item.addEventListener('click', () => executeCommand(cmd));
+        if (cmd.type !== 'info') {
+            item.addEventListener('click', () => executeCommand(cmd));
+        }
         list.appendChild(item);
     });
 }
@@ -94,11 +105,54 @@ function searchCommands(query) {
 
     if (!query) {
         filteredCommands = [...commands];
+        secretUnlocked = false;
+        if (secretTimer) {
+            clearTimeout(secretTimer);
+            secretTimer = null;
+        }
     } else {
         filteredCommands = commands.filter(cmd =>
             cmd.title.toLowerCase().includes(query) ||
             cmd.subtitle.toLowerCase().includes(query)
         );
+    }
+
+    if (query === 'rg') {
+        if (!secretUnlocked) {
+            filteredCommands = [
+                ...filteredCommands,
+                {
+                    icon: '>',
+                    title: 'Unlocking secure channel...',
+                    subtitle: 'Typing sequence detected',
+                    type: 'info'
+                }
+            ];
+            if (!secretTimer) {
+                secretTimer = setTimeout(() => {
+                    secretUnlocked = true;
+                    secretTimer = null;
+                    renderCommands();
+                }, 700);
+            }
+        } else {
+            filteredCommands = [
+                ...filteredCommands,
+                {
+                    icon: '<i class="fa-brands fa-whatsapp"></i>',
+                    title: 'WhatsApp (Secret)',
+                    subtitle: 'Direct Message',
+                    type: 'link',
+                    target: 'https://wa.me/919621272014'
+                }
+            ];
+        }
+    } else {
+        secretUnlocked = false;
+        if (secretTimer) {
+            clearTimeout(secretTimer);
+            secretTimer = null;
+        }
     }
 
     selectedIndex = 0;
@@ -129,7 +183,10 @@ function executeCommand(cmd) {
                 location.reload();
                 break;
             case 'scrollToSkillMap':
-                document.getElementById('skillMap').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (typeof toggleSkillMapPanel === 'function') {
+                    toggleSkillMapPanel(true);
+                }
+                document.getElementById('skillMap')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 break;
         }
     }
@@ -147,6 +204,7 @@ function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     updateThemeIcon(theme);
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
 }
 
 function updateThemeIcon(theme) {

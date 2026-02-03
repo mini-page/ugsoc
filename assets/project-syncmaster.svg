@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" role="img" aria-label="SyncMaster">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="240" fill="url(#g)"/>
+  <circle cx="520" cy="60" r="50" fill="#60A5FA" opacity="0.25"/>
+  <text x="40" y="140" font-size="48" font-family="Space Grotesk, sans-serif" fill="#60A5FA" font-weight="700">SyncMaster</text>
+  <text x="40" y="180" font-size="18" font-family="JetBrains Mono, monospace" fill="#BFDBFE">Backup &amp; Sync</text>
+</svg>

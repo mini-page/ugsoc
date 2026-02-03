@@ -5,6 +5,8 @@
  * Version: 2.0
  */
 
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // ========== 1. LOADING SCREEN ==========
 window.addEventListener('load', () => {
     const loadingScreen = document.querySelector('.loading-screen');
@@ -26,10 +28,23 @@ class MatrixRain {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         
-        this.chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        this.chars = [
+            '9621272014',
+            'raghavans5711+portfolio@gmail.com',
+            'ug_5711',
+            'ug5711',
+            'rg',
+            'mini-page',
+            'raghavan',
+            'umang gupta',
+            'UG-SOC',
+            'security',
+            'automation'
+        ].join(' ');
         this.fontSize = 14;
         this.columns = this.canvas.width / this.fontSize;
         this.drops = Array(Math.floor(this.columns)).fill(1);
+        this.theme = document.documentElement.getAttribute('data-theme') || 'light';
         
         this.init();
     }
@@ -37,13 +52,27 @@ class MatrixRain {
     init() {
         setInterval(() => this.draw(), 33);
         window.addEventListener('resize', () => this.resize());
+        window.addEventListener('themechange', (e) => {
+            this.theme = e.detail?.theme || this.theme;
+        });
     }
     
     draw() {
-        this.ctx.fillStyle = 'rgba(15, 23, 42, 0.05)';
+        const fade = this.theme === 'dark' ? 'rgba(2, 6, 23, 0.08)' : 'rgba(248, 250, 252, 0.12)';
+        this.ctx.fillStyle = fade;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        this.ctx.fillStyle = '#8B5CF6';
+        const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = scrollMax > 0 ? Math.min(1, window.scrollY / scrollMax) : 0;
+        const styles = getComputedStyle(document.documentElement);
+        const baseHue = this.theme === 'dark'
+            ? parseFloat(styles.getPropertyValue('--matrix-hue-dark')) || 24
+            : parseFloat(styles.getPropertyValue('--matrix-hue-light')) || 28;
+        const range = parseFloat(styles.getPropertyValue('--matrix-hue-range')) || 22;
+        const hue = baseHue + (ratio * range);
+        const sat = this.theme === 'dark' ? 82 : 76;
+        const light = this.theme === 'dark' ? 58 : 48;
+        this.ctx.fillStyle = `hsl(${hue} ${sat}% ${light}%)`;
         this.ctx.font = this.fontSize + 'px monospace';
         
         for (let i = 0; i < this.drops.length; i++) {
@@ -67,7 +96,9 @@ class MatrixRain {
 
 // Initialize Matrix Rain
 document.addEventListener('DOMContentLoaded', () => {
-    new MatrixRain('matrix-canvas');
+    if (!prefersReducedMotion) {
+        new MatrixRain('matrix-canvas');
+    }
 });
 
 // ========== 3. SCROLL PROGRESS BAR ==========
@@ -121,6 +152,10 @@ new BackToTop();
 class ScrollAnimations {
     constructor() {
         this.elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
+        if (prefersReducedMotion) {
+            this.elements.forEach(el => el.classList.add('active'));
+            return;
+        }
         this.observer = new IntersectionObserver(
             (entries) => this.handleIntersection(entries),
             { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
@@ -150,7 +185,7 @@ new ScrollAnimations();
 class ParallaxEffect {
     constructor() {
         this.elements = document.querySelectorAll('.parallax');
-        if (this.elements.length === 0) return;
+        if (this.elements.length === 0 || prefersReducedMotion) return;
         
         window.addEventListener('scroll', () => this.update());
     }
@@ -204,36 +239,55 @@ class LazyLoader {
 new LazyLoader();
 
 // ========== 8. TYPING ANIMATION ==========
-class TypingAnimation {
-    constructor(element, text, speed = 50) {
-        if (!element) return;
-        
-        this.element = element;
-        this.text = text;
-        this.speed = speed;
-        this.charIndex = 0;
-        
-        this.type();
+function initTypingCycle() {
+    const typingElement = document.querySelector('.typing-text');
+    if (!typingElement) return;
+
+    const raw = typingElement.getAttribute('data-phrases') || '';
+    const phrases = raw.split(',').map(p => p.trim()).filter(Boolean);
+    const fallback = typingElement.textContent.trim();
+    const items = phrases.length ? phrases : (fallback ? [fallback] : []);
+
+    if (!items.length || prefersReducedMotion) {
+        if (fallback) typingElement.textContent = fallback;
+        return;
     }
-    
-    type() {
-        if (this.charIndex < this.text.length) {
-            this.element.textContent += this.text.charAt(this.charIndex);
-            this.charIndex++;
-            setTimeout(() => this.type(), this.speed);
+
+    const maxLen = items.reduce((max, text) => Math.max(max, text.length), 0);
+    typingElement.style.minWidth = maxLen ? `${maxLen}ch` : '';
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    const type = () => {
+        const current = items[phraseIndex % items.length];
+        const nextText = isDeleting
+            ? current.slice(0, Math.max(0, charIndex - 1))
+            : current.slice(0, charIndex + 1);
+
+        typingElement.textContent = nextText;
+        charIndex = nextText.length;
+
+        let delay = isDeleting ? 35 : 55;
+
+        if (!isDeleting && charIndex === current.length) {
+            delay = 1400;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex++;
+            delay = 350;
         }
-    }
+
+        setTimeout(type, delay);
+    };
+
+    type();
 }
 
 // Initialize typing animation after page load
-window.addEventListener('load', () => {
-    const typingElement = document.querySelector('.typing-text');
-    if (typingElement) {
-        const text = typingElement.textContent;
-        typingElement.textContent = '';
-        new TypingAnimation(typingElement, text, 50);
-    }
-});
+window.addEventListener('load', initTypingCycle);
 
 // ========== 9. SMOOTH SCROLL FOR ANCHOR LINKS ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -318,12 +372,320 @@ document.querySelectorAll('section[id]').forEach(section => {
     sectionObserver.observe(section);
 });
 
+// ========== 17.5 PROJECT POPOVER (TOUCH) ==========
+const prefersHover = window.matchMedia('(hover: hover)').matches;
+if (!prefersHover) {
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            const liveDemo = e.target.closest('a.live-demo');
+            if (liveDemo) {
+                return;
+            }
+
+            if (!card.classList.contains('show-popover')) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                card.classList.add('show-popover');
+                setTimeout(() => card.classList.remove('show-popover'), 2500);
+            }
+        }, true);
+    });
+}
+
+// ========== 18. METRICS COUNTER ==========
+const metrics = document.querySelectorAll('#metrics [data-count]');
+if (metrics.length) {
+    const metricsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = parseInt(el.getAttribute('data-count'), 10);
+            if (Number.isNaN(target)) return;
+            let current = 0;
+            const step = Math.max(1, Math.floor(target / 60));
+            const tick = () => {
+                current += step;
+                if (current >= target) {
+                    el.textContent = target + '+';
+                    return;
+                }
+                el.textContent = current;
+                requestAnimationFrame(tick);
+            };
+            tick();
+            metricsObserver.unobserve(el);
+        });
+    }, { threshold: 0.4 });
+
+    metrics.forEach(el => metricsObserver.observe(el));
+}
+
 // ========== 15. MICRO-INTERACTIONS ==========
 // Add hover effects
 document.querySelectorAll('.hover-lift, .hover-glow, .hover-scale').forEach(el => {
     el.addEventListener('mouseenter', function() {
         this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
     });
+});
+
+// ========== 19. TESTIMONIALS (FRAGMENT + CAROUSEL) ==========
+async function loadTestimonials() {
+    const container = document.getElementById('testimonials-container');
+    if (!container) return;
+    try {
+        const res = await fetch('testimonials.html');
+        const html = await res.text();
+        container.innerHTML = html;
+        initTestimonialsCarousel();
+    } catch (err) {
+        console.log('Testimonials load failed:', err);
+    }
+}
+
+function initTestimonialsCarousel() {
+    const carousel = document.querySelector('.testimonial-carousel');
+    if (!carousel) return;
+
+    const track = carousel.querySelector('.testimonial-track');
+    const cards = carousel.querySelectorAll('.testimonial-card');
+    const prevBtn = carousel.querySelector('.carousel-btn.prev');
+    const nextBtn = carousel.querySelector('.carousel-btn.next');
+    let index = 0;
+
+    const update = () => {
+        track.style.transform = `translateX(-${index * 100}%)`;
+    };
+
+    prevBtn?.addEventListener('click', () => {
+        index = (index - 1 + cards.length) % cards.length;
+        update();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+        index = (index + 1) % cards.length;
+        update();
+    });
+
+    let timer = setInterval(() => {
+        index = (index + 1) % cards.length;
+        update();
+    }, 4500);
+
+    carousel.addEventListener('mouseenter', () => clearInterval(timer));
+    carousel.addEventListener('mouseleave', () => {
+        timer = setInterval(() => {
+            index = (index + 1) % cards.length;
+            update();
+        }, 4500);
+    });
+}
+
+loadTestimonials();
+
+
+// ========== 21. INTERACTIVE TERMINAL ==========
+function initTerminal() {
+    const input = document.getElementById('terminalInput');
+    const output = document.getElementById('terminalOutput');
+    if (!input || !output) return;
+    const ghost = document.createElement('div');
+    ghost.className = 'terminal-ghost';
+    input.parentElement.appendChild(ghost);
+
+    const printLine = (text) => {
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        line.innerHTML = text;
+        output.appendChild(line);
+        output.scrollTop = output.scrollHeight;
+    };
+
+    const commands = {
+        help: () => {
+            printLine('Commands: <span class="terminal-accent">projects</span>, <span class="terminal-accent">skills</span>, <span class="terminal-accent">resume</span>, <span class="terminal-accent">contact</span>, <span class="terminal-accent">links</span>, <span class="terminal-accent">clear</span>');
+        },
+        projects: () => {
+            printLine('Opening Projects section...');
+            document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+        },
+        skills: () => {
+            printLine('Opening Skills section...');
+            document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' });
+        },
+        resume: () => {
+            printLine('Downloading resume...');
+            window.open('/assets/UmangGupta_Resume.pdf', '_blank');
+        },
+        contact: () => {
+            printLine('Opening Contact section...');
+            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        },
+        links: () => {
+            printLine('Quick links: GitHub → <span class="terminal-accent">mini-page</span>, LinkedIn → <span class="terminal-accent">ug5711</span>.');
+        },
+        clear: () => {
+            output.innerHTML = '';
+        }
+    };
+    const aliases = {
+        proj: 'projects',
+        work: 'projects',
+        sk: 'skills',
+        res: 'resume',
+        cv: 'resume',
+        con: 'contact',
+        ln: 'links'
+    };
+    const commandList = Object.keys(commands);
+    const history = [];
+    let historyIndex = -1;
+    const updateGhost = (value) => {
+        if (!value) {
+            ghost.textContent = '';
+            return;
+        }
+        const match = commandList.find(cmd => cmd.startsWith(value));
+        if (!match || match === value) {
+            ghost.textContent = '';
+            return;
+        }
+        ghost.textContent = match.slice(value.length);
+    };
+
+    input.addEventListener('input', () => {
+        updateGhost(input.value.trim().toLowerCase());
+    });
+
+    input.addEventListener('keydown', (e) => {
+        let value = input.value.trim().toLowerCase();
+
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            if (!value) return;
+            const matches = commandList.filter(cmd => cmd.startsWith(value));
+            if (matches.length === 1) {
+                input.value = matches[0];
+                updateGhost(matches[0]);
+            } else if (matches.length > 1) {
+                printLine(`Suggestions: ${matches.map(m => `<span class="terminal-accent">${m}</span>`).join(', ')}`);
+            }
+            return;
+        }
+
+        if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (!history.length) return;
+            historyIndex = Math.min(historyIndex + 1, history.length - 1);
+            input.value = history[history.length - 1 - historyIndex];
+            return;
+        }
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (!history.length) return;
+            historyIndex = Math.max(historyIndex - 1, -1);
+            input.value = historyIndex === -1 ? '' : history[history.length - 1 - historyIndex];
+            return;
+        }
+
+        if (e.key !== 'Enter') return;
+        if (!value) return;
+
+        if (aliases[value]) {
+            value = aliases[value];
+        }
+        printLine(`<span class="terminal-accent">$</span> ${value}`);
+        history.push(value);
+        historyIndex = -1;
+        input.value = '';
+        updateGhost('');
+
+        if (commands[value]) {
+            commands[value]();
+        } else {
+            printLine(`Unknown command. Type <span class="terminal-accent">help</span>.`);
+        }
+    });
+}
+
+// ========== 22. PROJECTS COLLAPSE (MOBILE ONLY) ==========
+function initProjectsToggle() {
+    const section = document.getElementById('projects');
+    const button = document.getElementById('projectsToggle');
+    if (!section || !button) return;
+
+    const label = button.querySelector('span');
+    const media = window.matchMedia('(max-width: 767px)');
+    let isCollapsed = true;
+
+    const applyState = () => {
+        if (media.matches) {
+            section.classList.toggle('projects-collapsed', isCollapsed);
+            button.style.display = 'inline-flex';
+            button.setAttribute('aria-expanded', String(!isCollapsed));
+            button.classList.toggle('is-expanded', !isCollapsed);
+            if (label) {
+                label.textContent = isCollapsed ? 'Show more projects' : 'Show fewer projects';
+            }
+        } else {
+            section.classList.remove('projects-collapsed');
+            button.style.display = 'none';
+        }
+    };
+
+    button.addEventListener('click', () => {
+        isCollapsed = !isCollapsed;
+        applyState();
+    });
+
+    applyState();
+    if (media.addEventListener) {
+        media.addEventListener('change', applyState);
+    } else if (media.addListener) {
+        media.addListener(applyState);
+    }
+}
+
+initTerminal();
+initProjectsToggle();
+
+// ========== 23. STACK RINGS ==========
+document.querySelectorAll('.stack-ring').forEach(ring => {
+    const level = Math.min(100, Math.max(0, parseInt(ring.dataset.level || '0', 10)));
+    const deg = Math.round((level / 100) * 360);
+    ring.style.background = `conic-gradient(#F97316 0deg ${deg}deg, rgba(148, 163, 184, 0.2) ${deg}deg 360deg)`;
+});
+
+// ========== 23. SKILL MAP PANEL ==========
+function toggleSkillMapPanel(forceOpen) {
+    const panel = document.getElementById('skillMapPanel');
+    if (!panel) return;
+    const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !panel.classList.contains('open');
+    panel.classList.toggle('open', shouldOpen);
+    panel.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
+}
+
+window.toggleSkillMapPanel = toggleSkillMapPanel;
+
+// Close on outside click
+document.addEventListener('click', (e) => {
+    const panel = document.getElementById('skillMapPanel');
+    if (!panel || !panel.classList.contains('open')) return;
+    const toggle = e.target.closest('[data-skillmap-toggle]');
+    if (panel.contains(e.target) || toggle) return;
+    toggleSkillMapPanel(false);
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const panel = document.getElementById('skillMapPanel');
+    if (panel?.classList.contains('open')) {
+        toggleSkillMapPanel(false);
+    }
+    const terminalInput = document.getElementById('terminalInput');
+    if (terminalInput && document.activeElement === terminalInput) {
+        terminalInput.value = '';
+    }
 });
 
 // ========== 16. KEYBOARD SHORTCUTS ==========
@@ -353,7 +715,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ========== 17. REDUCE MOTION FOR ACCESSIBILITY ==========
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (prefersReducedMotion) {
     document.documentElement.style.scrollBehavior = 'auto';
 }
