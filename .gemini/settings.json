@@ -1,0 +1,13 @@
+{
+  "context": {
+    "fileName": "GEMINI.md"
+  },
+  "include": [
+    "**/*",
+    ".gemini/**/*"
+  ],
+  "exclude": [
+    ".git/**",
+    "node_modules/**"
+  ]
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UG-SOC | Tool Index</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="scripts.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="text-slate-500 font-body selection:bg-soc-primary selection:text-white">
+    <main class="max-w-5xl mx-auto px-6 pt-24 pb-20 space-y-10">
+        <header class="scroll-reveal">
+            <a href="index.html" class="text-xs font-mono text-soc-primary">← Back to Portfolio</a>
+            <h1 class="font-display text-4xl md:text-5xl font-bold mt-4">Tool Index</h1>
+            <p class="text-slate-600 mt-3 max-w-2xl">
+                A quick index of security tools and utilities. Replace sample entries with real install commands and usage.
+            </p>
+        </header>
+
+        <section class="scroll-reveal">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-panel p-6 rounded-2xl">
+                    <h3 class="font-bold text-lg mb-2">asllock</h3>
+                    <p class="text-sm text-slate-500 mb-4">Access control TUI for Windows (NTFS ACLs).</p>
+                    <div class="text-xs font-mono text-slate-400 mb-2">Install</div>
+                    <pre class="code-block text-xs">git clone https://github.com/mini-page/asllock</pre>
+                    <div class="text-xs font-mono text-slate-400 mt-3 mb-2">Usage</div>
+                    <pre class="code-block text-xs">asllock --path "C:\secure"</pre>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl">
+                    <h3 class="font-bold text-lg mb-2">TheSecretJuice</h3>
+                    <p class="text-sm text-slate-500 mb-4">PowerShell module to enhance CLI workflows.</p>
+                    <div class="text-xs font-mono text-slate-400 mb-2">Install</div>
+                    <pre class="code-block text-xs">Install-Module TheSecretJuice</pre>
+                    <div class="text-xs font-mono text-slate-400 mt-3 mb-2">Usage</div>
+                    <pre class="code-block text-xs">juice scan --target example.com</pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="enhancements.js" defer></script>
+</body>
+</html>
