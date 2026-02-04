@@ -33,7 +33,6 @@ const commands = [
     { icon: '<i class="fa-solid fa-circle-half-stroke" style="color:#94A3B8;"></i>', title: 'Toggle Theme', subtitle: 'Settings', type: 'action', action: 'toggleTheme', toggle: true },
     { icon: '<i class="fa-solid fa-water" style="color:#38BDF8;"></i>', title: 'Toggle Matrix Rain', subtitle: 'Effects', type: 'action', action: 'toggleMatrix', toggle: true },
     { icon: '<i class="fa-solid fa-rotate-right" style="color:#38BDF8;"></i>', title: 'Reload Page', subtitle: 'Settings', type: 'action', action: 'reload' },
-    { icon: '<i class="fa-solid fa-location-crosshairs" style="color:#22D3EE;"></i>', title: 'Scroll to Skills Heatmap', subtitle: 'Navigation', type: 'action', action: 'scrollToSkillMap' },
 
     // Social & Resources
     {
@@ -48,7 +47,7 @@ const commands = [
             { label: 'LetsDefend', url: 'https://app.letsdefend.io/user/ug5711' },
             { label: 'TryHackMe', url: 'https://tryhackme.com/p/ug5711' },
             { label: 'Medium', url: 'https://medium.com/@ug5711' },
-            { label: 'X', url: 'https://x.com/ug_5711' },
+            { label: 'X.com', url: 'https://x.com/ug_5711' },
             { label: 'Threads', url: 'https://www.threads.com/@ug_5711' },
             { label: 'Instagram', url: 'https://www.instagram.com/ug_5711' },
             { label: 'YouTube', url: 'https://www.youtube.com/@ug5711' },
@@ -464,7 +463,6 @@ if (paletteFooter && !paletteFooter.querySelector('[data-shift-hint]')) {
     const hint = document.createElement('div');
     hint.className = 'command-footer-item';
     hint.setAttribute('data-shift-hint', 'true');
-    hint.innerHTML = '<span class="command-key">Shift+Enter</span><span>Action</span>';
     paletteFooter.appendChild(hint);
 }
 
@@ -508,4 +506,3 @@ mapPoints.forEach(point => {
 // Initialize
 renderCommands();
 loadTheme();
-
