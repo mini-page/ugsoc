@@ -65,10 +65,10 @@
 
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress"></div>
+    <a href="https://github.com/mini-page/ugsoc" target="_blank" class="skip-link"><i class="fas fa-arrow-right"></i>
+        Repo</a>
 
-    <a href="#hero" class="skip-link">Skip to content</a>
-
-    <div class="noise-overlay"></div>
+    <!-- <div class="noise-overlay"></div> -->
 
     <!-- Background Decor -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
@@ -114,7 +114,8 @@
         <div
             class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-4 sm:px-6 py-2 sm:py-3 rounded-full">
             <a href="#hero" class="font-display font-bold text-xl tracking-tight text-slate-500">
-                U<span class="hidden md:inline">mang</span>G<span class="hidden md:inline">upta</span><span class="text-soc-primary">-SOC</span>
+                U<span class="hidden md:inline">mang</span>G<span class="hidden md:inline">upta</span><span
+                    class="text-soc-primary">-SOC</span>
             </a>
             <div class="flex items-center gap-1">
                 <button onclick="toggleTheme()" aria-label="Toggle theme"
@@ -313,93 +314,140 @@
         <section id="skills" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Core Skills</span>
 
-            <!-- Tech Stack (Workflow Grouped) -->
-            <div class="grid lg:grid-cols-2 gap-6 mb-12">
-                <div class="stack-card glass-panel p-6 rounded-2xl">
-                    <div class="stack-header">
-                        <div class="stack-icon">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Security Ops</h4>
-                            <p class="text-xs text-slate-500">Detection, analysis, and tooling</p>
-                        </div>
-                        <div class="stack-ring" data-level="85"></div>
+            <!-- Core Skills Carousel -->
+            <div class="skill-carousel p-4 rounded-2xl mb-12" aria-label="Core skills carousel">
+                <div class="skill-track">
+                    <div class="skill-item" aria-label="HTML5" data-name="HTML5">
+                        <i class="devicon-html5-plain colored"></i>
+                        <span>HTML5</span>
                     </div>
-                    <div class="stack-badges">
-                        <span class="chip">OSINT</span>
-                        <span class="chip">Threat Analysis</span>
-                        <span class="chip">Tool Building</span>
-                        <span class="chip">Automation</span>
+                    <div class="skill-item" aria-label="CSS3" data-name="CSS3">
+                        <i class="devicon-css3-plain colored"></i>
+                        <span>CSS3</span>
                     </div>
-                    <div class="stack-usedin">
-                        Used in: asllock, TheSecretJuice, SyncMaster
+                    <div class="skill-item" aria-label="JavaScript" data-name="JavaScript">
+                        <i class="devicon-javascript-plain colored"></i>
+                        <span>JavaScript</span>
                     </div>
-                </div>
-
-                <div class="stack-card glass-panel p-6 rounded-2xl">
-                    <div class="stack-header">
-                        <div class="stack-icon">
-                            <i class="fa-solid fa-terminal"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Automation</h4>
-                            <p class="text-xs text-slate-500">CLI-first workflows</p>
-                        </div>
-                        <div class="stack-ring" data-level="90"></div>
+                    <div class="skill-item" aria-label="React" data-name="React">
+                        <i class="devicon-react-original colored"></i>
+                        <span>React</span>
                     </div>
-                    <div class="stack-badges">
-                        <span class="chip">PowerShell</span>
-                        <span class="chip">Bash</span>
-                        <span class="chip">Python</span>
-                        <span class="chip">Go</span>
+                    <div class="skill-item" aria-label="TypeScript" data-name="TypeScript">
+                        <i class="devicon-typescript-plain colored"></i>
+                        <span>TypeScript</span>
                     </div>
-                    <div class="stack-usedin">
-                        Used in: TheSecretJuice, sniprun, SyncMaster
+                    <div class="skill-item" aria-label="Python" data-name="Python">
+                        <i class="devicon-python-plain colored"></i>
+                        <span>Python</span>
                     </div>
-                </div>
-
-                <div class="stack-card glass-panel p-6 rounded-2xl">
-                    <div class="stack-header">
-                        <div class="stack-icon">
-                            <i class="fa-solid fa-server"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Systems</h4>
-                            <p class="text-xs text-slate-500">Linux + Windows security</p>
-                        </div>
-                        <div class="stack-ring" data-level="80"></div>
+                    <div class="skill-item" aria-label="Java" data-name="Java">
+                        <i class="devicon-java-plain colored"></i>
+                        <span>Java</span>
                     </div>
-                    <div class="stack-badges">
-                        <span class="chip">Linux/Kali</span>
-                        <span class="chip">Windows</span>
-                        <span class="chip">NTFS ACLs</span>
-                        <span class="chip">Robocopy</span>
+                    <div class="skill-item" aria-label="Dart" data-name="Dart">
+                        <i class="devicon-dart-plain colored"></i>
+                        <span>Dart</span>
                     </div>
-                    <div class="stack-usedin">
-                        Used in: asllock, SyncMaster
+                    <div class="skill-item" aria-label="Flutter" data-name="Flutter">
+                        <i class="devicon-flutter-plain colored"></i>
+                        <span>Flutter</span>
                     </div>
-                </div>
-
-                <div class="stack-card glass-panel p-6 rounded-2xl">
-                    <div class="stack-header">
-                        <div class="stack-icon">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg">Web + UI</h4>
-                            <p class="text-xs text-slate-500">Interfaces and docs</p>
-                        </div>
-                        <div class="stack-ring" data-level="70"></div>
+                    <div class="skill-item" aria-label="Firebase" data-name="Firebase">
+                        <i class="devicon-firebase-plain colored"></i>
+                        <span>Firebase</span>
                     </div>
-                    <div class="stack-badges">
-                        <span class="chip">HTML</span>
-                        <span class="chip">CSS</span>
-                        <span class="chip">React</span>
-                        <span class="chip">TypeScript</span>
+                    <div class="skill-item" aria-label="Git" data-name="Git">
+                        <i class="devicon-git-plain colored"></i>
+                        <span>Git</span>
                     </div>
-                    <div class="stack-usedin">
-                        Used in: skfitness, rahulsoni.in, trackify
+                    <div class="skill-item" aria-label="GitHub" data-name="GitHub">
+                        <i class="devicon-github-original"></i>
+                        <span>GitHub</span>
+                    </div>
+                    <div class="skill-item" aria-label="Postman" data-name="Postman">
+                        <i class="devicon-postman-plain colored"></i>
+                        <span>Postman</span>
+                    </div>
+                    <div class="skill-item" aria-label="Figma" data-name="Figma">
+                        <i class="devicon-figma-plain colored"></i>
+                        <span>Figma</span>
+                    </div>
+                    <div class="skill-item" aria-label="Linux" data-name="Linux">
+                        <i class="devicon-linux-plain"></i>
+                        <span>Linux</span>
+                    </div>
+                    <div class="skill-item" aria-label="Kali Linux" data-name="Kali">
+                        <i class="devicon-linux-plain"></i>
+                        <span>Kali</span>
+                    </div>
+                    <div class="skill-item" aria-label="PowerShell" data-name="PowerShell">
+                        <i class="devicon-powershell-plain colored"></i>
+                        <span>PowerShell</span>
+                    </div>
+                    <div class="skill-item" aria-label="HTML5" data-name="HTML5">
+                        <i class="devicon-html5-plain colored"></i>
+                        <span>HTML5</span>
+                    </div>
+                    <div class="skill-item" aria-label="CSS3" data-name="CSS3">
+                        <i class="devicon-css3-plain colored"></i>
+                        <span>CSS3</span>
+                    </div>
+                    <div class="skill-item" aria-label="JavaScript" data-name="JavaScript">
+                        <i class="devicon-javascript-plain colored"></i>
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="skill-item" aria-label="React" data-name="React">
+                        <i class="devicon-react-original colored"></i>
+                        <span>React</span>
+                    </div>
+                    <div class="skill-item" aria-label="TypeScript" data-name="TypeScript">
+                        <i class="devicon-typescript-plain colored"></i>
+                        <span>TypeScript</span>
+                    </div>
+                    <div class="skill-item" aria-label="Python" data-name="Python">
+                        <i class="devicon-python-plain colored"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="skill-item" aria-label="Java" data-name="Java">
+                        <i class="devicon-java-plain colored"></i>
+                        <span>Java</span>
+                    </div>
+                    <div class="skill-item" aria-label="Dart" data-name="Dart">
+                        <i class="devicon-dart-plain colored"></i>
+                        <span>Dart</span>
+                    </div>
+                    <div class="skill-item" aria-label="Flutter" data-name="Flutter">
+                        <i class="devicon-flutter-plain colored"></i>
+                        <span>Flutter</span>
+                    </div>
+                    <div class="skill-item" aria-label="Firebase" data-name="Firebase">
+                        <i class="devicon-firebase-plain colored"></i>
+                        <span>Firebase</span>
+                    </div>
+                    <div class="skill-item" aria-label="Git" data-name="Git">
+                        <i class="devicon-git-plain colored"></i>
+                        <span>Git</span>
+                    </div>
+                    <div class="skill-item" aria-label="GitHub" data-name="GitHub">
+                        <i class="devicon-github-original"></i>
+                        <span>GitHub</span>
+                    </div>
+                    <div class="skill-item" aria-label="Postman" data-name="Postman">
+                        <i class="devicon-postman-plain colored"></i>
+                        <span>Postman</span>
+                    </div>
+                    <div class="skill-item" aria-label="Figma" data-name="Figma">
+                        <i class="devicon-figma-plain colored"></i>
+                        <span>Figma</span>
+                    </div>
+                    <div class="skill-item" aria-label="Linux" data-name="Linux">
+                        <i class="devicon-linux-plain"></i>
+                        <span>Linux</span>
+                    </div>
+                    <div class="skill-item" aria-label="Kali Linux" data-name="Kali">
+                        <i class="devicon-linux-plain"></i>
+                        <span>Kali</span>
                     </div>
                 </div>
             </div>
@@ -408,11 +456,11 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="font-bold text-2xl mb-1">Skill Heatmap</h3>
-                        <p class="text-slate-500 text-sm">Open the floating Skill Map panel to explore details.</p>
+                        <!-- <p class="text-slate-500 text-sm">Open the floating Skill Map panel to explore details.</p> -->
                     </div>
                     <button class="btn btn-primary btn-skillmap" type="button" data-skillmap-toggle
                         onclick="toggleSkillMapPanel(true)">
-                        Open Skill Map
+                        Open <i class="fa-solid fa-map"></i>
                     </button>
                 </div>
             </div>
@@ -427,7 +475,7 @@
 
         <!-- PROJECTS SECTION -->
         <section id="projects" class="scroll-reveal projects-section">
-            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Mission Log / Deployed
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Deployed
                 Tools</span>
 
             <div id="projectsGrid" class="projects-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1107,71 +1155,6 @@
             </div>
         </section>
 
-        <!-- STRATEGY & PATH -->
-        <!-- <section class="bg-soc-dark text-white rounded-3xl p-8 lg:p-12 relative overflow-hidden scroll-reveal">
-            <div class="relative z-10 grid lg:grid-cols-2 gap-12">
-                <div>
-                    <span class="font-mono text-soc-primary text-xs uppercase tracking-widest mb-2 block">Strategic
-                        Summary</span>
-                    <h2 class="font-display text-3xl font-bold mb-6">Intelligence Report</h2>
-
-                    <div class="space-y-6">
-                        <div class="border-l-2 border-soc-primary pl-4">
-                            <div class="text-xs text-gray-400 font-mono mb-1">CORE LEVERAGE</div>
-                            <div class="text-lg">Building security automation tools that simplify complex workflows.
-                            </div>
-                        </div>
-                        <div class="border-l-2 border-soc-accent pl-4">
-                            <div class="text-xs text-gray-400 font-mono mb-1">PRIMARY BOTTLENECK</div>
-                            <div class="text-lg">Failure to finish, document, and ship consistently.</div>
-                        </div>
-                        <div class="border-l-2 border-soc-success pl-4">
-                            <div class="text-xs text-gray-400 font-mono mb-1">HIGHEST ROI ADJUSTMENT</div>
-                            <div class="text-lg">Ship small, finished tools even when bored.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-800/50 p-8 rounded-2xl border border-white/10">
-                    <h3 class="font-bold text-xl mb-4 text-soc-accent">Fastest Viable Path</h3>
-                    <p class="text-xl font-display mb-4">Security Automation Engineer</p>
-                    <ul class="space-y-2 text-gray-300 text-sm">
-                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Matches skills and energy</li>
-                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Minimal meetings</li>
-                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Tool-centric leverage</li>
-                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Strong income trajectory</li>
-                    </ul>
-                </div>
-            </div>
-        </section> -->
-
-        <!-- EXECUTION STATUS -->
-        <!-- <section class="relative group scroll-reveal">
-            <div class="absolute inset-0 bg-soc-accent blur-xl opacity-20 group-hover:opacity-30 transition-opacity">
-            </div>
-            <div class="relative glass-panel p-8 rounded-3xl border-l-4 border-soc-accent">
-                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-                    <div>
-                        <span
-                            class="inline-flex items-center px-3 py-1 rounded bg-soc-accent/10 text-soc-accent text-xs font-bold font-mono mb-2 animate-pulse">
-                            <i class="fa-solid fa-crosshairs mr-2"></i> ACTIVE OBJECTIVE
-                        </span>
-                        <h3 class="font-display text-2xl font-bold text-slate-500">Next 30 Days</h3>
-                        <p class="text-slate-600 mt-1 max-w-lg">
-                            Build and publicly ship one complete security automation tool with minimal but clear
-                            documentation.
-                        </p>
-                    </div>
-                    <div class="text-right hidden lg:block">
-                        <div
-                            class="text-4xl font-mono font-bold text-slate-200 group-hover:text-soc-accent transition-colors">
-                            01</div>
-                        <div class="text-xs text-slate-400 font-mono uppercase">Priority Target</div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-
         <!-- INTERACTIVE TERMINAL -->
         <section id="terminal" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Interactive Terminal</span>
@@ -1184,6 +1167,15 @@
                         <span class="dot green"></span>
                     </div>
                     <div class="terminal-title">ug-soc — secure console</div>
+                    <div class="terminal-status" id="terminalStatus" aria-hidden="false">
+                        <span class="terminal-pill" data-terminal-theme>Theme</span>
+                        <span class="terminal-pill" data-terminal-matrix>Matrix</span>
+                    </div>
+                </div>
+
+                <div class="terminal-toolbar">
+                    <button class="terminal-btn" data-terminal-cmd="help">help</button>
+                    <button class="terminal-btn" data-terminal-cmd="clear">clear</button>
                 </div>
 
                 <div id="terminalOutput" class="terminal-output">
@@ -1193,7 +1185,7 @@
 
                 <div class="terminal-input-row">
                     <span class="terminal-prompt">$</span>
-                    <input id="terminalInput" class="terminal-input" type="text" placeholder="help, projects, resume..."
+                    <input id="terminalInput" class="terminal-input" type="text" placeholder="help, status..."
                         autocomplete="off">
                 </div>
             </div>
