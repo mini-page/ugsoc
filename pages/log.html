@@ -16,11 +16,11 @@
 <body class="text-slate-500 font-body selection:bg-soc-primary selection:text-white">
     <div class="noise-overlay"></div>
     <nav class="fixed w-full z-40 top-0 p-4 sm:p-6 transition-all duration-300">
-        <div class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-4 sm:px-6 py-2 sm:py-3 rounded-full">
-            <a href="../index.html#hero" class="font-display font-bold text-xl tracking-tight text-slate-500">
+        <div class="max-w-5xl mx-auto flex items-center justify-between glass-panel px-4 sm:px-6 py-2 sm:py-3 rounded-full log-nav">
+            <a href="../index.html#hero" class="font-display font-bold text-lg sm:text-xl tracking-tight text-slate-500">
                 UG<span class="text-soc-primary">-SOC</span> Log
             </a>
-            <a href="../index.html" class="nav-cta">Back to Index</a>
+            <a href="../index.html" class="log-back">Back to Index</a>
         </div>
     </nav>
 
@@ -33,8 +33,154 @@
             </p>
         </header>
 
-        <section class="glass-panel p-6 rounded-2xl">
-            <div class="text-sm text-slate-500 font-mono">No entries yet.</div>
+        <section class="glass-panel p-6 rounded-2xl log-panel">
+            <ol class="log-timeline">
+                <li class="log-entry">
+                    <div class="log-marker">
+                        <span class="log-dot"></span>
+                    </div>
+                    <div class="log-card">
+                        <div class="log-meta">
+                            <span class="log-badge">v3.8</span>
+                            <span class="log-date">Feb 4, 2026</span>
+                            <span class="log-latest">Latest</span>
+                        </div>
+                        <h2 class="log-title">Operations polish + structure refresh</h2>
+                        <ul class="log-list">
+                            <li><span class="log-tag">Added</span> PWA icon pack (72–512), MIT License, and folder-based project structure.</li>
+                            <li><span class="log-tag">Changed</span> Command palette to action-first flow with brand chips, switches, and secret unlocks.</li>
+                            <li><span class="log-tag">Fixed</span> PWA install start URL/scope and service worker paths after reorganizing files.</li>
+                            <li><span class="log-tag">Removed</span> Project card overlay icons to let SVG previews shine.</li>
+                            <li><span class="log-tag">Other</span> Matrix rain toggle with persistence + improved switches.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="log-entry">
+                    <div class="log-marker">
+                        <span class="log-dot"></span>
+                    </div>
+                    <div class="log-card">
+                        <div class="log-meta">
+                            <span class="log-badge">v3.7</span>
+                            <span class="log-date">Feb 3, 2026</span>
+                        </div>
+                        <h2 class="log-title">Command palette reimagined</h2>
+                        <ul class="log-list">
+                            <li><span class="log-tag">Added</span> Quick actions, shift-click behavior, and chips for projects/resources.</li>
+                            <li><span class="log-tag">Changed</span> Social links to grouped chips with brand colors and improved readability.</li>
+                            <li><span class="log-tag">Removed</span> Duplicate command items for individual projects/social links.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="log-entry">
+                    <div class="log-marker">
+                        <span class="log-dot"></span>
+                    </div>
+                    <div class="log-card">
+                        <div class="log-meta">
+                            <span class="log-badge">v3.6</span>
+                            <span class="log-date">Feb 2, 2026</span>
+                        </div>
+                        <h2 class="log-title">Secret systems + vault</h2>
+                        <ul class="log-list">
+                            <li><span class="log-tag">Added</span> Secret keyword navigation (`rg`, `pic`, `arc`, `log`) and vault/archive pages.</li>
+                            <li><span class="log-tag">Changed</span> Contact card hidden behind command palette keyword trigger.</li>
+                            <li><span class="log-tag">Other</span> Unlock sequence animation for secret commands.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="log-entry">
+                    <div class="log-marker">
+                        <span class="log-dot"></span>
+                    </div>
+                    <div class="log-card">
+                        <div class="log-meta">
+                            <span class="log-badge">v3.5</span>
+                            <span class="log-date">Feb 1, 2026</span>
+                        </div>
+                        <h2 class="log-title">Hero + resume refinements</h2>
+                        <ul class="log-list">
+                            <li><span class="log-tag">Added</span> Typing phrase rotation and improved text visibility.</li>
+                            <li><span class="log-tag">Changed</span> Resume console layout with smaller buttons and cleaner preview/download split.</li>
+                            <li><span class="log-tag">Fixed</span> Gradient text legibility on dark mode.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="log-entry">
+                    <div class="log-marker">
+                        <span class="log-dot"></span>
+                    </div>
+                    <div class="log-card">
+                        <div class="log-meta">
+                            <span class="log-badge">v3.2</span>
+                            <span class="log-date">Jan 30, 2026</span>
+                        </div>
+                        <h2 class="log-title">Mobile-first cleanup</h2>
+                        <ul class="log-list">
+                            <li><span class="log-tag">Changed</span> Responsive grid rules and hero spacing for phones/tablets.</li>
+                            <li><span class="log-tag">Fixed</span> Proof cards layout and tag overflow on mobile.</li>
+                            <li><span class="log-tag">Other</span> Scrollbar theming aligned with site palette.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="log-entry">
+                    <div class="log-marker">
+                        <span class="log-dot"></span>
+                    </div>
+                    <div class="log-card">
+                        <div class="log-meta">
+                            <span class="log-badge">v2.4</span>
+                            <span class="log-date">Jan 12, 2026</span>
+                        </div>
+                        <h2 class="log-title">Project gallery evolution</h2>
+                        <ul class="log-list">
+                            <li><span class="log-tag">Added</span> Project popovers, live demo placement, and SVG previews.</li>
+                            <li><span class="log-tag">Changed</span> Project tags made color-coded for faster scanning.</li>
+                            <li><span class="log-tag">Fixed</span> Collapsed cards and hover content clipping.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="log-entry">
+                    <div class="log-marker">
+                        <span class="log-dot"></span>
+                    </div>
+                    <div class="log-card">
+                        <div class="log-meta">
+                            <span class="log-badge">v2.0</span>
+                            <span class="log-date">Dec 18, 2025</span>
+                        </div>
+                        <h2 class="log-title">UI system upgrade</h2>
+                        <ul class="log-list">
+                            <li><span class="log-tag">Added</span> Command palette, scroll animations, and skill heatmap panel.</li>
+                            <li><span class="log-tag">Changed</span> Dark/light theme balance and matrix rain intensity.</li>
+                            <li><span class="log-tag">Fixed</span> Accessibility focus behavior on desktop.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="log-entry">
+                    <div class="log-marker">
+                        <span class="log-dot"></span>
+                    </div>
+                    <div class="log-card">
+                        <div class="log-meta">
+                            <span class="log-badge">v1.0</span>
+                            <span class="log-date">Nov 10, 2025</span>
+                        </div>
+                        <h2 class="log-title">Initial release</h2>
+                        <ul class="log-list">
+                            <li><span class="log-tag">Added</span> Core portfolio sections, hero, projects, and skills.</li>
+                            <li><span class="log-tag">Other</span> First deployment of UG-SOC identity and base layout.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
         </section>
     </main>
 </body>
