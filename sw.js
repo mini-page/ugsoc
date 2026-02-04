@@ -8,29 +8,29 @@ const RUNTIME_CACHE = 'ug-soc-runtime-v1.0.0';
 
 // Resources to cache immediately
 const PRECACHE_URLS = [
-    '/',
-    '/index.html',
-    '/blog.html',
-    '/case-studies.html',
-    '/tool-index.html',
-    '/testimonials.html',
-    '/style.css',
-    '/scripts.js',
-    '/CommandPalette.js',
-    '/enhancements.js',
-    '/manifest.json',
-    '/assets/resume-preview.svg',
-    '/assets/project-asllock.svg',
-    '/assets/project-secretjuice.svg',
-    '/assets/project-sejdacrack.svg',
-    '/assets/project-trackify.svg',
-    '/assets/project-sniprun.svg',
-    '/assets/project-syncmaster.svg',
-    '/assets/project-cyberpath.svg',
-    '/assets/project-skfitness.svg',
-    '/assets/project-rahulsoni.svg',
-    '/assets/UmangGupta_Resume.pdf',
-    '/icon.svg'
+    './',
+    './index.html',
+    './blog.html',
+    './case-studies.html',
+    './tool-index.html',
+    './testimonials.html',
+    './style.css',
+    './scripts.js',
+    './CommandPalette.js',
+    './enhancements.js',
+    './manifest.json',
+    './assets/resume-preview.svg',
+    './assets/project-asllock.svg',
+    './assets/project-secretjuice.svg',
+    './assets/project-sejdacrack.svg',
+    './assets/project-trackify.svg',
+    './assets/project-sniprun.svg',
+    './assets/project-syncmaster.svg',
+    './assets/project-cyberpath.svg',
+    './assets/project-skfitness.svg',
+    './assets/project-rahulsoni.svg',
+    './assets/UmangGupta_Resume.pdf',
+    './icon.svg'
 ];
 
 // Install event - cache resources
@@ -95,7 +95,7 @@ self.addEventListener('fetch', event => {
                     
                     // Return offline page for navigation requests
                     if (event.request.mode === 'navigate') {
-                        return caches.match('/index.html');
+                        return caches.match('./index.html');
                     }
                     
                     throw error;
@@ -124,11 +124,11 @@ self.addEventListener('push', event => {
         const data = event.data.json();
         const options = {
             body: data.body,
-            icon: '/icon-192.png',
-            badge: '/badge-72.png',
+            icon: './icon-192.png',
+            badge: './badge-72.png',
             vibrate: [200, 100, 200],
             data: {
-                url: data.url || '/'
+                url: data.url || './'
             }
         };
         
