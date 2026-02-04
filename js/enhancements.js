@@ -46,15 +46,35 @@ class MatrixRain {
         this.drops = Array(Math.floor(this.columns)).fill(1);
         this.theme = document.documentElement.getAttribute('data-theme') || 'light';
         
+        this.intervalId = null;
+        this.isRunning = false;
         this.init();
     }
     
     init() {
-        setInterval(() => this.draw(), 33);
+        this.start();
         window.addEventListener('resize', () => this.resize());
         window.addEventListener('themechange', (e) => {
             this.theme = e.detail?.theme || this.theme;
         });
+    }
+
+    start() {
+        if (this.isRunning) return;
+        this.isRunning = true;
+        this.canvas.style.display = 'block';
+        this.intervalId = setInterval(() => this.draw(), 33);
+    }
+
+    stop() {
+        if (!this.isRunning) return;
+        this.isRunning = false;
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.canvas.style.display = 'none';
     }
     
     draw() {
@@ -97,9 +117,29 @@ class MatrixRain {
 // Initialize Matrix Rain
 document.addEventListener('DOMContentLoaded', () => {
     if (!prefersReducedMotion) {
-        new MatrixRain('matrix-canvas');
+        const saved = localStorage.getItem('matrixRain');
+        const shouldStart = saved !== 'off';
+        window.matrixRain = new MatrixRain('matrix-canvas');
+        if (!shouldStart && window.matrixRain) {
+            window.matrixRain.stop();
+        }
     }
 });
+
+window.toggleMatrixRain = () => {
+    if (prefersReducedMotion) return;
+    if (!window.matrixRain) {
+        window.matrixRain = new MatrixRain('matrix-canvas');
+    }
+    const shouldEnable = !window.matrixRain.isRunning;
+    if (shouldEnable) {
+        window.matrixRain.start();
+        localStorage.setItem('matrixRain', 'on');
+    } else {
+        window.matrixRain.stop();
+        localStorage.setItem('matrixRain', 'off');
+    }
+};
 
 // ========== 3. SCROLL PROGRESS BAR ==========
 class ScrollProgress {
@@ -319,9 +359,11 @@ if ('requestIdleCallback' in window) {
 }
 
 // ========== 11. OFFLINE SUPPORT (Service Worker Registration) ==========
+const siteRootPrefix = window.location.pathname.includes('/pages/') ? '../' : './';
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register(`${siteRootPrefix}sw.js`)
             .then(registration => {
                 console.log('ServiceWorker registered:', registration.scope);
             })
@@ -437,7 +479,7 @@ async function loadTestimonials() {
     const container = document.getElementById('testimonials-container');
     if (!container) return;
     try {
-        const res = await fetch('testimonials.html');
+        const res = await fetch(`${siteRootPrefix}pages/testimonials.html`);
         const html = await res.text();
         container.innerHTML = html;
         initTestimonialsCarousel();
@@ -518,7 +560,7 @@ function initTerminal() {
         },
         resume: () => {
             printLine('Downloading resume...');
-            window.open('/assets/UmangGupta_Resume.pdf', '_blank');
+            window.open(`${siteRootPrefix}assets/UmangGupta_Resume.pdf`, '_blank');
         },
         contact: () => {
             printLine('Opening Contact section...');

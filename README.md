@@ -9,9 +9,9 @@ This package includes **all requested features** to transform your portfolio int
 ## 📦 **What's Included**
 
 ### **Files Created:**
-1. `enhancements.js` - Main enhancement script (Matrix Rain, Scroll Animations, Parallax, etc.)
+1. `js/enhancements.js` - Main enhancement script (Matrix Rain, Scroll Animations, Parallax, etc.)
 2. `sw.js` - Service Worker for offline functionality and caching
-3. `manifest.json` - PWA manifest for installable app
+3. `pwa/manifest.json` - PWA manifest for installable app
 4. `components-snippet.html` - HTML components to add to your portfolio
 
 ### **Features Implemented:**
@@ -51,7 +51,7 @@ Add these lines **before the closing `</body>` tag** in `index.html`:
 
 ```html
 <!-- Enhancement Scripts -->
-<script src="/enhancements.js"></script>
+<script src="/js/enhancements.js"></script>
 
 <!-- Service Worker Registration is handled in enhancements.js -->
 ```
@@ -143,20 +143,20 @@ Update your existing HTML elements with these classes:
 
 ### **Service Worker Cache**
 
-Edit `sw.js` to customize cached resources:
+Edit `pwa/sw.js` to customize cached resources:
 
 ```javascript
 const PRECACHE_URLS = [
     '/',
     '/index.html',
-    '/enhancements.js',
+    '/js/enhancements.js',
     // Add your critical resources here
 ];
 ```
 
 ### **Matrix Rain Customization**
 
-Edit `enhancements.js` line 38-40:
+Edit `js/enhancements.js` line 38-40:
 
 ```javascript
 this.chars = '01アイウエオ...'; // Change characters
@@ -165,7 +165,7 @@ this.fontSize = 14;              // Change font size
 
 ### **Animation Speeds**
 
-Adjust in `enhancements.js`:
+Adjust in `js/enhancements.js`:
 
 ```javascript
 // Typing speed (line 223)
@@ -196,7 +196,7 @@ colors: {
 
 ### **Animations**
 
-Disable specific animations by commenting out in `enhancements.js`:
+Disable specific animations by commenting out in `js/enhancements.js`:
 
 ```javascript
 // To disable Matrix Rain:
@@ -289,17 +289,29 @@ Disable specific animations by commenting out in `enhancements.js`:
 
 ```
 portfolio/
-├── index.html              # Main portfolio (enhanced)
-├── enhancements.js         # Enhancement script
-├── sw.js                   # Service worker
-├── manifest.json           # PWA manifest
-├── components-snippet.html # HTML components reference
-├── README.md              # This file
-└── icons/                 # PWA icons (to be created)
-    ├── icon-72.png
-    ├── icon-96.png
-    ├── icon-192.png
-    └── icon-512.png
+├── index.html                # Main portfolio
+├── sw.js                     # Root service worker proxy
+├── assets/                   # Images, SVGs, resume PDF
+├── css/
+│   └── style.css             # Global styles
+├── js/
+│   ├── CommandPalette.js     # Command palette logic
+│   ├── enhancements.js       # Effects, PWA registration, UX
+│   └── scripts.js            # Tailwind config + small helpers
+├── pages/
+│   ├── blog.html
+│   ├── case-studies.html
+│   ├── tool-index.html
+│   ├── testimonials.html
+│   ├── vault.html
+│   ├── arc.html
+│   └── log.html
+├── pwa/
+│   ├── manifest.json         # PWA manifest
+│   ├── sw.js                 # Service worker logic
+│   └── icon.svg              # PWA icon
+├── README.md                 # This file
+└── TODO.md                   # Next improvements
 ```
 
 ---
@@ -399,3 +411,5 @@ Your portfolio now has:
 **Last Updated:** January 2026
 
 Need help? Check the code comments in each file for detailed explanations!
+
+

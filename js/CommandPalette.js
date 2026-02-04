@@ -1,10 +1,10 @@
 // Command Palette Data
 const commands = [
     // Navigation Sections
-    { icon: '📁', title: 'About', subtitle: 'Section', type: 'section', target: 'about' },
-    { icon: '⚡', title: 'Skills', subtitle: 'Section', type: 'section', target: 'skills', quickAction: 'openSkillMap', quickLabel: 'Heatmap' },
+    { icon: '<i class="fa-solid fa-id-badge" style="color:#38BDF8;"></i>', title: 'About', subtitle: 'Section', type: 'section', target: 'about' },
+    { icon: '<i class="fa-solid fa-bolt" style="color:#F59E0B;"></i>', title: 'Skills', subtitle: 'Section', type: 'section', target: 'skills', quickAction: 'openSkillMap', quickLabel: 'Heatmap' },
     {
-        icon: '💼',
+        icon: '<i class="fa-solid fa-diagram-project" style="color:#A855F7;"></i>',
         title: 'Projects',
         subtitle: 'Section',
         type: 'section',
@@ -23,20 +23,21 @@ const commands = [
             { label: 'rahulsoni.in', url: 'https://github.com/mini-page/rahulsoni.in' },
         ]
     },
-    { icon: '📄', title: 'Resume', subtitle: 'Section', type: 'section', target: 'resume', quickAction: 'downloadResume', quickLabel: 'Download' },
-    { icon: '🎓', title: 'Certifications', subtitle: 'Section', type: 'section', target: 'certifications' },
-    { icon: '💡', title: 'Experience', subtitle: 'Section', type: 'section', target: 'experience' },
-    { icon: '📧', title: 'Contact', subtitle: 'Section', type: 'section', target: 'contact', quickAction: 'email', quickLabel: 'Email' },
-    { icon: '🏠', title: 'Go to Top', subtitle: 'Navigation', type: 'section', target: 'hero' },
+    { icon: '<i class="fa-solid fa-file-lines" style="color:#FB923C;"></i>', title: 'Resume', subtitle: 'Section', type: 'section', target: 'resume', quickAction: 'downloadResume', quickLabel: 'Download' },
+    { icon: '<i class="fa-solid fa-certificate" style="color:#22C55E;"></i>', title: 'Certifications', subtitle: 'Section', type: 'section', target: 'certifications' },
+    { icon: '<i class="fa-solid fa-briefcase" style="color:#60A5FA;"></i>', title: 'Experience', subtitle: 'Section', type: 'section', target: 'experience' },
+    { icon: '<i class="fa-solid fa-envelope" style="color:#F97316;"></i>', title: 'Contact', subtitle: 'Section', type: 'section', target: 'contact', quickAction: 'email', quickLabel: 'Email' },
+    { icon: '<i class="fa-solid fa-arrow-up" style="color:#E2E8F0;"></i>', title: 'Go to Top', subtitle: 'Navigation', type: 'section', target: 'hero' },
 
     // Settings & Theme
-    { icon: '🌙', title: 'Toggle Theme', subtitle: 'Settings', type: 'action', action: 'toggleTheme' },
-    { icon: '↻', title: 'Reload Page', subtitle: 'Settings', type: 'action', action: 'reload' },
-    { icon: '🔍', title: 'Scroll to Skills Heatmap', subtitle: 'Navigation', type: 'action', action: 'scrollToSkillMap' },
+    { icon: '<i class="fa-solid fa-circle-half-stroke" style="color:#94A3B8;"></i>', title: 'Toggle Theme', subtitle: 'Settings', type: 'action', action: 'toggleTheme', toggle: true },
+    { icon: '<i class="fa-solid fa-water" style="color:#38BDF8;"></i>', title: 'Toggle Matrix Rain', subtitle: 'Effects', type: 'action', action: 'toggleMatrix', toggle: true },
+    { icon: '<i class="fa-solid fa-rotate-right" style="color:#38BDF8;"></i>', title: 'Reload Page', subtitle: 'Settings', type: 'action', action: 'reload' },
+    { icon: '<i class="fa-solid fa-location-crosshairs" style="color:#22D3EE;"></i>', title: 'Scroll to Skills Heatmap', subtitle: 'Navigation', type: 'action', action: 'scrollToSkillMap' },
 
     // Social & Resources
     {
-        icon: '<i class="fa-solid fa-link"></i>',
+        icon: '<i class="fa-solid fa-link" style="color:#60A5FA;"></i>',
         title: 'Social Links',
         subtitle: 'Quick links',
         type: 'group',
@@ -58,14 +59,14 @@ const commands = [
         ]
     },
     {
-        icon: '📚',
+        icon: '<i class="fa-solid fa-book-open" style="color:#F59E0B;"></i>',
         title: 'Resources',
         subtitle: 'Pages',
         type: 'group',
         chips: [
-            { label: 'Tool Index', url: 'tool-index.html' },
-            { label: 'Case Studies', url: 'case-studies.html' },
-            { label: 'Blog', url: 'blog.html' },
+            { label: 'Tool Index', url: 'pages/tool-index.html' },
+            { label: 'Case Studies', url: 'pages/case-studies.html' },
+            { label: 'Blog', url: 'pages/blog.html' },
             { label: 'Terminal', url: '#terminal' },
         ]
     },
@@ -81,7 +82,7 @@ let secretTimer = null;
 const secrets = [
     {
         trigger: 'rg',
-        icon: '<i class="fa-brands fa-whatsapp"></i>',
+        icon: '<i class="fa-brands fa-whatsapp" style="color:#22C55E;"></i>',
         title: 'WhatsApp',
         subtitle: 'Direct Message',
         type: 'link',
@@ -91,31 +92,31 @@ const secrets = [
     },
     {
         trigger: 'pic',
-        icon: '🗂️',
+        icon: '<i class="fa-solid fa-vault" style="color:#A855F7;"></i>',
         title: 'Vault',
         subtitle: 'Open private gallery',
         type: 'link',
-        target: 'vault.html',
+        target: 'pages/vault.html',
         quickAction: 'openVault',
         quickLabel: 'Open'
     },
     {
         trigger: 'arc',
-        icon: '🗃️',
+        icon: '<i class="fa-solid fa-box-archive" style="color:#F97316;"></i>',
         title: 'Archive',
         subtitle: 'Legacy drops',
         type: 'link',
-        target: 'arc.html',
+        target: 'pages/arc.html',
         quickAction: 'openArc',
         quickLabel: 'Open'
     },
     {
         trigger: 'log',
-        icon: '🧾',
+        icon: '<i class="fa-solid fa-clipboard-list" style="color:#38BDF8;"></i>',
         title: 'Latest Log',
         subtitle: 'Recent updates',
         type: 'link',
-        target: 'log.html',
+        target: 'pages/log.html',
         quickAction: 'openLog',
         quickLabel: 'Open'
     }
@@ -145,9 +146,18 @@ function renderCommands() {
     filteredCommands.forEach((cmd, index) => {
         const item = document.createElement('div');
         item.className = `command-item ${index === selectedIndex ? 'selected' : ''}`;
-        const actionMarkup = cmd.quickAction
-            ? `<button class="command-action" data-action="${cmd.quickAction}">${cmd.quickLabel || 'Action'}</button>`
-            : `<div class="command-hint">${cmd.type === 'info' ? '' : 'Enter'}</div>`;
+        let actionMarkup = '';
+        if (cmd.toggle) {
+            const isOn = getToggleState(cmd.action);
+            actionMarkup = `<button class="command-switch" role="switch" aria-checked="${isOn ? 'true' : 'false'}" data-toggle="${cmd.action}">
+                <span class="command-switch-track"></span>
+                <span class="command-switch-knob"></span>
+            </button>`;
+        } else if (cmd.quickAction) {
+            actionMarkup = `<button class="command-action" data-action="${cmd.quickAction}">${cmd.quickLabel || 'Action'}</button>`;
+        } else {
+            actionMarkup = `<div class="command-hint">${cmd.type === 'info' ? '' : 'Enter'}</div>`;
+        }
 
         const chipsMarkup = Array.isArray(cmd.chips)
             ? `<div class="command-chips">${cmd.chips.map(chip => {
@@ -172,6 +182,7 @@ function renderCommands() {
                     return;
                 }
                 executeCommand(cmd);
+                renderCommands();
             });
         }
         if (cmd.quickAction) {
@@ -179,6 +190,14 @@ function renderCommands() {
             btn?.addEventListener('click', (e) => {
                 e.stopPropagation();
                 executeQuickAction(cmd);
+            });
+        }
+        if (cmd.toggle) {
+            const toggle = item.querySelector('.command-switch');
+            toggle?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                executeCommand(cmd);
+                renderCommands();
             });
         }
         if (cmd.chips) {
@@ -199,11 +218,25 @@ function renderCommands() {
     });
 }
 
+function getToggleState(action) {
+    if (action === 'toggleTheme') {
+        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+        return theme === 'dark';
+    }
+    if (action === 'toggleMatrix') {
+        if (window.matrixRain && typeof window.matrixRain.isRunning === 'boolean') {
+            return window.matrixRain.isRunning;
+        }
+        return localStorage.getItem('matrixRain') !== 'off';
+    }
+    return false;
+}
+
 function executeQuickAction(cmd) {
     if (!cmd || !cmd.quickAction) return;
     switch (cmd.quickAction) {
         case 'downloadResume':
-            window.open('/assets/UmangGupta_Resume.pdf', '_blank');
+            window.open('./assets/UmangGupta_Resume.pdf', '_blank');
             break;
         case 'email':
             window.location.href = 'mailto:raghavans5711+portfolio@gmail.com';
@@ -217,13 +250,13 @@ function executeQuickAction(cmd) {
             window.open('https://github.com/mini-page/', '_blank');
             break;
         case 'openVault':
-            window.open('vault.html', '_blank');
+            window.open('pages/vault.html', '_blank');
             break;
         case 'openArc':
-            window.open('arc.html', '_blank');
+            window.open('pages/arc.html', '_blank');
             break;
         case 'openLog':
-            window.open('log.html', '_blank');
+            window.open('pages/log.html', '_blank');
             break;
         case 'openWhatsApp':
             window.open('https://wa.me/919621272014', '_blank');
@@ -270,7 +303,7 @@ function searchCommands(query) {
         if (!secretUnlocked || secretActiveTrigger !== secret.trigger) {
             filteredCommands = [
                 {
-                    icon: '>',
+                    icon: '<i class="fa-solid fa-key" style="color:#F59E0B;"></i>',
                     title: 'Unlocking secure channel...',
                     subtitle: 'Typing sequence detected',
                     type: 'info'
@@ -317,6 +350,11 @@ function executeCommand(cmd) {
             case 'toggleTheme':
                 toggleTheme();
                 break;
+            case 'toggleMatrix':
+                if (typeof window.toggleMatrixRain === 'function') {
+                    window.toggleMatrixRain();
+                }
+                break;
             case 'setLightTheme':
                 setTheme('light');
                 break;
@@ -334,7 +372,9 @@ function executeCommand(cmd) {
                 break;
         }
     }
-    toggleCommandPalette();
+    if (!cmd.toggle) {
+        toggleCommandPalette();
+    }
 }
 
 // Theme Functions
@@ -400,6 +440,7 @@ document.addEventListener('keydown', (e) => {
                 executeQuickAction(cmd);
             } else {
                 executeCommand(cmd);
+                renderCommands();
             }
         }
     }
@@ -467,3 +508,4 @@ mapPoints.forEach(point => {
 // Initialize
 renderCommands();
 loadTheme();
+

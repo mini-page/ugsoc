@@ -4,15 +4,15 @@ This list reflects a fresh scan of the current site. Order is impact-first.
 
 ## Priority (High Impact)
 - [ ] **Fix About section bullets** — Replace the inline “I” dots with proper list styling or remove the stray characters.  
-  Files: `index.html`, `style.css`
+  Files: `index.html`, `css/style.css`
 - [ ] **Mobile projects memory** — Remember “Show more” state (localStorage) so users don’t re-expand every visit.  
-  Files: `enhancements.js`
+  Files: `js/enhancements.js`
 - [ ] **Project outcomes pass** — Add 1–2 impact bullets per project (time saved, throughput, error reduction).  
   Files: `index.html`
 - [ ] **Live demo health check** — Verify each demo URL and fix broken routes or dead links.  
   Files: `index.html`
 - [ ] **Accessibility sweep** — Add explicit `aria-label` on icon-only buttons and ensure focus styles for keyboard navigation.  
-  Files: `index.html`, `style.css`
+  Files: `index.html`, `css/style.css`
 
 ## Credibility + Clarity
 - [ ] **Proof block refresh** — Replace vanity metrics with concrete, measurable wins (before/after).  
@@ -36,10 +36,11 @@ This list reflects a fresh scan of the current site. Order is impact-first.
 - [ ] **Section microcopy pass** — Add 1-line “why it matters” for Skills, Projects, Resume, and Terminal.  
   Files: `index.html`
 - [ ] **Hover/tap parity** — Ensure popovers and hidden controls are usable on touch (add tap trigger or fallback).  
-  Files: `enhancements.js`, `style.css`
+  Files: `js/enhancements.js`, `css/style.css`
 
 ## Content Expansion
 - [ ] **Add 1–2 real case studies** — Replace placeholders with real screenshots + short narrative.  
-  Files: `case-studies.html`
+  Files: `pages/case-studies.html`
 - [ ] **Blog seed posts** — Add 2–3 real posts with dates and tags.  
-  Files: `blog.html`
+  Files: `pages/blog.html`
+

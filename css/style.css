@@ -1,11 +1,11 @@
 /* Base & Noise */
 :root {
-    --bg-base: #F8FAFC;
+    --bg-base: #ffffff;
     --bg-panel: rgba(255, 255, 255, 0.75);
     --bg-card: rgba(255, 255, 255, 0.9);
-    --text-primary: #0F172A;
-    --text-secondary: #64748B;
-    --border-color: #e2e8f0;
+    --text-primary: #0b1223;
+    --text-secondary: #515e6f;
+    --border-color: #d7dfea;
     --border-panel: rgba(255, 255, 255, 0.9);
     --orange-500: 249, 115, 22;
     --orange-400: 251, 146, 60;
@@ -28,12 +28,12 @@
 
 [data-theme="dark"] {
     --bg-base: #0F172A;
-    --bg-panel: rgba(30, 41, 59, 0.75);
+    --bg-panel: rgba(14, 20, 29, 0.75);
     --bg-card: rgba(30, 41, 59, 0.9);
-    --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
-    --border-color: #334155;
-    --border-panel: rgba(51, 65, 85, 0.5);
+    --text-primary: #ffffff;
+    --text-secondary: #a2aebe;
+    --border-color: #273549;
+    --border-panel: rgba(72, 87, 108, 0.5);
     --glow-a: rgba(var(--orange-500), 0.22);
     --glow-b: rgba(234, 88, 12, 0.18);
     --glow-c: rgba(var(--amber-600), 0.12);
@@ -74,9 +74,17 @@ svg {
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
     animation: pulse-dot 1.6s ease-out infinite;
 }
+.status-dot-blue {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: #1468e6;
+    box-shadow: 0 0 0 0 #1b4ececf;
+    animation: pulse-dot 1.6s ease-out infinite;
+}
 
 @keyframes pulse-dot {
-    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    0% { box-shadow: 0 0 0 0 rgba(12, 201, 175, 0.7); }
     70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
     100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
@@ -109,7 +117,7 @@ body::before {
 /* Glass & Borders */
 .glass-panel {
     background: var(--bg-panel);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(15px);
     border: 1px solid var(--border-panel);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     transition: background 0.3s ease, border 0.3s ease;
@@ -379,6 +387,14 @@ body::before {
     background: #10B981;
 }
 
+@media (max-width: 640px) {
+    .btn-skillmap {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.7rem;
+        border-radius: 8px;
+    }
+}
+
 /* Card Consistency */
 .glass-panel {
     border-radius: 16px;
@@ -528,7 +544,7 @@ body::before {
 
 .command-chip:hover {
     transform: translateY(-1px);
-    background: rgba(148, 163, 184, 0.2);
+    background: rgba(11, 84, 187, 0.2);
     color: #F8FAFC;
 }
 
@@ -603,12 +619,60 @@ body::before {
     background: rgba(249, 115, 22, 0.18);
 }
 
+.command-switch {
+    margin-left: auto;
+    width: 48px;
+    height: 26px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.65), rgba(30, 41, 59, 0.65));
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3px;
+    overflow: hidden;
+    transition: background 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.command-switch-track {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+}
+
+.command-switch-knob {
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    box-shadow: 0 4px 10px rgba(2, 6, 23, 0.45);
+    transform: translateX(0);
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.command-switch[aria-checked="true"] {
+    background: rgb(255, 255, 255);
+    border-color: rgba(0, 0, 0, 0.882);
+    justify-content: flex-end;
+}
+
+.command-switch[aria-checked="true"] .command-switch-knob {
+    background: #000000;
+    transform: translateX(0);
+}
+
+.command-switch:focus-visible {
+    outline: 2px solid rgba(var(--orange-500), 0.8);
+    outline-offset: 3px;
+}
+
 .command-footer {
     padding: 12px 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    gap: 12px;
-    font-size: 11px;
+    gap: 10px;
+    font-size: 10px;
     color: #64748b;
     font-family: 'JetBrains Mono', monospace;
 }

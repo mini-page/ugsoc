@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UG-SOC | Umang Gupta - Security Operations Console</title>
-    <meta name="description" content="UG-SOC is Umang Gupta's security automation portfolio featuring tools, projects, and systems thinking for modern security operations.">
+    <meta name="description"
+        content="UG-SOC is Umang Gupta's security automation portfolio featuring tools, projects, and systems thinking for modern security operations.">
     <meta name="author" content="Umang Gupta">
     <meta name="theme-color" content="#8B5CF6">
     <meta name="color-scheme" content="light dark">
 
     <meta property="og:title" content="UG-SOC | Umang Gupta - Security Operations Console">
-    <meta property="og:description" content="Security automation engineer in formation. Tool-driven, systems-first, and focused on reducing human friction.">
+    <meta property="og:description"
+        content="Security automation engineer in formation. Tool-driven, systems-first, and focused on reducing human friction.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="assets/project-secretjuice.svg">
     <meta property="og:url" content="/">
@@ -34,20 +36,20 @@
     <!-- Devicon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
-    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="pwa/icon.svg" type="image/svg+xml">
+    <link rel="manifest" href="pwa/manifest.json">
 
     <!-- Tailwind Config -->
-    <script src="scripts.js"></script>
+    <script src="js/scripts.js"></script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- App Scripts -->
-    <script src="CommandPalette.js" defer></script>
-    <script src="enhancements.js" defer></script>
-    
+    <script src="js/CommandPalette.js" defer></script>
+    <script src="js/enhancements.js" defer></script>
+
 </head>
 
 <body class="text-slate-500 font-body selection:bg-soc-primary selection:text-white">
@@ -70,12 +72,10 @@
 
     <!-- Background Decor -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div
-            class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-soc-primary/20 rounded-full blur-[50px] mix-blend-multiply parallax"
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-soc-primary/20 rounded-full blur-[50px] mix-blend-multiply parallax"
             data-speed="0.15">
         </div>
-        <div
-            class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-soc-accent/20 rounded-full blur-[50px] mix-blend-multiply parallax"
+        <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-soc-accent/20 rounded-full blur-[50px] mix-blend-multiply parallax"
             data-speed="0.1">
         </div>
     </div>
@@ -91,7 +91,7 @@
             <div class="command-footer">
                 <div class="command-footer-item">
                     <span class="command-key">↑↓</span>
-                    <span>Navigate</span>
+                    <span>Nav</span>
                 </div>
                 <div class="command-footer-item">
                     <span class="command-key">Enter</span>
@@ -107,11 +107,10 @@
 
     <!-- Nav -->
     <nav class="fixed w-full z-40 top-0 p-4 sm:p-6 transition-all duration-300">
-        <div class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-4 sm:px-6 py-2 sm:py-3 rounded-full">
+        <div
+            class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-4 sm:px-6 py-2 sm:py-3 rounded-full">
             <a href="#hero" class="font-display font-bold text-xl tracking-tight text-slate-500">
-                U<span class="hidden md:inline">mang</span>
-                G<span class="hidden md:inline">upta</span>
-                <span class="text-soc-primary">-SOC</span>
+                U<span class="hidden md:inline">mang</span>G<span class="hidden md:inline">upta</span><span class="text-soc-primary">-SOC</span>
             </a>
             <div class="flex items-center gap-1">
                 <button onclick="toggleTheme()" aria-label="Toggle theme"
@@ -141,14 +140,15 @@
             <div class="mb-6 flex flex-wrap gap-4 font-mono text-sm">
                 <span
                     class="px-3 py-1 bg-soc-primary/10 text-soc-primary rounded-full font-bold border border-soc-primary/20">UG-SOC
-                    v1.0</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-500 rounded-full">SECURITY AUTOMATION ENGINEER</span>
+                    v3.8</span>
+                <span class="px-3 py-1 bg-slate-50 text-slate-500 rounded-full">SECURITY AUTOMATION ENGINEER</span>
             </div>
 
-            <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 max-w-4xl">
-                I build security tools that <span
-                    class="typing-text"
-                    data-phrases="reduce human friction.,compress response time.,eliminate repetitive work.,make security feel effortless.">reduce human
+            <h1
+                class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 max-w-4xl">
+                I build security tools that <span class="typing-text"
+                    data-phrases="reduce human friction.,compress response time.,eliminate repetitive work.,make security feel effortless.">reduce
+                    human
                     friction.</span>
             </h1>
 
@@ -158,20 +158,22 @@
 
             <div class="flex flex-wrap gap-4 items-center">
                 <a href="https://github.com/mini-page/" target="_blank" rel="noopener noreferrer"
-                    class="flex items-center gap-2 px-6 py-3 rounded-xl bg-soc-dark text-white font-bold hover:bg-gray-700 transition-colors">
+                    class="flex items-center gap-2 px-6 py-3 rounded-xl bg-black text-white font-bold hover:bg-gray-700 transition-colors">
                     <i class="fa-brands fa-github"></i> GitHub
                 </a>
                 <a href="https://www.linkedin.com/in/ug5711" target="_blank" rel="noopener noreferrer"
-                    class="flex items-center gap-2 px-6 py-3 rounded-xl bg-soc-dark text-white font-bold hover:bg-blue-500 transition-colors">
+                    class="flex items-center gap-2 px-6 py-3 rounded-xl bg-black text-white font-bold hover:bg-blue-500 transition-colors">
                     <i class="fa-brands fa-linkedin"></i> LinkedIn
                 </a>
             </div>
 
             <div class="mt-4 flex flex-wrap gap-3 text-xs font-mono">
                 <a href="#projects"
-                    class="px-3 py-2 rounded-lg bg-soc-primary/10 text-soc-primary border border-soc-primary/20 hover:bg-soc-primary/20 transition-colors">View Projects</a>
+                    class="px-3 py-2 rounded-lg bg-soc-primary/10 text-soc-primary border border-soc-primary/20 hover:bg-soc-primary/20 transition-colors">View
+                    Projects</a>
                 <a href="#resume"
-                    class="px-3 py-2 rounded-lg bg-soc-accent/10 text-soc-accent border border-soc-accent/20 hover:bg-soc-accent/20 transition-colors">Download Resume</a>
+                    class="px-3 py-2 rounded-lg bg-soc-accent/10 text-soc-accent border border-soc-accent/20 hover:bg-soc-accent/20 transition-colors">Download
+                    Resume</a>
                 <a href="#contact"
                     class="px-3 py-2 rounded-lg bg-soc-success/10 text-soc-success border border-soc-success/20 hover:bg-soc-success/20 transition-colors">Contact</a>
             </div>
@@ -251,7 +253,9 @@
             </div>
 
             <div class="metrics-toggle-wrap mt-3 text-left">
-                <button id="metricsToggle" class="metrics-toggle inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-soc-primary/30 text-soc-primary hover:bg-soc-primary/10 transition-colors" aria-expanded="false">
+                <button id="metricsToggle"
+                    class="metrics-toggle inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-soc-primary/30 text-soc-primary hover:bg-soc-primary/10 transition-colors"
+                    aria-expanded="false">
                     <span>Show more metrics</span>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -265,11 +269,13 @@
                 <div class="glass-panel p-6 rounded-2xl hover-lift scroll-reveal-left">
                     <h3 class="font-bold text-xl mb-4 text-slate-500">Who I Am</h3>
                     <p class="text-slate-600 leading-relaxed mb-4">
-                        I'm <span class="text-soc-success font-bold">Umang Gupta</span>, a security-focused developer
+                        <span class="status-dot text-green-500">|</span>
+                        I'm <span class="text-green-500 font-bold">Umang Gupta</span>, a security-focused developer
                         passionate about building automation tools that make cybersecurity workflows more efficient. I
                         specialize in creating practical tools for ethical hacking and security operations.
                     </p>
                     <p class="text-slate-600 leading-relaxed">
+                        <span class="status-dot-blue text-blue-500">|</span>
                         My approach combines <span class="text-blue-500 font-semibold">deep technical knowledge</span>
                         with a focus on developer experience, creating tools that security professionals actually want
                         to use.
@@ -400,7 +406,8 @@
                         <h3 class="font-bold text-2xl mb-1">Skill Heatmap</h3>
                         <p class="text-slate-500 text-sm">Open the floating Skill Map panel to explore details.</p>
                     </div>
-                    <button class="btn btn-primary" type="button" data-skillmap-toggle onclick="toggleSkillMapPanel(true)">
+                    <button class="btn btn-primary btn-skillmap" type="button" data-skillmap-toggle
+                        onclick="toggleSkillMapPanel(true)">
                         Open Skill Map
                     </button>
                 </div>
@@ -426,8 +433,6 @@
                     <div
                         class="w-full h-32 bg-soc-dark rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
                         <img src="assets/project-asllock.svg" alt="asllock thumbnail" class="project-thumb">
-                        <i
-                            class="fa-solid fa-lock text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">ACCESS CONTROL / TUI</div>
@@ -438,10 +443,14 @@
                             TUI tool to lock/unlock directories safely on Windows using NTFS ACLs.
                         </p>
                         <div class="project-popover">
-                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Manual ACLs are error-prone.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> TUI wrapper over `icacls`.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> One-flow access control.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster lock/unlock cycles.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Manual ACLs are
+                                error-prone.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> TUI wrapper over
+                                `icacls`.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> One-flow access control.
+                            </div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster lock/unlock
+                                cycles.</div>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
@@ -456,8 +465,6 @@
                     <div
                         class="w-full h-32 bg-slate-800 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
                         <img src="assets/project-secretjuice.svg" alt="TheSecretJuice thumbnail" class="project-thumb">
-                        <i
-                            class="fa-solid fa-bolt text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">CLI ENHANCER</div>
@@ -467,10 +474,14 @@
                             PowerShell module that extends common CLI tools to speed up security workflows.
                         </p>
                         <div class="project-popover">
-                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Repetitive CLI tasks slow down workflows.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Module layer that adds capabilities.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Faster, richer commands.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Reduced friction and quicker execution.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Repetitive CLI tasks
+                                slow down workflows.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Module layer that adds
+                                capabilities.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Faster, richer commands.
+                            </div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Reduced friction and
+                                quicker execution.</div>
                         </div>
                     </div>
                     <div class="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-slate-100">
@@ -508,10 +519,14 @@
                             Cross-platform PDF permissions tooling for educational use.
                         </p>
                         <div class="project-popover">
-                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Locked PDFs block workflows.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Patch-based tooling.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Full-permission access.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster document tasks.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Locked PDFs block
+                                workflows.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Patch-based tooling.
+                            </div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Full-permission access.
+                            </div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster document tasks.
+                            </div>
                         </div>
                     </div>
 
@@ -545,8 +560,6 @@
                     <div
                         class="w-full h-32 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
                         <img src="assets/project-trackify.svg" alt="trackify thumbnail" class="project-thumb">
-                        <i
-                            class="fa-solid fa-heart-pulse text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">WELLNESS / WEB APP</div>
@@ -557,10 +570,13 @@
                             Unified wellness tracker for hydration, sleep, mood, and nutrition.
                         </p>
                         <div class="project-popover">
-                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Wellness data is scattered.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Unified daily tracking.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Wellness data is
+                                scattered.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Unified daily tracking.
+                            </div>
                             <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Single dashboard.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Easier progress visibility.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Easier progress
+                                visibility.</div>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
@@ -576,8 +592,6 @@
                     <div
                         class="w-full h-32 bg-indigo-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
                         <img src="assets/project-sniprun.svg" alt="sniprun thumbnail" class="project-thumb">
-                        <i
-                            class="fa-solid fa-terminal text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">CLI alias</div>
@@ -587,10 +601,13 @@
                             Short aliases for complex shell commands to speed up execution.
                         </p>
                         <div class="project-popover">
-                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Long commands are error-prone.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Map to short aliases.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Long commands are
+                                error-prone.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Map to short aliases.
+                            </div>
                             <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Reusable “snips”.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster, safer execution.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster, safer execution.
+                            </div>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
@@ -605,8 +622,6 @@
                     <div
                         class="w-full h-32 bg-blue-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
                         <img src="assets/project-syncmaster.svg" alt="SyncMaster thumbnail" class="project-thumb">
-                        <i
-                            class="fa-solid fa-rotate text-4xl text-white relative z-10 group-hover:rotate-180 transition-transform duration-700"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">BACKUP / SYNC</div>
@@ -616,10 +631,12 @@
                             Guided Robocopy UI with scheduling for reliable file sync.
                         </p>
                         <div class="project-popover">
-                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Robocopy is cumbersome.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Robocopy is cumbersome.
+                            </div>
                             <div><span class="text-xs font-mono text-slate-300">Approach:</span> UI + scheduling.</div>
                             <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Repeatable syncs.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Fewer errors, faster backups.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Fewer errors, faster
+                                backups.</div>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
@@ -634,8 +651,6 @@
                     <div
                         class="w-full h-32 bg-teal-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
                         <img src="assets/project-cyberpath.svg" alt="Cyber-path thumbnail" class="project-thumb">
-                        <i
-                            class="fa-solid fa-map-signs text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">EDUCATION / GUIDE</div>
@@ -645,10 +660,13 @@
                             Structured cybersecurity roadmap for beginners with clear milestones.
                         </p>
                         <div class="project-popover">
-                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> No clear learning path.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> No clear learning path.
+                            </div>
                             <div><span class="text-xs font-mono text-slate-300">Approach:</span> Curated roadmap.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Step-by-step progression.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster learning momentum.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Step-by-step
+                                progression.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Faster learning momentum.
+                            </div>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
@@ -663,8 +681,6 @@
                     <div
                         class="w-full h-32 bg-orange-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
                         <img src="assets/project-skfitness.svg" alt="skfitness thumbnail" class="project-thumb">
-                        <i
-                            class="fa-solid fa-dumbbell text-4xl text-white relative z-10 group-hover:rotate-12 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">BUSINESS / WEB</div>
@@ -674,10 +690,14 @@
                             Premium gym website with clean layout, clear services, and strong branding.
                         </p>
                         <div class="project-popover">
-                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> No modern online presence.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Clean UI + clear info.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Premium feel and trust.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Easier outreach and clarity.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> No modern online
+                                presence.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Clean UI + clear info.
+                            </div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Premium feel and trust.
+                            </div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Easier outreach and
+                                clarity.</div>
                         </div>
                     </div>
                     <div class="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-slate-100">
@@ -697,8 +717,6 @@
                     <div
                         class="w-full h-32 bg-gray-100 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
                         <img src="assets/project-rahulsoni.svg" alt="rahulsoni.in thumbnail" class="project-thumb">
-                        <i
-                            class="fa-solid fa-globe text-4xl text-white relative z-10 group-hover:scale-110 transition-transform"></i>
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">PERSONAL / PORTFOLIO</div>
@@ -708,10 +726,13 @@
                             Minimal personal site that highlights identity and work.
                         </p>
                         <div class="project-popover">
-                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Personal branding needed a home.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Personal branding needed
+                                a home.</div>
                             <div><span class="text-xs font-mono text-slate-300">Approach:</span> Minimal layout.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Fast, elegant site.</div>
-                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Stronger online presence.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Fast, elegant site.
+                            </div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Stronger online presence.
+                            </div>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
@@ -722,7 +743,9 @@
             </div>
 
             <div class="projects-toggle-wrap mt-6 text-center">
-                <button id="projectsToggle" class="projects-toggle inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-soc-primary/30 text-soc-primary hover:bg-soc-primary/10 transition-colors" aria-expanded="false">
+                <button id="projectsToggle"
+                    class="projects-toggle inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-soc-primary/30 text-soc-primary hover:bg-soc-primary/10 transition-colors"
+                    aria-expanded="false">
                     <span>Show more projects</span>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -730,15 +753,15 @@
 
             <div class="mt-10 text-center">
                 <div class="flex flex-wrap items-center justify-center gap-4">
-                    <a href="tool-index.html"
+                    <a href="pages/tool-index.html"
                         class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
                         Open Tool Index <i class="fa-solid fa-toolbox ml-2"></i>
                     </a>
-                    <a href="case-studies.html"
+                    <a href="pages/case-studies.html"
                         class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
                         View Case Studies <i class="fa-solid fa-book-open ml-2"></i>
                     </a>
-                    <a href="blog.html"
+                    <a href="pages/blog.html"
                         class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
                         Read Blog <i class="fa-solid fa-pen-nib ml-2"></i>
                     </a>
@@ -754,12 +777,14 @@
         <section id="resume" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Resume Console</span>
 
-            <div class="glass-panel rounded-3xl p-8 lg:p-12 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-10 items-start">
+            <div
+                class="glass-panel rounded-3xl p-8 lg:p-12 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-10 items-start">
                 <!-- Left: Overview -->
                 <div class="scroll-reveal-left">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-3 h-3 rounded-full bg-soc-success animate-pulse"></div>
-                        <span class="font-mono text-sm text-soc-primary uppercase tracking-wider">Interactive Terminal</span>
+                        <span class="font-mono text-sm text-soc-primary uppercase tracking-wider">Interactive
+                            Terminal</span>
                     </div>
 
                     <h2 class="font-display text-4xl font-bold mb-4">
@@ -787,11 +812,11 @@
                 <!-- Right: Download Action -->
                 <div class="flex flex-col gap-6 scroll-reveal-right lg:pt-2">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <a href="/assets/UmangGupta_Resume.pdf" target="_blank" rel="noopener noreferrer"
+                        <a href="./assets/UmangGupta_Resume.pdf" target="_blank" rel="noopener noreferrer"
                             class="btn btn-primary btn-solid btn-orange inline-flex items-center justify-center gap-2 w-full">
                             <i class="fa-solid fa-eye"></i> Preview
                         </a>
-                        <a href="/assets/UmangGupta_Resume.pdf" download
+                        <a href="./assets/UmangGupta_Resume.pdf" download
                             class="btn btn-primary btn-solid btn-green inline-flex items-center justify-center gap-2 w-full">
                             <i class="fa-solid fa-download"></i> Download
                         </a>
@@ -837,7 +862,7 @@
                 </div>
             </div>
             <div class="mt-6 text-center">
-                <a href="/assets/UmangGupta_Resume.pdf" target="_blank" rel="noopener noreferrer"
+                <a href="./assets/UmangGupta_Resume.pdf" target="_blank" rel="noopener noreferrer"
                     class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
                     Preview Resume PDF <i class="fa-solid fa-eye ml-2"></i>
                 </a>
@@ -873,7 +898,8 @@
                         <span class="font-mono">UC-cc72d051-6d84-4964-b59f-cb4a4d0654f0</span>
                     </div>
                     <div class="mt-3">
-                        <span class="inline-flex items-center gap-1 text-xs text-pink-500 bg-pink-50 px-2 py-1 rounded">
+                        <span
+                            class="inline-flex items-center gap-1 text-xs text-pink-700 bg-pink-100 px-2 py-1 rounded">
                             <i class="fa-solid fa-check-circle"></i>
                             Network Scanning · NMAP · Security
                         </span>
@@ -901,7 +927,8 @@
                         <span class="bg-slate-100 px-2 py-1 rounded-full">Jan 2026</span>
                     </div>
                     <div class="mt-3">
-                        <span class="inline-flex items-center gap-1 text-xs text-cyan-600 bg-cyan-50 px-2 py-1 rounded">
+                        <span
+                            class="inline-flex items-center gap-1 text-xs text-cyan-700 bg-cyan-100 px-2 py-1 rounded">
                             <i class="fa-solid fa-check-circle"></i>
                             AWS · Ransomware · Malware Detection
                         </span>
@@ -935,9 +962,9 @@
                     </div>
                     <div class="mt-3">
                         <span
-                            class="inline-flex items-center gap-1 text-xs text-purple-500 bg-purple-50 px-2 py-1 rounded">
-                            <i class="fa-solid fa-check-circle"></i>
-                            Network Hacking · Ethical Hacking · Pentesting
+                            class="inline-flex items-center gap-1 text-xs text-purple-700 bg-purple-100 px-2 py-1 rounded"><i
+                                class="fa-solid fa-check-circle"></i>
+                            N/w Hacking · Ethical Hacking · Pentesting
                         </span>
                     </div>
                 </div>
@@ -969,9 +996,9 @@
                     </div>
                     <div class="mt-3">
                         <span
-                            class="inline-flex items-center gap-1 text-xs text-green-500 bg-green-50 px-2 py-1 rounded">
-                            <i class="fa-solid fa-check-circle"></i>
-                            Wireshark · Packet Analysis · Network Monitoring
+                            class="inline-flex items-center gap-1 text-xs text-green-700 bg-green-100 px-2 py-1 rounded"><i
+                                class="fa-solid fa-check-circle"></i>
+                            Wireshark · Packet Analysis · N/w Monitory
                         </span>
                     </div>
                 </div>
@@ -1003,7 +1030,7 @@
                     </div>
                     <div class="mt-3">
                         <span
-                            class="inline-flex items-center gap-1 text-xs text-orange-500 bg-orange-50 px-2 py-1 rounded">
+                            class="inline-flex items-center gap-1 text-xs text-orange-700 bg-orange-100 px-2 py-1 rounded">
                             <i class="fa-solid fa-check-circle"></i>
                             Responsive Design · HTML · CSS
                         </span>
@@ -1034,7 +1061,7 @@
                     </div>
                     <div class="mt-3">
                         <span
-                            class="inline-flex items-center gap-1 text-xs text-soc-primary bg-purple-50 px-2 py-1 rounded">
+                            class="inline-flex items-center gap-1 text-xs text-purple-700 bg-purple-100 px-2 py-1 rounded">
                             <i class="fa-solid fa-check-circle"></i>
                             Linux · Scripting · Security Research · Labs
                         </span>
@@ -1050,7 +1077,7 @@
             <div class="glass-panel p-8 rounded-2xl">
                 <h3 class="font-bold text-2xl mb-6">Current Focus</h3>
                 <div class="space-y-6">
-                    <div class="border-l-4 border-soc-primary pl-6 py-2">
+                    <div class="border-l-4 border-blue-500 pl-6 py-2">
                         <h4 class="font-bold text-lg mb-2">Security Tool Development</h4>
                         <p class="text-slate-600 text-sm leading-relaxed">
                             Building automation tools that simplify complex security workflows. Focus on creating
@@ -1058,14 +1085,14 @@
                             work.
                         </p>
                     </div>
-                    <div class="border-l-4 border-soc-accent pl-6 py-2">
+                    <div class="border-l-4 border-green-500 pl-6 py-2">
                         <h4 class="font-bold text-lg mb-2">Open Source Contribution</h4>
                         <p class="text-slate-600 text-sm leading-relaxed">
                             Contributing to security tools and frameworks. Sharing knowledge through well-documented
                             projects and helping others learn security automation.
                         </p>
                     </div>
-                    <div class="border-l-4 border-soc-success pl-6 py-2">
+                    <div class="border-l-4 border-orange-500 pl-6 py-2">
                         <h4 class="font-bold text-lg mb-2">Continuous Learning</h4>
                         <p class="text-slate-600 text-sm leading-relaxed">
                             Constantly exploring new security techniques, tools, and methodologies. Staying updated with
@@ -1076,12 +1103,107 @@
             </div>
         </section>
 
+        <!-- STRATEGY & PATH -->
+        <!-- <section class="bg-soc-dark text-white rounded-3xl p-8 lg:p-12 relative overflow-hidden scroll-reveal">
+            <div class="relative z-10 grid lg:grid-cols-2 gap-12">
+                <div>
+                    <span class="font-mono text-soc-primary text-xs uppercase tracking-widest mb-2 block">Strategic
+                        Summary</span>
+                    <h2 class="font-display text-3xl font-bold mb-6">Intelligence Report</h2>
+
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-soc-primary pl-4">
+                            <div class="text-xs text-gray-400 font-mono mb-1">CORE LEVERAGE</div>
+                            <div class="text-lg">Building security automation tools that simplify complex workflows.
+                            </div>
+                        </div>
+                        <div class="border-l-2 border-soc-accent pl-4">
+                            <div class="text-xs text-gray-400 font-mono mb-1">PRIMARY BOTTLENECK</div>
+                            <div class="text-lg">Failure to finish, document, and ship consistently.</div>
+                        </div>
+                        <div class="border-l-2 border-soc-success pl-4">
+                            <div class="text-xs text-gray-400 font-mono mb-1">HIGHEST ROI ADJUSTMENT</div>
+                            <div class="text-lg">Ship small, finished tools even when bored.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-8 rounded-2xl border border-white/10">
+                    <h3 class="font-bold text-xl mb-4 text-soc-accent">Fastest Viable Path</h3>
+                    <p class="text-xl font-display mb-4">Security Automation Engineer</p>
+                    <ul class="space-y-2 text-gray-300 text-sm">
+                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Matches skills and energy</li>
+                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Minimal meetings</li>
+                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Tool-centric leverage</li>
+                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Strong income trajectory</li>
+                    </ul>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- EXECUTION STATUS -->
+        <!-- <section class="relative group scroll-reveal">
+            <div class="absolute inset-0 bg-soc-accent blur-xl opacity-20 group-hover:opacity-30 transition-opacity">
+            </div>
+            <div class="relative glass-panel p-8 rounded-3xl border-l-4 border-soc-accent">
+                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                    <div>
+                        <span
+                            class="inline-flex items-center px-3 py-1 rounded bg-soc-accent/10 text-soc-accent text-xs font-bold font-mono mb-2 animate-pulse">
+                            <i class="fa-solid fa-crosshairs mr-2"></i> ACTIVE OBJECTIVE
+                        </span>
+                        <h3 class="font-display text-2xl font-bold text-slate-500">Next 30 Days</h3>
+                        <p class="text-slate-600 mt-1 max-w-lg">
+                            Build and publicly ship one complete security automation tool with minimal but clear
+                            documentation.
+                        </p>
+                    </div>
+                    <div class="text-right hidden lg:block">
+                        <div
+                            class="text-4xl font-mono font-bold text-slate-200 group-hover:text-soc-accent transition-colors">
+                            01</div>
+                        <div class="text-xs text-slate-400 font-mono uppercase">Priority Target</div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- INTERACTIVE TERMINAL -->
+        <section id="terminal" class="scroll-reveal">
+            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Interactive Terminal</span>
+
+            <div class="glass-panel p-6 rounded-2xl terminal-shell">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-title">ug-soc — secure console</div>
+                </div>
+
+                <div id="terminalOutput" class="terminal-output">
+                    <div class="terminal-line">Type <span class="terminal-accent">help</span> to see available commands.
+                    </div>
+                </div>
+
+                <div class="terminal-input-row">
+                    <span class="terminal-prompt">$</span>
+                    <input id="terminalInput" class="terminal-input" type="text" placeholder="help, projects, resume..."
+                        autocomplete="off">
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS (Loaded from testimonials.html) -->
+        <!-- <div id="testimonials-container"></div> -->
+
         <!-- CONTACT / SOCIAL -->
         <section id="contact" class="scroll-reveal">
             <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Connect & Collaborate</span>
 
             <div class="text-center mb-8">
-                <h2 class="font-display text-3xl font-bold mb-3 text-black">Find Me Online</h2>
+                <h2 class="font-display text-3xl font-bold mb-3 text-gray-600">Find Me Online</h2>
                 <p class="text-slate-600 max-w-2xl mx-auto">
                     Whether you're looking for a collab, mentoring, or simply a friendly hello, I'm always just a click
                     away.
@@ -1167,117 +1289,117 @@
                 <div class="mt-4">
                     <h3 class="text-sm font-mono text-soc-success uppercase tracking-wider mb-4">Social Media</h3>
                     <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <a href="https://x.com/ug_5711" target="_blank" rel="noopener noreferrer"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-500 rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-x-twitter text-white text-lg"></i>
+                        <a href="https://x.com/ug_5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-500 rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-x-twitter text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">X / Twitter</p>
+                                    <p class="text-xs text-slate-500">Tech Updates</p>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">X / Twitter</p>
-                                <p class="text-xs text-slate-500">Tech Updates</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
 
-                    <a href="https://www.threads.com/@ug_5711" target="_blank" rel="noopener noreferrer"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-slate-900 to-black rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-threads text-white text-lg"></i>
+                        <a href="https://www.threads.com/@ug_5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-slate-900 to-black rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-threads text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">Threads</p>
+                                    <p class="text-xs text-slate-500">Quick Thoughts</p>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">Threads</p>
-                                <p class="text-xs text-slate-500">Quick Thoughts</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
 
-                    <a href="https://www.instagram.com/ug_5711" target="_blank" rel="noopener noreferrer"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-pink-500 via-red-500 to-orange-500 rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-instagram text-white text-lg"></i>
+                        <a href="https://www.instagram.com/ug_5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-pink-500 via-red-500 to-orange-500 rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-instagram text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">Instagram</p>
+                                    <p class="text-xs text-slate-500">Visual Stories</p>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">Instagram</p>
-                                <p class="text-xs text-slate-500">Visual Stories</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
 
-                    <a href="https://www.youtube.com/@ug5711" target="_blank" rel="noopener noreferrer"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-youtube text-white text-lg"></i>
+                        <a href="https://www.youtube.com/@ug5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-youtube text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">YouTube</p>
+                                    <p class="text-xs text-slate-500">Video Content</p>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">YouTube</p>
-                                <p class="text-xs text-slate-500">Video Content</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
 
-                    <a href="https://www.reddit.com/user/Raghavs5711/" target="_blank" rel="noopener noreferrer"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-reddit text-white text-lg"></i>
+                        <a href="https://www.reddit.com/user/Raghavs5711/" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-reddit text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">Reddit</p>
+                                    <p class="text-xs text-slate-500">Discussions</p>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">Reddit</p>
-                                <p class="text-xs text-slate-500">Discussions</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
 
-                    <a href="https://in.pinterest.com/ug_5711/" target="_blank" rel="noopener noreferrer"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-red-600 to-pink-600 rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-pinterest text-white text-lg"></i>
+                        <a href="https://in.pinterest.com/ug_5711/" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-red-600 to-pink-600 rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-pinterest text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">Pinterest</p>
+                                    <p class="text-xs text-slate-500">Inspiration</p>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">Pinterest</p>
-                                <p class="text-xs text-slate-500">Inspiration</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
 
-                    <a href="https://www.snapchat.com/add/rg_5711" target="_blank" rel="noopener noreferrer"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-snapchat text-white text-lg"></i>
+                        <a href="https://www.snapchat.com/add/rg_5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-snapchat text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">Snapchat</p>
+                                    <p class="text-xs text-slate-500">Quick Snaps</p>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">Snapchat</p>
-                                <p class="text-xs text-slate-500">Quick Snaps</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
 
-                    <a href="http://t.me/@ug_5711" target="_blank" rel="noopener noreferrer"
-                        class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-cyan-400 to-sky-600 rounded-xl flex items-center justify-center">
-                                <i class="fa-brands fa-telegram text-white text-lg"></i>
+                        <a href="http://t.me/@ug_5711" target="_blank" rel="noopener noreferrer"
+                            class="glow-card group relative block glass-panel p-4 rounded-xl transition hover:-translate-y-1">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-cyan-400 to-sky-600 rounded-xl flex items-center justify-center">
+                                    <i class="fa-brands fa-telegram text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">Telegram</p>
+                                    <p class="text-xs text-slate-500">Fast Chat</p>
+                                </div>
                             </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-sm">Telegram</p>
-                                <p class="text-xs text-slate-500">Fast Chat</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
                     </div>
 
                     <h3 class="text-sm font-mono text-soc-primary uppercase tracking-wider mb-4 mt-6">Extras</h3>
@@ -1383,104 +1505,10 @@
             </div>
         </section>
 
-        <!-- STRATEGY & PATH -->
-        <section class="bg-soc-dark text-white rounded-3xl p-8 lg:p-12 relative overflow-hidden scroll-reveal">
-            <div class="relative z-10 grid lg:grid-cols-2 gap-12">
-                <div>
-                    <span class="font-mono text-soc-primary text-xs uppercase tracking-widest mb-2 block">Strategic
-                        Summary</span>
-                    <h2 class="font-display text-3xl font-bold mb-6">Intelligence Report</h2>
-
-                    <div class="space-y-6">
-                        <div class="border-l-2 border-soc-primary pl-4">
-                            <div class="text-xs text-gray-400 font-mono mb-1">CORE LEVERAGE</div>
-                            <div class="text-lg">Building security automation tools that simplify complex workflows.
-                            </div>
-                        </div>
-                        <div class="border-l-2 border-soc-accent pl-4">
-                            <div class="text-xs text-gray-400 font-mono mb-1">PRIMARY BOTTLENECK</div>
-                            <div class="text-lg">Failure to finish, document, and ship consistently.</div>
-                        </div>
-                        <div class="border-l-2 border-soc-success pl-4">
-                            <div class="text-xs text-gray-400 font-mono mb-1">HIGHEST ROI ADJUSTMENT</div>
-                            <div class="text-lg">Ship small, finished tools even when bored.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-800/50 p-8 rounded-2xl border border-white/10">
-                    <h3 class="font-bold text-xl mb-4 text-soc-accent">Fastest Viable Path</h3>
-                    <p class="text-xl font-display mb-4">Security Automation Engineer</p>
-                    <ul class="space-y-2 text-gray-300 text-sm">
-                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Matches skills and energy</li>
-                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Minimal meetings</li>
-                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Tool-centric leverage</li>
-                        <li><i class="fa-solid fa-check text-soc-primary mr-2"></i> Strong income trajectory</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- EXECUTION STATUS -->
-        <section class="relative group scroll-reveal">
-            <div class="absolute inset-0 bg-soc-accent blur-xl opacity-20 group-hover:opacity-30 transition-opacity">
-            </div>
-            <div class="relative glass-panel p-8 rounded-3xl border-l-4 border-soc-accent">
-                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-                    <div>
-                        <span
-                            class="inline-flex items-center px-3 py-1 rounded bg-soc-accent/10 text-soc-accent text-xs font-bold font-mono mb-2 animate-pulse">
-                            <i class="fa-solid fa-crosshairs mr-2"></i> ACTIVE OBJECTIVE
-                        </span>
-                        <h3 class="font-display text-2xl font-bold text-slate-500">Next 30 Days</h3>
-                        <p class="text-slate-600 mt-1 max-w-lg">
-                            Build and publicly ship one complete security automation tool with minimal but clear
-                            documentation.
-                        </p>
-                    </div>
-                    <div class="text-right hidden lg:block">
-                        <div
-                            class="text-4xl font-mono font-bold text-slate-200 group-hover:text-soc-accent transition-colors">
-                            01</div>
-                        <div class="text-xs text-slate-400 font-mono uppercase">Priority Target</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- INTERACTIVE TERMINAL -->
-        <section id="terminal" class="scroll-reveal">
-            <span class="section-label text-lg mb-6 block border-b border-slate-200 pb-2">Interactive Terminal</span>
-
-            <div class="glass-panel p-6 rounded-2xl terminal-shell">
-                <div class="terminal-header">
-                    <div class="terminal-dots">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
-                    </div>
-                    <div class="terminal-title">ug-soc — secure console</div>
-                </div>
-
-                <div id="terminalOutput" class="terminal-output">
-                    <div class="terminal-line">Type <span class="terminal-accent">help</span> to see available commands.</div>
-                </div>
-
-                <div class="terminal-input-row">
-                    <span class="terminal-prompt">$</span>
-                    <input id="terminalInput" class="terminal-input" type="text" placeholder="help, projects, resume..." autocomplete="off">
-                </div>
-            </div>
-        </section>
-
-        <!-- TESTIMONIALS (Loaded from testimonials.html) -->
-        <div id="testimonials-container"></div>
-
-
         <!-- FOOTER -->
         <footer class="text-center pt-12 border-t border-slate-200">
             <p class="font-mono text-sm text-slate-500">
-                UG-SOC <span class="text-slate-300">//</span> Built with focus <span class="text-slate-300">//</span>
+                UG-SOC <span class="text-slate-300">|</span> Built with focus <span class="text-slate-300">|</span>
                 Updated regularly
             </p>
             <p class="text-xs text-slate-400 mt-2">
@@ -1496,7 +1524,8 @@
     </button>
 
     <!-- Skill Map Toggle -->
-    <button class="skillmap-toggle" type="button" aria-label="Open Skill Map" data-skillmap-toggle onclick="toggleSkillMapPanel()">
+    <button class="skillmap-toggle" type="button" aria-label="Open Skill Map" data-skillmap-toggle
+        onclick="toggleSkillMapPanel()">
         <i class="fa-solid fa-map"></i>
     </button>
 
@@ -1507,7 +1536,8 @@
                 <h3 class="font-bold text-lg">Skill Heatmap</h3>
                 <p class="text-xs text-slate-500">Execution vs Strategic Depth</p>
             </div>
-            <button class="skillmap-close" type="button" aria-label="Close Skill Map" onclick="toggleSkillMapPanel(false)">
+            <button class="skillmap-close" type="button" aria-label="Close Skill Map"
+                onclick="toggleSkillMapPanel(false)">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -1526,19 +1556,19 @@
             <!-- SKILL POINTS -->
             <div class="map-point lvl-high bg-green-500" style="left:82%; top:18%" data-title="Tool Building"
                 data-level="Core Strength"></div>
-            <div class="map-point lvl-high bg-green-500" style="left:75%; top:22%"
-                data-title="Security Automation" data-level="Core Strength"></div>
-            <div class="map-point lvl-high bg-green-500" style="left:70%; top:30%"
-                data-title="System Architecture" data-level="Core Strength"></div>
-            <div class="map-point lvl-high bg-green-500" style="left:65%; top:35%"
-                data-title="Security Research" data-level="Core Strength"></div>
+            <div class="map-point lvl-high bg-green-500" style="left:75%; top:22%" data-title="Security Automation"
+                data-level="Core Strength"></div>
+            <div class="map-point lvl-high bg-green-500" style="left:70%; top:30%" data-title="System Architecture"
+                data-level="Core Strength"></div>
+            <div class="map-point lvl-high bg-green-500" style="left:65%; top:35%" data-title="Security Research"
+                data-level="Core Strength"></div>
 
-            <div class="map-point lvl-mid bg-blue-500" style="left:35%; top:20%" data-title="OSINT"
-                data-level="Strong"></div>
-            <div class="map-point lvl-mid bg-blue-500" style="left:60%; top:45%" data-title="Linux"
-                data-level="Strong"></div>
-            <div class="map-point lvl-mid bg-blue-500" style="left:68%; top:55%" data-title="Bash"
-                data-level="Strong"></div>
+            <div class="map-point lvl-mid bg-blue-500" style="left:35%; top:20%" data-title="OSINT" data-level="Strong">
+            </div>
+            <div class="map-point lvl-mid bg-blue-500" style="left:60%; top:45%" data-title="Linux" data-level="Strong">
+            </div>
+            <div class="map-point lvl-mid bg-blue-500" style="left:68%; top:55%" data-title="Bash" data-level="Strong">
+            </div>
             <div class="map-point lvl-mid bg-blue-500" style="left:72%; top:60%" data-title="PowerShell"
                 data-level="Strong"></div>
             <div class="map-point lvl-mid bg-blue-500" style="left:55%; top:28%" data-title="Threat Analysis"
@@ -1574,9 +1604,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
