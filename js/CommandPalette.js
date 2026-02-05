@@ -118,6 +118,17 @@ const secrets = [
         target: 'pages/log.html',
         quickAction: 'openLog',
         quickLabel: 'Open'
+    },
+    {
+        trigger: 'playground',
+        icon: '<i class="fa-solid fa-gamepad" style="color:#F97316;"></i>',
+        title: 'Productivity Playground',
+        subtitle: 'Hidden productivity lab',
+        type: 'link',
+        target: 'productivity/index.html',
+        quickAction: 'openPlayground',
+        quickLabel: 'Enter',
+        sameTab: true
     }
 ];
 
@@ -260,6 +271,9 @@ function executeQuickAction(cmd) {
         case 'openWhatsApp':
             window.open('https://wa.me/919621272014', '_blank');
             break;
+        case 'openPlayground':
+            window.location.href = 'productivity/index.html';
+            break;
         default:
             break;
     }
@@ -343,7 +357,11 @@ function executeCommand(cmd) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     } else if (cmd.type === 'link') {
-        window.open(cmd.target, '_blank');
+        if (cmd.sameTab) {
+            window.location.href = cmd.target;
+        } else {
+            window.open(cmd.target, '_blank');
+        }
     } else if (cmd.type === 'action') {
         switch (cmd.action) {
             case 'toggleTheme':

@@ -877,6 +877,69 @@ function initSkillCarousel() {
 
 initSkillCarousel();
 
+// ========== 22.2 VAULT FILTERS ==========
+function initVaultFilters() {
+    const filterWrap = document.querySelector('.vault-filters');
+    const grid = document.querySelector('.vault-grid');
+    const searchInput = document.querySelector('.vault-search input');
+    if (!filterWrap || !grid) return;
+
+    const items = grid.querySelectorAll('.vault-item');
+    items.forEach((item) => {
+        if (item.getAttribute('data-category')) {
+            const key = item.getAttribute('data-key');
+            if (!key) {
+                const text = item.textContent || '';
+                item.setAttribute('data-key', text.trim().toLowerCase());
+            }
+            return;
+        }
+        const img = item.querySelector('img');
+        if (!img) return;
+        const src = img.getAttribute('src') || '';
+        const alt = img.getAttribute('alt') || '';
+        const name = src.split('/').pop() || '';
+        const ext = src.split('.').pop()?.toLowerCase() || '';
+        let category = 'personal';
+        if (ext === 'png') category = 'projects';
+        if (ext === 'webp') category = 'certificates';
+        if (ext === 'pdf') category = 'docs';
+        if (ext === 'svg') category = 'resources';
+        item.setAttribute('data-category', category);
+        item.setAttribute('data-key', `${alt} ${name}`.toLowerCase());
+    });
+
+    const applyFilter = (filter, query) => {
+        filterWrap.querySelectorAll('.vault-filter').forEach((btn) => {
+            btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
+        });
+        items.forEach((item) => {
+            const cat = item.getAttribute('data-category') || 'personal';
+            const key = item.getAttribute('data-key') || '';
+            const matchesQuery = !query || key.includes(query);
+            const matchesFilter = filter === 'all' || filter === cat;
+            item.style.display = (matchesFilter && matchesQuery) ? '' : 'none';
+        });
+    };
+
+    filterWrap.querySelectorAll('.vault-filter').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter') || 'all';
+            const query = searchInput?.value.trim().toLowerCase() || '';
+            applyFilter(filter, query);
+        });
+    });
+
+    searchInput?.addEventListener('input', () => {
+        const active = filterWrap.querySelector('.vault-filter.active');
+        const filter = active?.getAttribute('data-filter') || 'all';
+        const query = searchInput.value.trim().toLowerCase();
+        applyFilter(filter, query);
+    });
+}
+
+initVaultFilters();
+
 // ========== 22.5 METRICS TOGGLE (MOBILE ONLY) ==========
 function initMetricsToggle() {
     const section = document.getElementById('metrics');

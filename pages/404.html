@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UG-SOC | 404</title>
+    <meta name="description" content="The page you are looking for slipped into the server room.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/404.css">
+</head>
+<body class="error-body font-body selection:bg-soc-primary selection:text-white">
+    <div class="noise-overlay"></div>
+    <canvas id="matrix-canvas" class="matrix-canvas"></canvas>
+
+    <main class="error-shell">
+        <div class="error-card">
+            <p class="error-kicker">UG-SOC</p>
+            <h1 class="error-title">404</h1>
+            <p class="error-subtitle">This corridor is offline.</p>
+            <div class="error-typing">
+                <span class="typing-text" data-phrases="Lost in the server room.,You were not supposed to end up here.,Signal expired. Route back to base.,Door locked. Return to index.,This node is dark. Redirecting soon."></span>
+            </div>
+            <div class="error-actions">
+                <a class="error-cta" href="../index.html">Return to Index</a>
+                <span class="error-hint">Auto-redirect in <strong id="errorCountdown">10</strong>s</span>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        (function () {
+            const target = '../index.html';
+            const output = document.querySelector('.typing-text');
+            const phrasesRaw = output?.getAttribute('data-phrases') || '';
+            const phrases = phrasesRaw.split(',').map(p => p.trim()).filter(Boolean);
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            const tick = () => {
+                if (!output || !phrases.length) return;
+                const current = phrases[phraseIndex % phrases.length];
+                const next = isDeleting
+                    ? current.slice(0, Math.max(0, charIndex - 1))
+                    : current.slice(0, charIndex + 1);
+                output.textContent = next;
+                charIndex = next.length;
+                let delay = isDeleting ? 28 : 52;
+                if (!isDeleting && charIndex === current.length) {
+                    delay = 1200;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex++;
+                    delay = 260;
+                }
+                setTimeout(tick, delay);
+            };
+
+            tick();
+
+            const countdownEl = document.getElementById('errorCountdown');
+            let seconds = 10;
+            const timer = setInterval(() => {
+                seconds -= 1;
+                if (countdownEl) countdownEl.textContent = String(seconds);
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    window.location.href = target;
+                }
+            }, 1000);
+        })();
+    </script>
+    <script src="../js/enhancements.js" defer></script>
+</body>
+</html>
