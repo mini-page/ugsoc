@@ -125,10 +125,9 @@ const secrets = [
         title: 'Productivity Playground',
         subtitle: 'Hidden productivity lab',
         type: 'link',
-        target: 'productivity/index.html',
+        target: 'https://mini-page.github.io/Playground/',
         quickAction: 'openPlayground',
-        quickLabel: 'Enter',
-        sameTab: true
+        quickLabel: 'Enter'
     }
 ];
 
@@ -272,7 +271,7 @@ function executeQuickAction(cmd) {
             window.open('https://wa.me/919621272014', '_blank');
             break;
         case 'openPlayground':
-            window.location.href = 'productivity/index.html';
+            window.open('https://mini-page.github.io/Playground/', '_blank');
             break;
         default:
             break;
