@@ -980,6 +980,130 @@ function initMetricsToggle() {
 
 initMetricsToggle();
 
+// ========== 22.6 CERTIFICATE MODAL ==========
+function initCertificateModal() {
+    const modal = document.getElementById('certModal');
+    const dialog = modal?.querySelector('.cert-modal-dialog');
+    const titleEl = document.getElementById('certModalTitle');
+    const imageEl = document.getElementById('certModalImage');
+    const detailsEl = document.getElementById('certModalDetails');
+    if (!modal || !dialog || !titleEl || !imageEl || !detailsEl) return;
+
+    const openModal = (src, title, details) => {
+        titleEl.textContent = title || 'Certificate';
+        if (src) {
+            imageEl.src = encodeURI(src);
+            imageEl.style.display = '';
+            dialog.classList.remove('is-text-preview');
+            detailsEl.classList.remove('active');
+            detailsEl.innerHTML = '';
+        } else {
+            imageEl.removeAttribute('src');
+            imageEl.style.display = 'none';
+            dialog.classList.add('is-text-preview');
+            const points = (details || '').split('|').map(p => p.trim()).filter(Boolean);
+            const parsed = points.map((p) => {
+                const idx = p.indexOf(':');
+                if (idx === -1) return null;
+                return {
+                    heading: p.slice(0, idx).trim(),
+                    body: p.slice(idx + 1).trim()
+                };
+            }).filter(Boolean);
+
+            if (parsed.length) {
+                const getMeta = (heading) => {
+                    const key = heading.toLowerCase();
+                    if (key.includes('cert')) {
+                        return { cls: 'cert-modal-section--certifications', icon: 'fa-solid fa-certificate' };
+                    }
+                    if (key.includes('intern')) {
+                        return { cls: 'cert-modal-section--internships', icon: 'fa-solid fa-briefcase' };
+                    }
+                    if (key.includes('project')) {
+                        return { cls: 'cert-modal-section--projects', icon: 'fa-solid fa-diagram-project' };
+                    }
+                    return { cls: '', icon: 'fa-solid fa-list-check' };
+                };
+
+                detailsEl.innerHTML = `
+                    <div class="cert-modal-sections">
+                        ${parsed.map(item => `
+                            <div class="cert-modal-section ${getMeta(item.heading).cls}">
+                                <h4><i class="${getMeta(item.heading).icon}"></i>${item.heading}</h4>
+                                <ul class="cert-modal-list">
+                                    ${item.body
+                                        .split(/,|;|\u2022/)
+                                        .map(x => x.trim())
+                                        .filter(Boolean)
+                                        .map(point => `<li class="cert-modal-item"><i class="fa-solid fa-angle-right"></i><span>${point}</span></li>`)
+                                        .join('')}
+                                </ul>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                detailsEl.innerHTML = `<ul>${points.map(p => `<li>${p}</li>`).join('')}</ul>`;
+            }
+            detailsEl.classList.add('active');
+        }
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        imageEl.removeAttribute('src');
+        imageEl.style.display = '';
+        dialog.classList.remove('is-text-preview');
+        detailsEl.classList.remove('active');
+        detailsEl.innerHTML = '';
+    };
+
+    document.querySelectorAll('.cert-card[data-cert-image]').forEach((card) => {
+        const src = card.getAttribute('data-cert-image');
+        const title = card.getAttribute('data-cert-title') || '';
+        const details = card.getAttribute('data-cert-details') || '';
+        if (!src) return;
+
+        card.addEventListener('click', () => openModal(src, title, details));
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(src, title, details);
+            }
+        });
+    });
+
+    document.querySelectorAll('.cert-card[data-cert-details]:not([data-cert-image])').forEach((card) => {
+        const title = card.getAttribute('data-cert-title') || '';
+        const details = card.getAttribute('data-cert-details') || '';
+        card.addEventListener('click', () => openModal('', title, details));
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal('', title, details);
+            }
+        });
+    });
+
+    modal.querySelectorAll('[data-cert-close]').forEach((el) => {
+        el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+}
+
+initCertificateModal();
+
 // ========== 23. STACK RINGS ==========
 document.querySelectorAll('.stack-ring').forEach(ring => {
     const level = Math.min(100, Math.max(0, parseInt(ring.dataset.level || '0', 10)));
