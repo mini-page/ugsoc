@@ -1,46 +1,78 @@
 # TODO Roadmap (UG-SOC Portfolio)
 
-This list reflects a fresh scan of the current site. Order is impact-first.
+This is the current pending list in logical implementation order.
+Total pending tasks: **15**
 
-## Priority (High Impact)
-- [ ] **Fix About section bullets** — Replace the inline “I” dots with proper list styling or remove the stray characters.  
-  Files: `index.html`, `css/style.css`
-- [ ] **Mobile projects memory** — Remember “Show more” state (localStorage) so users don’t re-expand every visit.  
-  Files: `js/enhancements.js`
-- [ ] **Project outcomes pass** — Add 1–2 impact bullets per project (time saved, throughput, error reduction).  
-  Files: `index.html`
-- [ ] **Live demo health check** — Verify each demo URL and fix broken routes or dead links.  
-  Files: `index.html`
-- [ ] **Accessibility sweep** — Add explicit `aria-label` on icon-only buttons and ensure focus styles for keyboard navigation.  
-  Files: `index.html`, `css/style.css`
+## P0 - Immediate Fixes
+- [ ] **Fix Education PDF preview modal**
+  - Ensure all files open inline reliably (spaces/special chars).
+  - Validate `Open in New Tab` and `Download` actions for each document.
+  - Add fallback message when browser blocks embedded PDF.
+  - Files: `index.html`, `js/enhancements.js`, `css/style.css`
 
-## Credibility + Clarity
-- [ ] **Proof block refresh** — Replace vanity metrics with concrete, measurable wins (before/after).  
-  Files: `index.html`
-- [ ] **Add scoped highlights** — Small “Top 3” badge row (most-used tools, strongest skills, platforms).  
-  Files: `index.html`
-- [ ] **Resume CTA refinement** — Add 1-line context under Resume section title explaining value.  
-  Files: `index.html`
+- [ ] **Fix Continuous Learning card**
+  - Rebuild card to the approved compact design and keep readability in dark/light themes.
+  - Remove duplicated information between card and modal.
+  - Files: `index.html`, `css/style.css`, `js/enhancements.js`
 
-## Performance + SEO
-- [ ] **Add canonical + absolute OG URLs** — Use full URL for `og:url` and `og:image`.  
-  Files: `index.html`
-- [ ] **Lazy-load project thumbnails** — Add `loading="lazy"` + explicit `width/height` to thumbnails.  
-  Files: `index.html`
-- [ ] **Preload primary fonts** — Add `rel="preload"` for the 1–2 most used font files.  
-  Files: `index.html`
+- [ ] **Command Palette expansion**
+  - Add missing section/option entries for new Education and document actions.
+  - Add direct actions where useful (open section, open doc, quick links).
+  - Files: `js/CommandPalette.js`
 
-## UX Polish
-- [ ] **Project tag audit** — Ensure tag labels follow consistent casing (e.g., “PowerShell” vs “Powershell”).  
-  Files: `index.html`
-- [ ] **Section microcopy pass** — Add 1-line “why it matters” for Skills, Projects, Resume, and Terminal.  
-  Files: `index.html`
-- [ ] **Hover/tap parity** — Ensure popovers and hidden controls are usable on touch (add tap trigger or fallback).  
-  Files: `js/enhancements.js`, `css/style.css`
+## P1 - High Impact
+- [ ] **Resume Console PDF preview modal**
+  - Make Resume preview behave like cert preview (inline modal preview + open/download actions).
+  - Keep layout responsive for tablet/laptop.
+  - Files: `index.html`, `js/enhancements.js`, `css/style.css`
 
-## Content Expansion
-- [ ] **Add 1–2 real case studies** — Replace placeholders with real screenshots + short narrative.  
-  Files: `pages/case-studies.html`
-- [ ] **Blog seed posts** — Add 2–3 real posts with dates and tags.  
-  Files: `pages/blog.html`
+- [ ] **Fix About section bullet artifacts**
+  - Remove stray characters and normalize list rendering.
+  - Files: `index.html`, `css/style.css`
 
+- [ ] **Mobile projects “Show more” memory**
+  - Persist expanded/collapsed state.
+  - Files: `js/enhancements.js`
+
+- [ ] **Live demo link health check**
+  - Validate and repair broken routes.
+  - Files: `index.html`
+
+- [ ] **Accessibility pass**
+  - Add/verify `aria-label`s and keyboard focus states.
+  - Files: `index.html`, `css/style.css`
+
+## P2 - Credibility + Content
+- [ ] **Project outcome bullets**
+  - Add measurable impact for each project.
+  - Files: `index.html`
+
+- [ ] **Proof metrics refresh**
+  - Replace generic metrics with evidence-driven numbers.
+  - Files: `index.html`
+
+- [ ] **Resume section microcopy**
+  - Add concise value statement.
+  - Files: `index.html`
+
+## P3 - SEO + Performance
+- [ ] **Canonical + OG URL cleanup**
+  - Ensure absolute production URLs.
+  - Files: `index.html`
+
+- [ ] **Image optimization pass**
+  - Add `loading=\"lazy\"` and explicit dimensions where missing.
+  - Files: `index.html`
+
+- [ ] **Font preload cleanup**
+  - Preload only primary fonts.
+  - Files: `index.html`
+
+## P4 - UX Polish
+- [ ] **Tag consistency**
+  - Normalize naming/casing (e.g., PowerShell).
+  - Files: `index.html`
+
+- [ ] **Touch/hover parity**
+  - Ensure hover-only interactions have mobile/touch fallback.
+  - Files: `js/enhancements.js`, `css/style.css`

@@ -986,20 +986,40 @@ function initCertificateModal() {
     const dialog = modal?.querySelector('.cert-modal-dialog');
     const titleEl = document.getElementById('certModalTitle');
     const imageEl = document.getElementById('certModalImage');
+    const pdfEl = document.getElementById('certModalPdf');
     const detailsEl = document.getElementById('certModalDetails');
-    if (!modal || !dialog || !titleEl || !imageEl || !detailsEl) return;
+    const actionsEl = document.getElementById('certModalActions');
+    const openPdfEl = document.getElementById('certModalOpenPdf');
+    const downloadPdfEl = document.getElementById('certModalDownloadPdf');
+    if (!modal || !dialog || !titleEl || !imageEl || !pdfEl || !detailsEl || !actionsEl || !openPdfEl || !downloadPdfEl) return;
 
-    const openModal = (src, title, details) => {
+    const openModal = (src, title, details, mode = 'image') => {
         titleEl.textContent = title || 'Certificate';
-        if (src) {
+
+        actionsEl.hidden = true;
+        openPdfEl.setAttribute('href', '#');
+        downloadPdfEl.setAttribute('href', '#');
+        imageEl.removeAttribute('src');
+        imageEl.style.display = 'none';
+        pdfEl.removeAttribute('src');
+        pdfEl.style.display = 'none';
+        dialog.classList.remove('is-text-preview');
+        dialog.classList.remove('is-pdf-preview');
+        detailsEl.classList.remove('active');
+        detailsEl.innerHTML = '';
+
+        if (mode === 'pdf' && src) {
+            const absolutePdfUrl = new URL(src, window.location.href).href;
+            pdfEl.src = `${absolutePdfUrl}#view=FitH`;
+            pdfEl.style.display = '';
+            dialog.classList.add('is-pdf-preview');
+            actionsEl.hidden = false;
+            openPdfEl.setAttribute('href', absolutePdfUrl);
+            downloadPdfEl.setAttribute('href', absolutePdfUrl);
+        } else if (src) {
             imageEl.src = encodeURI(src);
             imageEl.style.display = '';
-            dialog.classList.remove('is-text-preview');
-            detailsEl.classList.remove('active');
-            detailsEl.innerHTML = '';
         } else {
-            imageEl.removeAttribute('src');
-            imageEl.style.display = 'none';
             dialog.classList.add('is-text-preview');
             const points = (details || '').split('|').map(p => p.trim()).filter(Boolean);
             const parsed = points.map((p) => {
@@ -1033,7 +1053,7 @@ function initCertificateModal() {
                                 <h4><i class="${getMeta(item.heading).icon}"></i>${item.heading}</h4>
                                 <ul class="cert-modal-list">
                                     ${item.body
-                                        .split(/,|;|\u2022/)
+                                        .split(/,|;|•/)
                                         .map(x => x.trim())
                                         .filter(Boolean)
                                         .map(point => `<li class="cert-modal-item"><i class="fa-solid fa-angle-right"></i><span>${point}</span></li>`)
@@ -1048,6 +1068,7 @@ function initCertificateModal() {
             }
             detailsEl.classList.add('active');
         }
+
         modal.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -1059,9 +1080,15 @@ function initCertificateModal() {
         document.body.style.overflow = '';
         imageEl.removeAttribute('src');
         imageEl.style.display = '';
+        pdfEl.removeAttribute('src');
+        pdfEl.style.display = 'none';
         dialog.classList.remove('is-text-preview');
+        dialog.classList.remove('is-pdf-preview');
         detailsEl.classList.remove('active');
         detailsEl.innerHTML = '';
+        actionsEl.hidden = true;
+        openPdfEl.setAttribute('href', '#');
+        downloadPdfEl.setAttribute('href', '#');
     };
 
     document.querySelectorAll('.cert-card[data-cert-image]').forEach((card) => {
@@ -1070,11 +1097,11 @@ function initCertificateModal() {
         const details = card.getAttribute('data-cert-details') || '';
         if (!src) return;
 
-        card.addEventListener('click', () => openModal(src, title, details));
+        card.addEventListener('click', () => openModal(src, title, details, 'image'));
         card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                openModal(src, title, details);
+                openModal(src, title, details, 'image');
             }
         });
     });
@@ -1082,12 +1109,24 @@ function initCertificateModal() {
     document.querySelectorAll('.cert-card[data-cert-details]:not([data-cert-image])').forEach((card) => {
         const title = card.getAttribute('data-cert-title') || '';
         const details = card.getAttribute('data-cert-details') || '';
-        card.addEventListener('click', () => openModal('', title, details));
+        card.addEventListener('click', () => openModal('', title, details, 'text'));
         card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                openModal('', title, details);
+                openModal('', title, details, 'text');
             }
+        });
+    });
+
+    document.querySelectorAll('.edu-doc-row[data-doc-pdf]').forEach((doc) => {
+        const src = doc.getAttribute('data-doc-pdf');
+        const title = doc.getAttribute('data-doc-title') || 'Academic Document';
+        if (!src) return;
+
+        doc.addEventListener('click', (e) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            e.preventDefault();
+            openModal(src, title, '', 'pdf');
         });
     });
 
