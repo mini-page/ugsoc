@@ -1,191 +1,317 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UG-SOC Log</title>
-    <meta name="description" content="Latest updates log.">
-    <meta name="robots" content="noindex, nofollow">
+    <title>UG-SOC | System Change Log</title>
+    <meta name="description"
+        content="System change log, version history, performance upgrades, and architectural evolution of the UG-SOC portfolio by Umang Gupta.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+    <script src="../js/scripts.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body class="text-slate-500 font-body selection:bg-soc-primary selection:text-white">
     <div class="noise-overlay"></div>
-    <nav class="fixed w-full z-40 top-0 p-4 sm:p-6 transition-all duration-300">
-        <div class="max-w-5xl mx-auto flex items-center justify-between glass-panel px-4 sm:px-6 py-2 sm:py-3 rounded-full log-nav">
-            <a href="../index.html#hero" class="font-display font-bold text-lg sm:text-xl tracking-tight text-slate-500">
-                UG<span class="text-soc-primary">-SOC</span> Log
-            </a>
-            <a href="../index.html" class="log-back">Back to Index</a>
-        </div>
-    </nav>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-16 sm:pb-20 space-y-10">
-        <header class="scroll-reveal">
-            <span class="section-label text-lg mb-4 block border-b border-slate-200 pb-2">Latest</span>
-            <h1 class="font-display text-4xl sm:text-5xl font-bold mb-4">Change Log</h1>
-            <p class="text-slate-600 max-w-2xl">
-                Track updates, improvements, and experiments. Placeholder for now.
+    <!-- Unified Subpage Navigation -->
+    <header class="subpage-nav-wrap">
+        <nav class="subpage-nav">
+            <a href="../index.html" class="subpage-brand">
+                <span>UG<span class="text-soc-primary">-SOC</span></span>
+                <span class="subpage-brand-badge">Log</span>
+            </a>
+            <div class="subpage-links">
+                <a href="blog.html" class="subpage-link">Blog</a>
+                <a href="case-studies.html" class="subpage-link">Case Studies</a>
+                <a href="tool-index.html" class="subpage-link">Tools</a>
+                <a href="log.html" class="subpage-link active">Log</a>
+                <a href="arc.html" class="subpage-link">Archive</a>
+                <a href="vault.html" class="subpage-link">Vault</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="../index.html" class="subpage-exit-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="hidden sm:inline">Portfolio</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-20 space-y-10" data-filter-group
+        data-filter-target=".log-entry">
+        <!-- Hero Header -->
+        <header class="scroll-reveal space-y-4">
+            <div class="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Engineering Timeline & Updates</span>
+            </div>
+            <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-100">
+                System Change Log
+            </h1>
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+                Detailed timeline of version releases, architecture shifts, performance breakthroughs, and feature implementations.
             </p>
+
+            <!-- Search and Filter Bar -->
+            <div class="pt-4 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                <div class="filter-pills-bar">
+                    <button class="filter-pill active" data-category="all">All Releases</button>
+                    <button class="filter-pill" data-category="v4">v4.x (Subpages & Nav)</button>
+                    <button class="filter-pill" data-category="v3">v3.x (Performance & PWA)</button>
+                    <button class="filter-pill" data-category="v2">v2.x (UI Systems)</button>
+                    <button class="filter-pill" data-category="v1">v1.x (Foundations)</button>
+                </div>
+
+                <div class="subpage-search-bar">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs"></i>
+                    <input type="text" class="subpage-search-input" placeholder="Search changelog entries..."
+                        aria-label="Search changelog">
+                </div>
+            </div>
+
+            <div class="filter-count text-xs font-mono text-slate-500">Showing 9 version releases</div>
         </header>
 
-        <section class="glass-panel p-6 rounded-2xl log-panel">
-            <ol class="log-timeline">
-                <li class="log-entry">
+        <section class="glass-panel p-6 sm:p-8 rounded-2xl log-panel scroll-reveal border border-slate-800">
+            <ol class="log-timeline space-y-8">
+
+                <!-- v4.0 Release -->
+                <li class="log-entry" data-category="v4" data-search="v4.0 subpage navigation blog case studies tools archive vault layout nov 2026">
                     <div class="log-marker">
-                        <span class="log-dot"></span>
+                        <span class="log-dot bg-soc-primary ring-4 ring-soc-primary/20"></span>
                     </div>
-                    <div class="log-card">
-                        <div class="log-meta">
-                            <span class="log-badge">v3.8</span>
-                            <span class="log-date">Feb 4, 2026</span>
-                            <span class="log-latest">Latest</span>
+                    <div class="log-card space-y-3">
+                        <div class="log-meta flex items-center gap-2 flex-wrap">
+                            <span class="log-badge font-mono text-xs px-2.5 py-0.5 rounded-full bg-soc-primary text-white font-bold">v4.0</span>
+                            <span class="log-date text-xs font-mono text-slate-400">Nov 17, 2026</span>
+                            <span class="log-latest font-mono text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider font-bold">Latest Release</span>
                         </div>
-                        <h2 class="log-title">Operations polish + structure refresh</h2>
-                        <ul class="log-list">
-                            <li><span class="log-tag">Added</span> PWA icon pack (72–512), MIT License, and folder-based project structure.</li>
-                            <li><span class="log-tag">Changed</span> Command palette to action-first flow with brand chips, switches, and secret unlocks.</li>
-                            <li><span class="log-tag">Changed</span> Core Skills converted to auto-scroll icon carousel with hover pause + labels.</li>
-                            <li><span class="log-tag">Changed</span> Terminal reworked into command-only console (no navigation) with tools + status.</li>
-                            <li><span class="log-tag">Added</span> Vault gallery with real images and responsive Pinterest-style grid.</li>
-                            <li><span class="log-tag">Fixed</span> PWA install start URL/scope and service worker paths after reorganizing files.</li>
-                            <li><span class="log-tag">Removed</span> Project card overlay icons to let SVG previews shine.</li>
-                            <li><span class="log-tag">Other</span> Matrix rain toggle with persistence + improved switches.</li>
+                        <h2 class="log-title text-xl font-display font-bold text-slate-100">Subpage Architecture & Cross-Connectivity Overhaul</h2>
+                        <ul class="log-list text-sm text-slate-300 space-y-1.5 list-disc pl-5">
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Unified floating glass navigation bar connecting all subpages (Blog, Case Studies, Tools, Log, Archive, Vault).</li>
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Interactive blog reader modal with full technical articles on Windows internals, TUI engineering, and Android forensics.</li>
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Complete Tool Index documenting all 9 tools with one-click copyable installation and CLI usage syntax.</li>
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> 4 architectural case studies (asllock, TheSecretJuice, SyncMaster, Cleanify) with before/after comparisons and technical metrics.</li>
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Legacy Drops & Technical Archive catalog with preserved prototypes and historical research context.</li>
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Full-screen high-resolution lightbox modal in Vault for instant image previews.</li>
+                            <li><span class="log-tag font-bold text-soc-primary">Changed</span> Unified responsive subpage footer with system operational beacon across the entire web estate.</li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="log-entry">
+                <!-- v3.9 Release -->
+                <li class="log-entry" data-category="v3" data-search="v3.9 performance overdrive dynamic pdf.js popup viewer pwa resilient caching asset compression nov 2026">
                     <div class="log-marker">
-                        <span class="log-dot"></span>
+                        <span class="log-dot bg-cyan-400"></span>
                     </div>
-                    <div class="log-card">
-                        <div class="log-meta">
-                            <span class="log-badge">v3.7</span>
-                            <span class="log-date">Feb 3, 2026</span>
+                    <div class="log-card space-y-3">
+                        <div class="log-meta flex items-center gap-2 flex-wrap">
+                            <span class="log-badge font-mono text-xs px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-bold">v3.9</span>
+                            <span class="log-date text-xs font-mono text-slate-400">Nov 17, 2026</span>
                         </div>
-                        <h2 class="log-title">Command palette reimagined</h2>
-                        <ul class="log-list">
-                            <li><span class="log-tag">Added</span> Quick actions, shift-click behavior, and chips for projects/resources.</li>
-                            <li><span class="log-tag">Changed</span> Social links to grouped chips with brand colors and improved readability.</li>
-                            <li><span class="log-tag">Removed</span> Duplicate command items for individual projects/social links.</li>
+                        <h2 class="log-title text-xl font-display font-bold text-slate-100">Performance Overdrive & In-Site PDF Viewer Engine</h2>
+                        <ul class="log-list text-sm text-slate-300 space-y-1.5 list-disc pl-5">
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Built-in interactive PDF viewer popup with toolbar, page controls, zoom in/out, and direct downloads.</li>
+                            <li><span class="log-tag font-bold text-cyan-400">Perf</span> Dynamic on-demand loading of PDF.js library; removed 280 KB render blocker from head.</li>
+                            <li><span class="log-tag font-bold text-cyan-400">Perf</span> Eliminated artificial 1000ms delay in loading screen; instant dismissal on DOMContentLoaded with smooth 250ms fade.</li>
+                            <li><span class="log-tag font-bold text-cyan-400">Perf</span> Matrix Rain canvas optimized (requestAnimationFrame, 30 FPS cap, zero per-frame getComputedStyle reflows).</li>
+                            <li><span class="log-tag font-bold text-cyan-400">Perf</span> Unified single passive scroll manager for progress bar, back-to-top, and parallax.</li>
+                            <li><span class="log-tag font-bold text-cyan-400">Perf</span> Promoted noise overlay to dedicated GPU compositor layer with will-change: transform.</li>
+                            <li><span class="log-tag font-bold text-amber-400">Fixed</span> PWA Service Worker caching (removed 404 URL, added resilient Promise.allSettled, bumped cache to v1.1.0).</li>
+                            <li><span class="log-tag font-bold text-cyan-400">Perf</span> Compressed 24-megapixel camera photos in Gallery, saving 27.1 MB of bandwidth without visual quality loss.</li>
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Google Search Console verification support (googlef2088d1ef7c1dbc9.html).</li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="log-entry">
+                <!-- v3.8 Release -->
+                <li class="log-entry" data-category="v3" data-search="v3.8 operations polish structure refresh feb 2026">
                     <div class="log-marker">
                         <span class="log-dot"></span>
                     </div>
-                    <div class="log-card">
-                        <div class="log-meta">
-                            <span class="log-badge">v3.6</span>
-                            <span class="log-date">Feb 2, 2026</span>
+                    <div class="log-card space-y-3">
+                        <div class="log-meta flex items-center gap-2">
+                            <span class="log-badge font-mono text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">v3.8</span>
+                            <span class="log-date text-xs font-mono text-slate-400">Feb 4, 2026</span>
                         </div>
-                        <h2 class="log-title">Secret systems + vault</h2>
-                        <ul class="log-list">
-                            <li><span class="log-tag">Added</span> Secret keyword navigation (`rg`, `pic`, `arc`, `log`) and vault/archive pages.</li>
-                            <li><span class="log-tag">Changed</span> Contact card hidden behind command palette keyword trigger.</li>
-                            <li><span class="log-tag">Other</span> Unlock sequence animation for secret commands.</li>
+                        <h2 class="log-title text-xl font-display font-bold text-slate-100">Operations Polish + Structure Refresh</h2>
+                        <ul class="log-list text-sm text-slate-300 space-y-1.5 list-disc pl-5">
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> PWA icon pack (72–512), MIT License, and folder-based project structure.</li>
+                            <li><span class="log-tag font-bold text-soc-primary">Changed</span> Command palette to action-first flow with brand chips, switches, and secret unlocks.</li>
+                            <li><span class="log-tag font-bold text-soc-primary">Changed</span> Core Skills converted to auto-scroll icon carousel with hover pause + labels.</li>
+                            <li><span class="log-tag font-bold text-soc-primary">Changed</span> Terminal reworked into command-only console (no navigation) with tools + status.</li>
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Vault gallery with real images and responsive Pinterest-style grid.</li>
+                            <li><span class="log-tag font-bold text-amber-400">Fixed</span> PWA install start URL/scope and service worker paths after reorganizing files.</li>
+                            <li><span class="log-tag font-bold text-rose-400">Removed</span> Project card overlay icons to let SVG previews shine.</li>
+                            <li><span class="log-tag font-bold text-slate-400">Other</span> Matrix rain toggle with persistence + improved switches.</li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="log-entry">
+                <!-- v3.7 Release -->
+                <li class="log-entry" data-category="v3" data-search="v3.7 command palette reimagined chips feb 2026">
                     <div class="log-marker">
                         <span class="log-dot"></span>
                     </div>
-                    <div class="log-card">
-                        <div class="log-meta">
-                            <span class="log-badge">v3.5</span>
-                            <span class="log-date">Feb 1, 2026</span>
+                    <div class="log-card space-y-3">
+                        <div class="log-meta flex items-center gap-2">
+                            <span class="log-badge font-mono text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">v3.7</span>
+                            <span class="log-date text-xs font-mono text-slate-400">Feb 3, 2026</span>
                         </div>
-                        <h2 class="log-title">Hero + resume refinements</h2>
-                        <ul class="log-list">
-                            <li><span class="log-tag">Added</span> Typing phrase rotation and improved text visibility.</li>
-                            <li><span class="log-tag">Changed</span> Resume console layout with smaller buttons and cleaner preview/download split.</li>
-                            <li><span class="log-tag">Fixed</span> Gradient text legibility on dark mode.</li>
+                        <h2 class="log-title text-xl font-display font-bold text-slate-100">Command Palette Reimagined</h2>
+                        <ul class="log-list text-sm text-slate-300 space-y-1.5 list-disc pl-5">
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Quick actions, shift-click behavior, and chips for projects/resources.</li>
+                            <li><span class="log-tag font-bold text-soc-primary">Changed</span> Social links to grouped chips with brand colors and improved readability.</li>
+                            <li><span class="log-tag font-bold text-rose-400">Removed</span> Duplicate command items for individual projects/social links.</li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="log-entry">
+                <!-- v3.6 Release -->
+                <li class="log-entry" data-category="v3" data-search="v3.6 secret systems vault keyword trigger feb 2026">
                     <div class="log-marker">
                         <span class="log-dot"></span>
                     </div>
-                    <div class="log-card">
-                        <div class="log-meta">
-                            <span class="log-badge">v3.2</span>
-                            <span class="log-date">Jan 30, 2026</span>
+                    <div class="log-card space-y-3">
+                        <div class="log-meta flex items-center gap-2">
+                            <span class="log-badge font-mono text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">v3.6</span>
+                            <span class="log-date text-xs font-mono text-slate-400">Feb 2, 2026</span>
                         </div>
-                        <h2 class="log-title">Mobile-first cleanup</h2>
-                        <ul class="log-list">
-                            <li><span class="log-tag">Changed</span> Responsive grid rules and hero spacing for phones/tablets.</li>
-                            <li><span class="log-tag">Fixed</span> Proof cards layout and tag overflow on mobile.</li>
-                            <li><span class="log-tag">Other</span> Scrollbar theming aligned with site palette.</li>
+                        <h2 class="log-title text-xl font-display font-bold text-slate-100">Secret Systems + Vault Integration</h2>
+                        <ul class="log-list text-sm text-slate-300 space-y-1.5 list-disc pl-5">
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Secret keyword navigation (<code class="font-mono text-xs">rg</code>, <code class="font-mono text-xs">pic</code>, <code class="font-mono text-xs">arc</code>, <code class="font-mono text-xs">log</code>) and vault/archive pages.</li>
+                            <li><span class="log-tag font-bold text-soc-primary">Changed</span> Contact card hidden behind command palette keyword trigger.</li>
+                            <li><span class="log-tag font-bold text-slate-400">Other</span> Unlock sequence animation for secret commands.</li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="log-entry">
+                <!-- v3.5 Release -->
+                <li class="log-entry" data-category="v3" data-search="v3.5 hero resume layout dark mode feb 2026">
                     <div class="log-marker">
                         <span class="log-dot"></span>
                     </div>
-                    <div class="log-card">
-                        <div class="log-meta">
-                            <span class="log-badge">v2.4</span>
-                            <span class="log-date">Jan 12, 2026</span>
+                    <div class="log-card space-y-3">
+                        <div class="log-meta flex items-center gap-2">
+                            <span class="log-badge font-mono text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">v3.5</span>
+                            <span class="log-date text-xs font-mono text-slate-400">Feb 1, 2026</span>
                         </div>
-                        <h2 class="log-title">Project gallery evolution</h2>
-                        <ul class="log-list">
-                            <li><span class="log-tag">Added</span> Project popovers, live demo placement, and SVG previews.</li>
-                            <li><span class="log-tag">Changed</span> Project tags made color-coded for faster scanning.</li>
-                            <li><span class="log-tag">Fixed</span> Collapsed cards and hover content clipping.</li>
+                        <h2 class="log-title text-xl font-display font-bold text-slate-100">Hero + Resume Refinements</h2>
+                        <ul class="log-list text-sm text-slate-300 space-y-1.5 list-disc pl-5">
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Typing phrase rotation and improved text visibility.</li>
+                            <li><span class="log-tag font-bold text-soc-primary">Changed</span> Resume console layout with smaller buttons and cleaner preview/download split.</li>
+                            <li><span class="log-tag font-bold text-amber-400">Fixed</span> Gradient text legibility on dark mode.</li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="log-entry">
+                <!-- v3.2 Release -->
+                <li class="log-entry" data-category="v3" data-search="v3.2 mobile first responsive jan 2026">
                     <div class="log-marker">
                         <span class="log-dot"></span>
                     </div>
-                    <div class="log-card">
-                        <div class="log-meta">
-                            <span class="log-badge">v2.0</span>
-                            <span class="log-date">Dec 18, 2025</span>
+                    <div class="log-card space-y-3">
+                        <div class="log-meta flex items-center gap-2">
+                            <span class="log-badge font-mono text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">v3.2</span>
+                            <span class="log-date text-xs font-mono text-slate-400">Jan 30, 2026</span>
                         </div>
-                        <h2 class="log-title">UI system upgrade</h2>
-                        <ul class="log-list">
-                            <li><span class="log-tag">Added</span> Command palette, scroll animations, and skill heatmap panel.</li>
-                            <li><span class="log-tag">Changed</span> Dark/light theme balance and matrix rain intensity.</li>
-                            <li><span class="log-tag">Fixed</span> Accessibility focus behavior on desktop.</li>
+                        <h2 class="log-title text-xl font-display font-bold text-slate-100">Mobile-First Cleanup</h2>
+                        <ul class="log-list text-sm text-slate-300 space-y-1.5 list-disc pl-5">
+                            <li><span class="log-tag font-bold text-soc-primary">Changed</span> Responsive grid rules and hero spacing for phones/tablets.</li>
+                            <li><span class="log-tag font-bold text-amber-400">Fixed</span> Proof cards layout and tag overflow on mobile.</li>
+                            <li><span class="log-tag font-bold text-slate-400">Other</span> Scrollbar theming aligned with site palette.</li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="log-entry">
+                <!-- v2.0 Release -->
+                <li class="log-entry" data-category="v2" data-search="v2.0 ui system upgrade command palette heatmap dec 2025">
                     <div class="log-marker">
                         <span class="log-dot"></span>
                     </div>
-                    <div class="log-card">
-                        <div class="log-meta">
-                            <span class="log-badge">v1.0</span>
-                            <span class="log-date">Nov 10, 2025</span>
+                    <div class="log-card space-y-3">
+                        <div class="log-meta flex items-center gap-2">
+                            <span class="log-badge font-mono text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">v2.0</span>
+                            <span class="log-date text-xs font-mono text-slate-400">Dec 18, 2025</span>
                         </div>
-                        <h2 class="log-title">Initial release</h2>
-                        <ul class="log-list">
-                            <li><span class="log-tag">Added</span> Core portfolio sections, hero, projects, and skills.</li>
-                            <li><span class="log-tag">Other</span> First deployment of UG-SOC identity and base layout.</li>
+                        <h2 class="log-title text-xl font-display font-bold text-slate-100">UI System Upgrade</h2>
+                        <ul class="log-list text-sm text-slate-300 space-y-1.5 list-disc pl-5">
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Command palette, scroll animations, and skill heatmap panel.</li>
+                            <li><span class="log-tag font-bold text-soc-primary">Changed</span> Dark/light theme balance and matrix rain intensity.</li>
+                            <li><span class="log-tag font-bold text-amber-400">Fixed</span> Accessibility focus behavior on desktop.</li>
                         </ul>
                     </div>
                 </li>
+
+                <!-- v1.0 Release -->
+                <li class="log-entry" data-category="v1" data-search="v1.0 initial release nov 2025">
+                    <div class="log-marker">
+                        <span class="log-dot"></span>
+                    </div>
+                    <div class="log-card space-y-3">
+                        <div class="log-meta flex items-center gap-2">
+                            <span class="log-badge font-mono text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">v1.0</span>
+                            <span class="log-date text-xs font-mono text-slate-400">Nov 10, 2025</span>
+                        </div>
+                        <h2 class="log-title text-xl font-display font-bold text-slate-100">Initial Release</h2>
+                        <ul class="log-list text-sm text-slate-300 space-y-1.5 list-disc pl-5">
+                            <li><span class="log-tag font-bold text-emerald-400">Added</span> Core portfolio sections, hero, projects, and skills.</li>
+                            <li><span class="log-tag font-bold text-slate-400">Other</span> First deployment of UG-SOC identity and base layout.</li>
+                        </ul>
+                    </div>
+                </li>
+
             </ol>
         </section>
     </main>
-</body>
-</html>
 
+    <!-- Unified Subpage Footer -->
+    <footer class="subpage-footer">
+        <div class="subpage-footer-container">
+            <div class="space-y-2">
+                <div class="font-display font-bold text-lg text-slate-200">
+                    UG<span class="text-soc-primary">-SOC</span> System Console
+                </div>
+                <p class="text-xs text-slate-500 max-w-sm">
+                    Security operations, automation engineering, and systems research by Umang Gupta.
+                </p>
+                <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 mt-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Console Status: Online & Operational</span>
+                </div>
+            </div>
+
+            <div class="subpage-footer-links">
+                <a href="../index.html" class="subpage-footer-link">Home</a>
+                <a href="blog.html" class="subpage-footer-link">Blog</a>
+                <a href="case-studies.html" class="subpage-footer-link">Case Studies</a>
+                <a href="tool-index.html" class="subpage-footer-link">Tool Index</a>
+                <a href="log.html" class="subpage-footer-link font-bold text-soc-primary">Change Log</a>
+                <a href="arc.html" class="subpage-footer-link">Archive</a>
+                <a href="vault.html" class="subpage-footer-link">Vault</a>
+                <a href="https://github.com/mini-page" target="_blank" rel="noopener noreferrer"
+                    class="subpage-footer-link">GitHub <i
+                        class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/enhancements.js" defer></script>
+</body>
+
+</html>

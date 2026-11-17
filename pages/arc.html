@@ -1,42 +1,263 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UG-SOC Archive</title>
-    <meta name="description" content="Private archive.">
-    <meta name="robots" content="noindex, nofollow">
+    <title>UG-SOC | Legacy Drops & Technical Archive</title>
+    <meta name="description"
+        content="Historic security prototypes, retired automation scripts, research milestones, and legacy code snapshots by Umang Gupta.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+    <script src="../js/scripts.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body class="text-slate-500 font-body selection:bg-soc-primary selection:text-white">
     <div class="noise-overlay"></div>
-    <nav class="fixed w-full z-40 top-0 p-4 sm:p-6 transition-all duration-300">
-        <div class="max-w-5xl mx-auto flex justify-between items-center glass-panel px-4 sm:px-6 py-2 sm:py-3 rounded-full">
-            <a href="../index.html#hero" class="font-display font-bold text-xl tracking-tight text-slate-500">
-                UG<span class="text-soc-primary">-SOC</span> Archive
-            </a>
-            <a href="../index.html" class="nav-cta">Back to Index</a>
-        </div>
-    </nav>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-16 sm:pb-20 space-y-10">
-        <header class="scroll-reveal">
-            <span class="section-label text-lg mb-4 block border-b border-slate-200 pb-2">Archive</span>
-            <h1 class="font-display text-4xl sm:text-5xl font-bold mb-4">Legacy Drops</h1>
-            <p class="text-slate-600 max-w-2xl">
-                Older experiments, retired tools, and snapshots. Placeholder page for now.
+    <!-- Unified Subpage Navigation -->
+    <header class="subpage-nav-wrap">
+        <nav class="subpage-nav">
+            <a href="../index.html" class="subpage-brand">
+                <span>UG<span class="text-soc-primary">-SOC</span></span>
+                <span class="subpage-brand-badge">Archive</span>
+            </a>
+            <div class="subpage-links">
+                <a href="blog.html" class="subpage-link">Blog</a>
+                <a href="case-studies.html" class="subpage-link">Case Studies</a>
+                <a href="tool-index.html" class="subpage-link">Tools</a>
+                <a href="log.html" class="subpage-link">Log</a>
+                <a href="arc.html" class="subpage-link active">Archive</a>
+                <a href="vault.html" class="subpage-link">Vault</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="../index.html" class="subpage-exit-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="hidden sm:inline">Portfolio</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-20 space-y-10" data-filter-group
+        data-filter-target=".archive-card-item">
+        <!-- Hero Header -->
+        <header class="scroll-reveal space-y-4">
+            <div class="flex items-center gap-2 text-xs font-mono text-amber-400 uppercase tracking-wider">
+                <i class="fa-solid fa-box-archive"></i>
+                <span>Technical Preservation & Project Vault</span>
+            </div>
+            <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-100">
+                Legacy Drops & Archive
+            </h1>
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+                A preserved catalog of foundational research scripts, retired CLI utilities, architectural milestones, and experimental tools that led to modern UG-SOC capabilities.
             </p>
+
+            <!-- Search and Filter Bar -->
+            <div class="pt-4 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                <div class="filter-pills-bar">
+                    <button class="filter-pill active" data-category="all">All Archives (7)</button>
+                    <button class="filter-pill" data-category="prototype">Prototypes</button>
+                    <button class="filter-pill" data-category="security">Security</button>
+                    <button class="filter-pill" data-category="scripts">Scripts</button>
+                    <button class="filter-pill" data-category="milestone">Milestones</button>
+                </div>
+
+                <div class="subpage-search-bar">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs"></i>
+                    <input type="text" class="subpage-search-input" placeholder="Search archive entries..."
+                        aria-label="Search archive">
+                </div>
+            </div>
+
+            <div class="filter-count text-xs font-mono text-slate-500">Showing 7 of 7 entries</div>
         </header>
 
-        <section class="glass-panel p-6 rounded-2xl">
-            <div class="text-sm text-slate-500 font-mono">No entries yet.</div>
+        <!-- Archive Entries Grid -->
+        <section class="grid md:grid-cols-2 gap-6 scroll-reveal">
+
+            <!-- Entry 1 -->
+            <div class="archive-card-item glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4"
+                data-category="prototype security" data-search="recon-collector python bash subdomain enumeration osint dns scrape 2023">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-slate-400">Q2 2023</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Preserved Prototype</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">recon-collector-v1</h2>
+                    <p class="text-sm text-slate-400">
+                        Early Python and Bash pipeline automating multi-source DNS enumeration, Certificate Transparency log parsing (crt.sh), and active HTTP status probe collection.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+                    <span>Python / Shell</span>
+                    <span class="text-slate-500">Superseded by TheSecretJuice</span>
+                </div>
+            </div>
+
+            <!-- Entry 2 -->
+            <div class="archive-card-item glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4"
+                data-category="security scripts" data-search="port-watcher-daemon raw socket monitor listening ports intrusion detection 2023">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-slate-400">Q3 2023</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">Archived Tool</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">port-watcher-daemon</h2>
+                    <p class="text-sm text-slate-400">
+                        Lightweight daemon polling the Windows TCP/IP stack at 1-second intervals to detect unauthorized bind calls or transient reverse shells spawned by malicious payloads.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+                    <span>PowerShell / Win32 Netstat</span>
+                    <span class="text-slate-500">Standalone Prototype</span>
+                </div>
+            </div>
+
+            <!-- Entry 3 -->
+            <div class="archive-card-item glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4"
+                data-category="prototype security" data-search="hash-hunter-cli multithreaded sha256 virustotal file integrity 2024">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-slate-400">Q1 2024</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Stable Archive</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">hash-hunter-cli</h2>
+                    <p class="text-sm text-slate-400">
+                        High-throughput directory scanner computing concurrent MD5, SHA-1, and SHA-256 digests with asynchronous VirusTotal threat intelligence lookup caching.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+                    <span>Python / Requests</span>
+                    <span class="text-slate-500">Integrated into Toolkit</span>
+                </div>
+            </div>
+
+            <!-- Entry 4 -->
+            <div class="archive-card-item glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4"
+                data-category="security scripts" data-search="wifi-audit-suite 802.11 monitor mode packet capture pcap aircrack 2024">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-slate-400">Q2 2024</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">Archived Script</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">wifi-audit-suite</h2>
+                    <p class="text-sm text-slate-400">
+                        Educational Bash wrapper suite for managing wireless interfaces, placing chipset into monitor mode, and capturing 4-way WPA2 handshakes for lab penetration testing.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+                    <span>Bash / Aircrack-ng</span>
+                    <span class="text-slate-500">Lab Research Only</span>
+                </div>
+            </div>
+
+            <!-- Entry 5 -->
+            <div class="archive-card-item glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4"
+                data-category="scripts security" data-search="win-hardening-baseline cis benchmark workstation registry group policy 2024">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-slate-400">Q3 2024</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Production Reference</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">win-hardening-baseline</h2>
+                    <p class="text-sm text-slate-400">
+                        Automated CIS Level 1 hardening script applying defensive Group Policy registry values: disabling LLMNR/NBT-NS, forcing SMB signing, and enforcing strict UAC behavior.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+                    <span>PowerShell / Registry</span>
+                    <span class="text-slate-500">Enterprise Baseline</span>
+                </div>
+            </div>
+
+            <!-- Entry 6 -->
+            <div class="archive-card-item glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4"
+                data-category="prototype security" data-search="payload-sandbox-logger api hook syscall dll injection reverse engineering 2025">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-slate-400">Q1 2025</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">Research Milestone</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">payload-sandbox-logger</h2>
+                    <p class="text-sm text-slate-400">
+                        Experimental research utility hooking sensitive Win32 API endpoints (<code class="font-mono text-xs">CreateRemoteThread</code>, <code class="font-mono text-xs">VirtualAllocEx</code>) inside sandboxed processes to record injection patterns.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+                    <span>C++ / Detours Hooking</span>
+                    <span class="text-slate-500">Malware Analysis Lab</span>
+                </div>
+            </div>
+
+            <!-- Entry 7 -->
+            <div class="archive-card-item glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4"
+                data-category="milestone" data-search="legacy-portfolio-v1 terminal prototype web html css 2024">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-slate-400">Q4 2024</span>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-soc-primary/10 text-soc-primary border border-soc-primary/20">Foundational Milestone</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">legacy-portfolio-v1</h2>
+                    <p class="text-sm text-slate-400">
+                        The original proof-of-concept interactive terminal interface for the UG-SOC security operations console. Evolved into the modern high-performance portfolio.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+                    <span>Vanilla JS / HTML5</span>
+                    <span class="text-slate-500">Foundation of UG-SOC</span>
+                </div>
+            </div>
+
         </section>
     </main>
-</body>
-</html>
 
+    <!-- Unified Subpage Footer -->
+    <footer class="subpage-footer">
+        <div class="subpage-footer-container">
+            <div class="space-y-2">
+                <div class="font-display font-bold text-lg text-slate-200">
+                    UG<span class="text-soc-primary">-SOC</span> System Console
+                </div>
+                <p class="text-xs text-slate-500 max-w-sm">
+                    Security operations, automation engineering, and systems research by Umang Gupta.
+                </p>
+                <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 mt-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Console Status: Online & Operational</span>
+                </div>
+            </div>
+
+            <div class="subpage-footer-links">
+                <a href="../index.html" class="subpage-footer-link">Home</a>
+                <a href="blog.html" class="subpage-footer-link">Blog</a>
+                <a href="case-studies.html" class="subpage-footer-link">Case Studies</a>
+                <a href="tool-index.html" class="subpage-footer-link">Tool Index</a>
+                <a href="log.html" class="subpage-footer-link">Change Log</a>
+                <a href="arc.html" class="subpage-footer-link font-bold text-soc-primary">Archive</a>
+                <a href="vault.html" class="subpage-footer-link">Vault</a>
+                <a href="https://github.com/mini-page" target="_blank" rel="noopener noreferrer"
+                    class="subpage-footer-link">GitHub <i
+                        class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/enhancements.js" defer></script>
+</body>
+
+</html>

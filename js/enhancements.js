@@ -1436,5 +1436,165 @@ if (prefersReducedMotion) {
     document.documentElement.style.scrollBehavior = 'auto';
 }
 
+// ========== 23. SUBPAGE UNIFIED INTERACTIONS ==========
+function initSubpageInteractions() {
+    // 1. Highlight active subpage link
+    const path = window.location.pathname.toLowerCase();
+    document.querySelectorAll('.subpage-link').forEach(link => {
+        const href = (link.getAttribute('href') || '').toLowerCase();
+        const cleanHref = href.replace(/^\.\.\//, '').replace(/^\.\//, '');
+        if (cleanHref && path.endsWith(cleanHref)) {
+            link.classList.add('active');
+        }
+    });
+
+    // 2. Universal Code Block Copy Buttons
+    document.querySelectorAll('.code-copy-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const wrapper = btn.closest('.code-block-wrapper');
+            const codeEl = wrapper?.querySelector('code, pre');
+            const textToCopy = btn.getAttribute('data-copy') || codeEl?.textContent || '';
+            if (!textToCopy) return;
+
+            try {
+                await navigator.clipboard.writeText(textToCopy.trim());
+                const originalHtml = btn.innerHTML;
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalHtml;
+                }, 2000);
+            } catch (err) {
+                console.warn('Copy failed:', err);
+            }
+        });
+    });
+
+    // 3. Subpage Generic Filter & Search (Tool Index, Archive, Blog, Log)
+    const filterWrappers = document.querySelectorAll('[data-filter-group]');
+    filterWrappers.forEach(group => {
+        const targetSelector = group.getAttribute('data-filter-target');
+        const items = document.querySelectorAll(targetSelector);
+        const searchInput = group.querySelector('.subpage-search-input');
+        const filterPills = group.querySelectorAll('.filter-pill');
+
+        const runFilter = () => {
+            const activePill = group.querySelector('.filter-pill.active');
+            const category = activePill ? activePill.getAttribute('data-category') : 'all';
+            const query = (searchInput?.value || '').trim().toLowerCase();
+
+            items.forEach(item => {
+                const itemCat = (item.getAttribute('data-category') || 'all').toLowerCase();
+                const itemText = (item.getAttribute('data-search') || item.textContent || '').toLowerCase();
+                const matchesCat = category === 'all' || itemCat.split(' ').includes(category);
+                const matchesQuery = !query || itemText.includes(query);
+                item.style.display = (matchesCat && matchesQuery) ? '' : 'none';
+            });
+
+            // Update item count if present
+            const countEl = group.querySelector('.filter-count');
+            if (countEl) {
+                const visibleCount = Array.from(items).filter(i => i.style.display !== 'none').length;
+                countEl.textContent = `Showing ${visibleCount} of ${items.length}`;
+            }
+        };
+
+        filterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                filterPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                runFilter();
+            });
+        });
+
+        if (searchInput) {
+            searchInput.addEventListener('input', runFilter);
+        }
+    });
+
+    // 4. Blog Article Modal Reader
+    const articleModal = document.getElementById('articleModal');
+    if (articleModal) {
+        const modalBackdrop = articleModal.querySelector('.article-modal-backdrop');
+        const modalClose = articleModal.querySelector('.article-modal-close');
+        const modalContent = document.getElementById('articleModalContent');
+
+        const closeArticle = () => {
+            articleModal.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        if (modalBackdrop) modalBackdrop.addEventListener('click', closeArticle);
+        if (modalClose) modalClose.addEventListener('click', closeArticle);
+
+        document.querySelectorAll('[data-read-article]').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const articleId = trigger.getAttribute('data-read-article');
+                const articleSource = document.getElementById(`article-data-${articleId}`);
+                if (articleSource && modalContent) {
+                    modalContent.innerHTML = articleSource.innerHTML;
+                    articleModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+    }
+
+    // 5. Vault Lightbox
+    const vaultLightbox = document.getElementById('vaultLightbox');
+    if (vaultLightbox) {
+        const lightboxImg = document.getElementById('vaultLightboxImg');
+        const lightboxTitle = document.getElementById('vaultLightboxTitle');
+        const lightboxDownload = document.getElementById('vaultLightboxDownload');
+        const lightboxClose = vaultLightbox.querySelector('.vault-lightbox-close');
+        const lightboxBackdrop = vaultLightbox.querySelector('.vault-lightbox-backdrop');
+
+        const closeLightbox = () => {
+            vaultLightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+        if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
+
+        document.querySelectorAll('.vault-item img').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', () => {
+                const src = img.getAttribute('src');
+                const alt = img.getAttribute('alt') || 'Vault Media Preview';
+                if (lightboxImg) lightboxImg.src = src;
+                if (lightboxTitle) lightboxTitle.textContent = alt;
+                if (lightboxDownload) lightboxDownload.href = src;
+                vaultLightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+    }
+
+    // 6. Global Escape handler for subpage modals
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const articleModal = document.getElementById('articleModal');
+            if (articleModal && articleModal.classList.contains('active')) {
+                articleModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            const vaultLightbox = document.getElementById('vaultLightbox');
+            if (vaultLightbox && vaultLightbox.classList.contains('active')) {
+                vaultLightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSubpageInteractions);
+} else {
+    initSubpageInteractions();
+}
+
 console.log('🚀 Portfolio Enhancements Loaded Successfully');
 console.log('⌨️  Keyboard Shortcuts: Ctrl+K (Search), Alt+T (Theme), Alt+H (Home), Alt+C (Contact)');

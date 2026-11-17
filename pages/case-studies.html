@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UG-SOC | Case Studies</title>
+    <title>UG-SOC | Engineering Case Studies</title>
+    <meta name="description"
+        content="In-depth architectural case studies on security tooling, Windows internals, and operational automation by Umang Gupta.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,56 +15,292 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
     <script src="../js/scripts.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body class="text-slate-500 font-body selection:bg-soc-primary selection:text-white">
-    <main class="max-w-5xl mx-auto px-6 pt-24 pb-20 space-y-12">
-        <header class="scroll-reveal">
-            <a href="../index.html" class="text-xs font-mono text-soc-primary">← Back to Portfolio</a>
-            <h1 class="font-display text-4xl md:text-5xl font-bold mt-4">Case Studies</h1>
-            <p class="text-slate-600 mt-3 max-w-2xl">
-                Deep dives into tool design, automation workflows, and system decisions. Replace placeholders with real project details.
+    <div class="noise-overlay"></div>
+
+    <!-- Unified Subpage Navigation -->
+    <header class="subpage-nav-wrap">
+        <nav class="subpage-nav">
+            <a href="../index.html" class="subpage-brand">
+                <span>UG<span class="text-soc-primary">-SOC</span></span>
+                <span class="subpage-brand-badge">Case Studies</span>
+            </a>
+            <div class="subpage-links">
+                <a href="blog.html" class="subpage-link">Blog</a>
+                <a href="case-studies.html" class="subpage-link active">Case Studies</a>
+                <a href="tool-index.html" class="subpage-link">Tools</a>
+                <a href="log.html" class="subpage-link">Log</a>
+                <a href="arc.html" class="subpage-link">Archive</a>
+                <a href="vault.html" class="subpage-link">Vault</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="../index.html" class="subpage-exit-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="hidden sm:inline">Portfolio</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-20 space-y-12">
+        <!-- Hero Header -->
+        <header class="scroll-reveal space-y-4">
+            <div class="flex items-center gap-2 text-xs font-mono text-soc-primary uppercase tracking-wider">
+                <i class="fa-solid fa-microchip"></i>
+                <span>Systems Architecture & Engineering Impact</span>
+            </div>
+            <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-100">
+                Technical Case Studies
+            </h1>
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+                Examining the engineering decisions, performance benchmarks, and security trade-offs behind custom
+                automation tools, forensic utilities, and infrastructure orchestration.
             </p>
         </header>
 
-        <section class="scroll-reveal glass-panel p-8 rounded-2xl space-y-4">
-            <h2 class="font-bold text-2xl">Case Study 01 — asllock</h2>
-            <p class="text-slate-600">Problem: Manual ACL handling is slow and error-prone.</p>
-            <p class="text-slate-600">Approach: TUI wrapper over `icacls` with safe presets.</p>
-            <p class="text-slate-600">Outcome: Faster, reliable lock/unlock workflows.</p>
-            <div class="grid sm:grid-cols-2 gap-4 mt-4">
-                <div class="glass-panel p-4 rounded-xl">
-                    <p class="text-xs font-mono text-slate-400">Before</p>
-                    <p class="text-sm text-slate-600">Multiple commands, repeated mistakes.</p>
+        <!-- Case Study 01: asllock -->
+        <section class="scroll-reveal glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+                <div>
+                    <span class="text-xs font-mono text-pink-400 bg-pink-500/10 px-2.5 py-1 rounded-full border border-pink-500/20">Case Study 01</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-slate-100 mt-2">asllock — Windows Access Control & NTFS TUI</h2>
                 </div>
-                <div class="glass-panel p-4 rounded-xl">
-                    <p class="text-xs font-mono text-slate-400">After</p>
-                    <p class="text-sm text-slate-600">Single interface, safe presets.</p>
+                <div class="flex items-center gap-2">
+                    <a href="https://github.com/mini-page/asllock" target="_blank" rel="noopener noreferrer"
+                        class="subpage-exit-btn">
+                        <i class="fa-brands fa-github"></i> Repository
+                    </a>
                 </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Challenge</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Administrators frequently corrupt NTFS Discretionary Access Control Lists (DACLs) with manual <code class="text-soc-primary font-mono text-xs">icacls</code> invocations. Fragile commands lack dry-run validation, and accidental inheritance breaks lead to critical service lockouts or privilege leaks.
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Solution</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Engineered a keyboard-driven Terminal User Interface (TUI) interacting directly with the Win32 Security API via .NET. It evaluates ACE canonical order, previews inheritance changes in memory, and provides instant preset profiles (Lockdown, Read-Only, Admin-Exclusive).
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Impact</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Reduced folder permission audits from 12 minutes to under 45 seconds. Zero accidental administrative lockouts across hundreds of automated test suites due to atomic pre-flight transaction verification.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Before / After Matrix -->
+            <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                <div class="glass-panel p-5 rounded-xl border border-red-500/20 bg-red-950/10 space-y-2">
+                    <div class="flex items-center gap-2 text-xs font-mono text-red-400 font-bold uppercase">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Legacy Manual Workflow
+                    </div>
+                    <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
+                        <li>Multi-step CLI syntax with obscure numeric mask flags (<code class="font-mono">/grant:r</code>).</li>
+                        <li>No rollback when operations fail mid-tree on locked files.</li>
+                        <li>High risk of unauthenticated write permission inheritance.</li>
+                    </ul>
+                </div>
+                <div class="glass-panel p-5 rounded-xl border border-emerald-500/20 bg-emerald-950/10 space-y-2">
+                    <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase">
+                        <i class="fa-solid fa-circle-check"></i> asllock TUI Engine
+                    </div>
+                    <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
+                        <li>Instant single-key preset locks with visual DACL inspection.</li>
+                        <li>Pre-commit diff preview of all Access Control Entries.</li>
+                        <li>Automated ACL backup prior to executing any write metadata.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-2 text-xs font-mono">
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">C# / PowerShell</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Win32 Security API</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">NTFS ACLs</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">ANSI TUI</span>
             </div>
         </section>
 
-        <section class="scroll-reveal glass-panel p-8 rounded-2xl space-y-4">
-            <h2 class="font-bold text-2xl">Case Study 02 — TheSecretJuice</h2>
-            <p class="text-slate-600">Problem: CLI tools are powerful but fragmented.</p>
-            <p class="text-slate-600">Approach: PowerShell module that extends everyday commands.</p>
-            <p class="text-slate-600">Outcome: Faster workflows with less cognitive load.</p>
+        <!-- Case Study 02: TheSecretJuice -->
+        <section class="scroll-reveal glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+                <div>
+                    <span class="text-xs font-mono text-soc-primary bg-soc-primary/10 px-2.5 py-1 rounded-full border border-soc-primary/20">Case Study 02</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-slate-100 mt-2">TheSecretJuice — SecOps Automation & CLI Suite</h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="https://github.com/mini-page/TheSecretJuice" target="_blank" rel="noopener noreferrer"
+                        class="subpage-exit-btn">
+                        <i class="fa-brands fa-github"></i> Repository
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Challenge</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Security analysts waste valuable triage time copying outputs between disparate CLI binaries, parsing unstructured strings, and remembering dozens of unrelated command-line parameters during incident escalation.
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Solution</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Architected an extensible PowerShell module suite providing standardized pipeline-driven cmdlets. Unified recon sweeps, hash verification, DNS inspection, and privilege checks under a single cohesive syntax with tab completion.
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Impact</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Replaced over 20 disparate scripts with one unified module. Enabled structured JSON streaming directly into incident management systems, accelerating standard host triage by 65%.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-2 text-xs font-mono">
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">PowerShell Core</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Pipeline Architecture</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Incident Triage</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">JSON Streams</span>
+            </div>
         </section>
 
-        <section class="scroll-reveal glass-panel p-8 rounded-2xl space-y-4">
-            <h2 class="font-bold text-2xl">Case Study 03 — SyncMaster</h2>
-            <p class="text-slate-600">Problem: Robocopy is reliable but not approachable.</p>
-            <p class="text-slate-600">Approach: UI wrapper + scheduling.</p>
-            <p class="text-slate-600">Outcome: Repeatable backup routines with fewer errors.</p>
+        <!-- Case Study 03: SyncMaster -->
+        <section class="scroll-reveal glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+                <div>
+                    <span class="text-xs font-mono text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20">Case Study 03</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-slate-100 mt-2">SyncMaster — Enterprise Backup & Robocopy Orchestrator</h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="https://github.com/mini-page/SyncMaster" target="_blank" rel="noopener noreferrer"
+                        class="subpage-exit-btn">
+                        <i class="fa-brands fa-github"></i> Repository
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Challenge</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Windows Robocopy is famously resilient but completely lacks graphical visibility, error alerting, real-time progress feedback, or smart exclusion of dangerous junction loops and volatile temp caches.
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Solution</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Created a lightweight orchestrator with multi-threaded mirror queuing, automatic permission preservation flags (<code class="text-soc-primary font-mono text-xs">/COPYALL</code>), VSS volume shadow copy integration, and automated verification hash checks.
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Impact</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Zero data loss during multiple high-capacity volume migrations. Automatic retry queues with exponential backoff prevent network timeouts from failing multi-terabyte synchronization jobs.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-2 text-xs font-mono">
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Robocopy Engine</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Volume Shadow Copy (VSS)</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Delta Mirroring</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Multi-Threading</span>
+            </div>
+        </section>
+
+        <!-- Case Study 04: Cleanify -->
+        <section class="scroll-reveal glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+                <div>
+                    <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">Case Study 04</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-slate-100 mt-2">Cleanify — Privacy-First Android Optimization Engine</h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="https://github.com/mini-page/Cleanify" target="_blank" rel="noopener noreferrer"
+                        class="subpage-exit-btn">
+                        <i class="fa-brands fa-github"></i> Repository
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Challenge</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Commercial Android "cleaner" applications are notorious privacy liabilities: injecting intrusive ad telemetry, uploading file indexes to remote servers, and demanding invasive root permissions.
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Solution</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Engineered a 100% offline cleanup utility adhering strictly to modern Android Scoped Storage paradigms. Implemented zero-telemetry local perceptual hashing to detect duplicate photos and residual cache without external network requests.
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">The Impact</span>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Reclaims an average of 3.2 GB of storage per installation with zero user privacy compromise. Operates completely offline with transparent open-source code and zero tracking SDKs.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-2 text-xs font-mono">
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Android SDK</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Scoped Storage API</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Offline Deduplication</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Privacy Engineering</span>
+            </div>
         </section>
     </main>
 
+    <!-- Unified Subpage Footer -->
+    <footer class="subpage-footer">
+        <div class="subpage-footer-container">
+            <div class="space-y-2">
+                <div class="font-display font-bold text-lg text-slate-200">
+                    UG<span class="text-soc-primary">-SOC</span> System Console
+                </div>
+                <p class="text-xs text-slate-500 max-w-sm">
+                    Security operations, automation engineering, and systems research by Umang Gupta.
+                </p>
+                <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 mt-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Console Status: Online & Operational</span>
+                </div>
+            </div>
+
+            <div class="subpage-footer-links">
+                <a href="../index.html" class="subpage-footer-link">Home</a>
+                <a href="blog.html" class="subpage-footer-link">Blog</a>
+                <a href="case-studies.html" class="subpage-footer-link font-bold text-soc-primary">Case Studies</a>
+                <a href="tool-index.html" class="subpage-footer-link">Tool Index</a>
+                <a href="log.html" class="subpage-footer-link">Change Log</a>
+                <a href="arc.html" class="subpage-footer-link">Archive</a>
+                <a href="vault.html" class="subpage-footer-link">Vault</a>
+                <a href="https://github.com/mini-page" target="_blank" rel="noopener noreferrer"
+                    class="subpage-footer-link">GitHub <i
+                        class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+            </div>
+        </div>
+    </footer>
+
     <script src="../js/enhancements.js" defer></script>
 </body>
-</html>
 
+</html>

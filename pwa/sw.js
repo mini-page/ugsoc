@@ -3,8 +3,8 @@
  * Provides offline functionality and performance optimization through caching
  */
 
-const CACHE_NAME = 'ug-soc-v1.1.0';
-const RUNTIME_CACHE = 'ug-soc-runtime-v1.1.0';
+const CACHE_NAME = 'ug-soc-v1.2.0';
+const RUNTIME_CACHE = 'ug-soc-runtime-v1.2.0';
 
 // Resources to cache immediately
 const PRECACHE_URLS = [

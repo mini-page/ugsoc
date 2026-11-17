@@ -60,16 +60,25 @@ const commands = [
     },
     {
         icon: '<i class="fa-solid fa-book-open" style="color:#F59E0B;"></i>',
-        title: 'Resources',
-        subtitle: 'Pages',
+        title: 'Resources & Subpages',
+        subtitle: 'Console Pages',
         type: 'group',
         chips: [
-            { label: 'Tool Index', url: 'pages/tool-index.html' },
-            { label: 'Case Studies', url: 'pages/case-studies.html' },
             { label: 'Blog', url: 'pages/blog.html' },
+            { label: 'Case Studies', url: 'pages/case-studies.html' },
+            { label: 'Tool Index', url: 'pages/tool-index.html' },
+            { label: 'Change Log', url: 'pages/log.html' },
+            { label: 'Archive', url: 'pages/arc.html' },
+            { label: 'Vault', url: 'pages/vault.html' },
             { label: 'Terminal', url: '#terminal' },
         ]
     },
+    { icon: '<i class="fa-solid fa-newspaper" style="color:#38BDF8;"></i>', title: 'Blog & Field Notes', subtitle: 'Technical Articles', type: 'link', target: 'pages/blog.html', sameTab: true },
+    { icon: '<i class="fa-solid fa-microchip" style="color:#A855F7;"></i>', title: 'Case Studies', subtitle: 'Engineering Architecture', type: 'link', target: 'pages/case-studies.html', sameTab: true },
+    { icon: '<i class="fa-solid fa-wrench" style="color:#10B981;"></i>', title: 'Tool Index', subtitle: 'Command Reference', type: 'link', target: 'pages/tool-index.html', sameTab: true },
+    { icon: '<i class="fa-solid fa-clipboard-list" style="color:#F59E0B;"></i>', title: 'System Change Log', subtitle: 'Version History', type: 'link', target: 'pages/log.html', sameTab: true },
+    { icon: '<i class="fa-solid fa-box-archive" style="color:#F97316;"></i>', title: 'Legacy Archive', subtitle: 'Historic Drops & Prototypes', type: 'link', target: 'pages/arc.html', sameTab: true },
+    { icon: '<i class="fa-solid fa-vault" style="color:#EC4899;"></i>', title: 'Private Vault', subtitle: 'Visual Media & Assets', type: 'link', target: 'pages/vault.html', sameTab: true },
 ];
 
 let selectedIndex = 0;
@@ -214,12 +223,22 @@ function renderCommands() {
             item.querySelectorAll('.command-chip').forEach((chip) => {
                 chip.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const url = chip.getAttribute('data-url');
-                    if (!url) return;
-                    if (url.startsWith('#')) {
-                        document.querySelector(url)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const rawUrl = chip.getAttribute('data-url');
+                    if (!rawUrl) return;
+                    if (rawUrl.startsWith('#')) {
+                        const isSubpage = window.location.pathname.includes('/pages/');
+                        if (isSubpage) {
+                            window.location.href = '../index.html' + rawUrl;
+                        } else {
+                            document.querySelector(rawUrl)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
                     } else {
-                        window.open(url, '_blank');
+                        const resolved = resolveSubpageUrl(rawUrl);
+                        if (rawUrl.startsWith('pages/') || rawUrl.endsWith('.html')) {
+                            window.location.href = resolved;
+                        } else {
+                            window.open(resolved, '_blank');
+                        }
                     }
                 });
             });
@@ -242,11 +261,28 @@ function getToggleState(action) {
     return false;
 }
 
+function resolveSubpageUrl(url) {
+    if (!url) return '';
+    if (url.startsWith('#') || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')) {
+        return url;
+    }
+    const isSubpage = window.location.pathname.includes('/pages/');
+    if (isSubpage) {
+        if (url.startsWith('pages/')) {
+            return url.replace(/^pages\//, '');
+        }
+        if (url.startsWith('./') || url.startsWith('assets/')) {
+            return '../' + url.replace(/^\.\//, '');
+        }
+    }
+    return url;
+}
+
 function executeQuickAction(cmd) {
     if (!cmd || !cmd.quickAction) return;
     switch (cmd.quickAction) {
         case 'downloadResume':
-            window.open('./assets/UmangGupta_Resume.pdf', '_blank');
+            window.open(resolveSubpageUrl('./assets/UmangGupta_Resume.pdf'), '_blank');
             break;
         case 'email':
             window.location.href = 'mailto:raghavans5711+portfolio@gmail.com';
@@ -260,19 +296,19 @@ function executeQuickAction(cmd) {
             window.open('https://github.com/mini-page/', '_blank');
             break;
         case 'openVault':
-            window.open('pages/vault.html', '_blank');
+            window.location.href = resolveSubpageUrl('pages/vault.html');
             break;
         case 'openArc':
-            window.open('pages/arc.html', '_blank');
+            window.location.href = resolveSubpageUrl('pages/arc.html');
             break;
         case 'openLog':
-            window.open('pages/log.html', '_blank');
-            break;
-        case 'openWhatsApp':
-            window.open('https://wa.me/919621272014', '_blank');
+            window.location.href = resolveSubpageUrl('pages/log.html');
             break;
         case 'openPlayground':
             window.open('https://mini-page.github.io/Playground/', '_blank');
+            break;
+        case 'openWhatsApp':
+            window.open('https://wa.me/919621272014', '_blank');
             break;
         default:
             break;
@@ -355,12 +391,18 @@ function executeCommand(cmd) {
         const element = document.getElementById(cmd.target);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            const isSubpage = window.location.pathname.includes('/pages/');
+            if (isSubpage) {
+                window.location.href = '../index.html#' + cmd.target;
+            }
         }
     } else if (cmd.type === 'link') {
+        const target = resolveSubpageUrl(cmd.target);
         if (cmd.sameTab) {
-            window.location.href = cmd.target;
+            window.location.href = target;
         } else {
-            window.open(cmd.target, '_blank');
+            window.open(target, '_blank');
         }
     } else if (cmd.type === 'action') {
         switch (cmd.action) {

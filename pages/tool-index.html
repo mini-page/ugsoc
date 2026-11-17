@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UG-SOC | Tool Index</title>
+    <title>UG-SOC | Tool Index & Command Reference</title>
+    <meta name="description"
+        content="Comprehensive command reference, installation instructions, and CLI syntax for Umang Gupta's security and automation tooling suite.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,47 +15,440 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
     <script src="../js/scripts.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body class="text-slate-500 font-body selection:bg-soc-primary selection:text-white">
-    <main class="max-w-5xl mx-auto px-6 pt-24 pb-20 space-y-10">
-        <header class="scroll-reveal">
-            <a href="../index.html" class="text-xs font-mono text-soc-primary">← Back to Portfolio</a>
-            <h1 class="font-display text-4xl md:text-5xl font-bold mt-4">Tool Index</h1>
-            <p class="text-slate-600 mt-3 max-w-2xl">
-                A quick index of security tools and utilities. Replace sample entries with real install commands and usage.
-            </p>
-        </header>
+    <div class="noise-overlay"></div>
 
-        <section class="scroll-reveal">
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="glass-panel p-6 rounded-2xl">
-                    <h3 class="font-bold text-lg mb-2">asllock</h3>
-                    <p class="text-sm text-slate-500 mb-4">Access control TUI for Windows (NTFS ACLs).</p>
-                    <div class="text-xs font-mono text-slate-400 mb-2">Install</div>
-                    <pre class="code-block text-xs">git clone https://github.com/mini-page/asllock</pre>
-                    <div class="text-xs font-mono text-slate-400 mt-3 mb-2">Usage</div>
-                    <pre class="code-block text-xs">asllock --path "C:\secure"</pre>
+    <!-- Unified Subpage Navigation -->
+    <header class="subpage-nav-wrap">
+        <nav class="subpage-nav">
+            <a href="../index.html" class="subpage-brand">
+                <span>UG<span class="text-soc-primary">-SOC</span></span>
+                <span class="subpage-brand-badge">Tools</span>
+            </a>
+            <div class="subpage-links">
+                <a href="blog.html" class="subpage-link">Blog</a>
+                <a href="case-studies.html" class="subpage-link">Case Studies</a>
+                <a href="tool-index.html" class="subpage-link active">Tools</a>
+                <a href="log.html" class="subpage-link">Log</a>
+                <a href="arc.html" class="subpage-link">Archive</a>
+                <a href="vault.html" class="subpage-link">Vault</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="../index.html" class="subpage-exit-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="hidden sm:inline">Portfolio</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-20 space-y-10" data-filter-group
+        data-filter-target=".tool-card-item">
+        <!-- Hero Header -->
+        <header class="scroll-reveal space-y-4">
+            <div class="flex items-center gap-2 text-xs font-mono text-soc-primary uppercase tracking-wider">
+                <i class="fa-solid fa-terminal"></i>
+                <span>Command Reference & Documentation</span>
+            </div>
+            <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-100">
+                Tool Index
+            </h1>
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+                Standardized installation commands, CLI syntax, and quick-start reference for the entire suite of security automation utilities and systems tools.
+            </p>
+
+            <!-- Search and Filter Bar -->
+            <div class="pt-4 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                <div class="filter-pills-bar">
+                    <button class="filter-pill active" data-category="all">All Tools (9)</button>
+                    <button class="filter-pill" data-category="security">Security</button>
+                    <button class="filter-pill" data-category="system">System / Windows</button>
+                    <button class="filter-pill" data-category="automation">Automation</button>
+                    <button class="filter-pill" data-category="mobile-web">Mobile & Web</button>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl">
-                    <h3 class="font-bold text-lg mb-2">TheSecretJuice</h3>
-                    <p class="text-sm text-slate-500 mb-4">PowerShell module to enhance CLI workflows.</p>
-                    <div class="text-xs font-mono text-slate-400 mb-2">Install</div>
-                    <pre class="code-block text-xs">Install-Module TheSecretJuice</pre>
-                    <div class="text-xs font-mono text-slate-400 mt-3 mb-2">Usage</div>
-                    <pre class="code-block text-xs">juice scan --target example.com</pre>
+                <div class="subpage-search-bar">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs"></i>
+                    <input type="text" class="subpage-search-input" placeholder="Search tool, command, or keyword..."
+                        aria-label="Search tools">
                 </div>
             </div>
+
+            <div class="filter-count text-xs font-mono text-slate-500">Showing 9 of 9 tools</div>
+        </header>
+
+        <!-- Tools Grid -->
+        <section class="grid md:grid-cols-2 gap-6 scroll-reveal">
+
+            <!-- Tool 1: asllock -->
+            <div class="tool-card-item glass-panel p-6 rounded-2xl flex flex-col justify-between border border-slate-800 space-y-4"
+                data-category="security system" data-search="asllock access control ntfs acl permissions icacls windows tui">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-pink-400 bg-pink-500/10 px-2.5 py-0.5 rounded-full border border-pink-500/20">Security / TUI</span>
+                        <a href="https://github.com/mini-page/asllock" target="_blank" rel="noopener noreferrer"
+                            class="text-xs font-mono text-slate-400 hover:text-white inline-flex items-center gap-1">
+                            GitHub <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">asllock</h2>
+                    <p class="text-sm text-slate-400">
+                        High-speed Terminal User Interface for auditing, locking, and safely updating Windows NTFS Discretionary Access Control Lists (DACLs) with transactional safety.
+                    </p>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>INSTALLATION</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-emerald-400"><code>git clone https://github.com/mini-page/asllock.git</code></pre>
+                    </div>
+
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between mt-2">
+                        <span>USAGE SYNTAX</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-slate-300"><code>asllock --path "C:\ConfidentialShare" --preset lockdown</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 2: TheSecretJuice -->
+            <div class="tool-card-item glass-panel p-6 rounded-2xl flex flex-col justify-between border border-slate-800 space-y-4"
+                data-category="security automation" data-search="thesecretjuice powershell module cli secops incident response triage automation">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-soc-primary bg-soc-primary/10 px-2.5 py-0.5 rounded-full border border-soc-primary/20">SecOps CLI</span>
+                        <a href="https://github.com/mini-page/TheSecretJuice" target="_blank" rel="noopener noreferrer"
+                            class="text-xs font-mono text-slate-400 hover:text-white inline-flex items-center gap-1">
+                            GitHub <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">TheSecretJuice</h2>
+                    <p class="text-sm text-slate-400">
+                        Modular PowerShell orchestration suite unifying reconnaissance, hash calculation, network probing, and incident response commands with structured streaming.
+                    </p>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>INSTALLATION</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-emerald-400"><code>git clone https://github.com/mini-page/TheSecretJuice.git</code></pre>
+                    </div>
+
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between mt-2">
+                        <span>USAGE SYNTAX</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-slate-300"><code>Import-Module .\TheSecretJuice; juice scan -Target 192.168.1.0/24</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 3: Cleanify -->
+            <div class="tool-card-item glass-panel p-6 rounded-2xl flex flex-col justify-between border border-slate-800 space-y-4"
+                data-category="mobile-web system" data-search="cleanify android storage duplicate photos cache cleanup privacy scoped storage">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">Android / Privacy</span>
+                        <a href="https://github.com/mini-page/Cleanify" target="_blank" rel="noopener noreferrer"
+                            class="text-xs font-mono text-slate-400 hover:text-white inline-flex items-center gap-1">
+                            GitHub <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">Cleanify</h2>
+                    <p class="text-sm text-slate-400">
+                        Zero-telemetry Android cleanup utility for reclaiming storage, identifying perceptual duplicate photos, and wiping application cache without external analytics.
+                    </p>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>SOURCE / APK</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-emerald-400"><code>git clone https://github.com/mini-page/Cleanify.git</code></pre>
+                    </div>
+
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between mt-2">
+                        <span>BUILD COMMAND</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-slate-300"><code>./gradlew assembleRelease</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 4: SyncMaster -->
+            <div class="tool-card-item glass-panel p-6 rounded-2xl flex flex-col justify-between border border-slate-800 space-y-4"
+                data-category="system automation" data-search="syncmaster robocopy backup mirror shadow copy disaster recovery replication">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">System / Backup</span>
+                        <a href="https://github.com/mini-page/SyncMaster" target="_blank" rel="noopener noreferrer"
+                            class="text-xs font-mono text-slate-400 hover:text-white inline-flex items-center gap-1">
+                            GitHub <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">SyncMaster</h2>
+                    <p class="text-sm text-slate-400">
+                        Windows Robocopy GUI and automated scheduling orchestrator with multi-threading, exponential retry backoff, and volume shadow copy snapshots.
+                    </p>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>INSTALLATION</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-emerald-400"><code>git clone https://github.com/mini-page/SyncMaster.git</code></pre>
+                    </div>
+
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between mt-2">
+                        <span>USAGE SYNTAX</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-slate-300"><code>.\SyncMaster.bat /Source "D:\Data" /Dest "E:\Backup" /Threads 8</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 5: SnipRun -->
+            <div class="tool-card-item glass-panel p-6 rounded-2xl flex flex-col justify-between border border-slate-800 space-y-4"
+                data-category="automation system" data-search="sniprun snippet runner code execution terminal rapid prototyping">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-2.5 py-0.5 rounded-full border border-cyan-500/20">Developer Tool</span>
+                        <a href="https://github.com/mini-page/SnipRun" target="_blank" rel="noopener noreferrer"
+                            class="text-xs font-mono text-slate-400 hover:text-white inline-flex items-center gap-1">
+                            GitHub <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">SnipRun</h2>
+                    <p class="text-sm text-slate-400">
+                        Rapid snippet execution engine for running isolated code chunks in ephemeral subshells with automatic cleanup and execution metrics.
+                    </p>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>INSTALLATION</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-emerald-400"><code>git clone https://github.com/mini-page/SnipRun.git</code></pre>
+                    </div>
+
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between mt-2">
+                        <span>USAGE SYNTAX</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-slate-300"><code>sniprun --lang py --code "import os; print(os.name)"</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 6: Trackify -->
+            <div class="tool-card-item glass-panel p-6 rounded-2xl flex flex-col justify-between border border-slate-800 space-y-4"
+                data-category="automation system" data-search="trackify analytics telemetry monitoring activity tracker cli">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-indigo-400 bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">Telemetry / Monitor</span>
+                        <a href="https://github.com/mini-page/Trackify" target="_blank" rel="noopener noreferrer"
+                            class="text-xs font-mono text-slate-400 hover:text-white inline-flex items-center gap-1">
+                            GitHub <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">Trackify</h2>
+                    <p class="text-sm text-slate-400">
+                        Real-time system telemetry and command execution logger designed to measure operational latency and detect abnormal process lifespans.
+                    </p>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>INSTALLATION</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-emerald-400"><code>git clone https://github.com/mini-page/Trackify.git</code></pre>
+                    </div>
+
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between mt-2">
+                        <span>USAGE SYNTAX</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-slate-300"><code>trackify watch --process "powershell.exe" --interval 500ms</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 7: SejdaCrack -->
+            <div class="tool-card-item glass-panel p-6 rounded-2xl flex flex-col justify-between border border-slate-800 space-y-4"
+                data-category="security system" data-search="sejdacrack document pdf utility electron patch desktop engine">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-rose-400 bg-rose-500/10 px-2.5 py-0.5 rounded-full border border-rose-500/20">Reverse Engineering</span>
+                        <a href="https://github.com/mini-page/SejdaCrack" target="_blank" rel="noopener noreferrer"
+                            class="text-xs font-mono text-slate-400 hover:text-white inline-flex items-center gap-1">
+                            GitHub <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">SejdaCrack</h2>
+                    <p class="text-sm text-slate-400">
+                        Desktop document utility and research engine investigating client-side license verification routines and Electron runtime patching boundaries.
+                    </p>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>INSTALLATION</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-emerald-400"><code>git clone https://github.com/mini-page/SejdaCrack.git</code></pre>
+                    </div>
+
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between mt-2">
+                        <span>USAGE SYNTAX</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-slate-300"><code>python patch_engine.py --inspect --target "Sejda Desktop"</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 8: CyberPath -->
+            <div class="tool-card-item glass-panel p-6 rounded-2xl flex flex-col justify-between border border-slate-800 space-y-4"
+                data-category="security mobile-web" data-search="cyberpath interactive learning cybersecurity training roadmap simulator">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2.5 py-0.5 rounded-full border border-teal-500/20">Security Simulator</span>
+                        <a href="https://github.com/mini-page/CyberPath" target="_blank" rel="noopener noreferrer"
+                            class="text-xs font-mono text-slate-400 hover:text-white inline-flex items-center gap-1">
+                            GitHub <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">CyberPath</h2>
+                    <p class="text-sm text-slate-400">
+                        Interactive cybersecurity learning and scenario simulation platform guiding users through structured ethical hacking and defense methodologies.
+                    </p>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>INSTALLATION</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-emerald-400"><code>git clone https://github.com/mini-page/CyberPath.git</code></pre>
+                    </div>
+
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between mt-2">
+                        <span>LAUNCH</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-slate-300"><code>npm install && npm run dev</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 9: SkFitness -->
+            <div class="tool-card-item glass-panel p-6 rounded-2xl flex flex-col justify-between border border-slate-800 space-y-4"
+                data-category="mobile-web" data-search="skfitness health web application fitness tracking portal responsive">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-orange-400 bg-orange-500/10 px-2.5 py-0.5 rounded-full border border-orange-500/20">Web Application</span>
+                        <a href="https://github.com/mini-page/skfitness" target="_blank" rel="noopener noreferrer"
+                            class="text-xs font-mono text-slate-400 hover:text-white inline-flex items-center gap-1">
+                            GitHub <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-slate-100">SkFitness</h2>
+                    <p class="text-sm text-slate-400">
+                        Modern responsive fitness and workout tracking web portal built with dynamic client-side state and optimized asset delivery.
+                    </p>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>INSTALLATION</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-emerald-400"><code>git clone https://github.com/mini-page/skfitness.git</code></pre>
+                    </div>
+
+                    <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between mt-2">
+                        <span>LIVE PREVIEW</span>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <button class="code-copy-btn" data-copy="https://mini-page.github.io/skfitness/"><i class="fa-regular fa-copy"></i> Copy Link</button>
+                        <pre class="code-block text-xs font-mono p-3 rounded-lg bg-slate-950 overflow-x-auto text-slate-300"><code>https://mini-page.github.io/skfitness/</code></pre>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 
+    <!-- Unified Subpage Footer -->
+    <footer class="subpage-footer">
+        <div class="subpage-footer-container">
+            <div class="space-y-2">
+                <div class="font-display font-bold text-lg text-slate-200">
+                    UG<span class="text-soc-primary">-SOC</span> System Console
+                </div>
+                <p class="text-xs text-slate-500 max-w-sm">
+                    Security operations, automation engineering, and systems research by Umang Gupta.
+                </p>
+                <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 mt-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Console Status: Online & Operational</span>
+                </div>
+            </div>
+
+            <div class="subpage-footer-links">
+                <a href="../index.html" class="subpage-footer-link">Home</a>
+                <a href="blog.html" class="subpage-footer-link">Blog</a>
+                <a href="case-studies.html" class="subpage-footer-link">Case Studies</a>
+                <a href="tool-index.html" class="subpage-footer-link font-bold text-soc-primary">Tool Index</a>
+                <a href="log.html" class="subpage-footer-link">Change Log</a>
+                <a href="arc.html" class="subpage-footer-link">Archive</a>
+                <a href="vault.html" class="subpage-footer-link">Vault</a>
+                <a href="https://github.com/mini-page" target="_blank" rel="noopener noreferrer"
+                    class="subpage-footer-link">GitHub <i
+                        class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+            </div>
+        </div>
+    </footer>
+
     <script src="../js/enhancements.js" defer></script>
 </body>
-</html>
 
+</html>

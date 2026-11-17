@@ -23,6 +23,30 @@
 <body class="vault-body font-body selection:bg-soc-primary selection:text-white">
     <div class="noise-overlay"></div>
 
+    <!-- Unified Subpage Navigation -->
+    <header class="subpage-nav-wrap">
+        <nav class="subpage-nav">
+            <a href="../index.html" class="subpage-brand">
+                <span>UG<span class="text-soc-primary">-SOC</span></span>
+                <span class="subpage-brand-badge">Vault</span>
+            </a>
+            <div class="subpage-links">
+                <a href="blog.html" class="subpage-link">Blog</a>
+                <a href="case-studies.html" class="subpage-link">Case Studies</a>
+                <a href="tool-index.html" class="subpage-link">Tools</a>
+                <a href="log.html" class="subpage-link">Log</a>
+                <a href="arc.html" class="subpage-link">Archive</a>
+                <a href="vault.html" class="subpage-link active">Vault</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="../index.html" class="subpage-exit-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="hidden sm:inline">Portfolio</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
     <main class="vault-shell space-y-6">
         <header class="vault-hero">
             <p class="vault-hero-kicker">UG-SOC Vault</p>
@@ -240,6 +264,58 @@
             </div>
         </section>
     </main>
+
+    <!-- Vault Lightbox Modal -->
+    <div id="vaultLightbox" class="vault-lightbox" role="dialog" aria-modal="true" aria-labelledby="vaultLightboxTitle">
+        <div class="vault-lightbox-backdrop"></div>
+        <div class="vault-lightbox-dialog">
+            <div class="vault-lightbox-header">
+                <span id="vaultLightboxTitle" class="text-xs font-mono text-soc-primary font-bold">Image Preview</span>
+                <div class="flex items-center gap-3">
+                    <a id="vaultLightboxDownload" href="#" download class="text-xs font-mono text-slate-300 hover:text-soc-primary transition-colors inline-flex items-center gap-1">
+                        <i class="fa-solid fa-download"></i> Download
+                    </a>
+                    <button class="vault-lightbox-close text-slate-400 hover:text-white p-1 rounded-lg transition-colors" aria-label="Close image preview">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="vault-lightbox-img-wrap">
+                <img id="vaultLightboxImg" src="" alt="Vault image preview" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Unified Subpage Footer -->
+    <footer class="subpage-footer">
+        <div class="subpage-footer-container">
+            <div class="space-y-2">
+                <div class="font-display font-bold text-lg text-slate-200">
+                    UG<span class="text-soc-primary">-SOC</span> System Console
+                </div>
+                <p class="text-xs text-slate-500 max-w-sm">
+                    Security operations, automation engineering, and systems research by Umang Gupta.
+                </p>
+                <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 mt-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Console Status: Online & Operational</span>
+                </div>
+            </div>
+
+            <div class="subpage-footer-links">
+                <a href="../index.html" class="subpage-footer-link">Home</a>
+                <a href="blog.html" class="subpage-footer-link">Blog</a>
+                <a href="case-studies.html" class="subpage-footer-link">Case Studies</a>
+                <a href="tool-index.html" class="subpage-footer-link">Tool Index</a>
+                <a href="log.html" class="subpage-footer-link">Change Log</a>
+                <a href="arc.html" class="subpage-footer-link">Archive</a>
+                <a href="vault.html" class="subpage-footer-link font-bold text-soc-primary">Vault</a>
+                <a href="https://github.com/mini-page" target="_blank" rel="noopener noreferrer"
+                    class="subpage-footer-link">GitHub <i
+                        class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
