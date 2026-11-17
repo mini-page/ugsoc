@@ -814,7 +814,7 @@ body::before {
     gap: 4px;
 }
 
-/* Certificate modal */
+/* Certificate & Document Modal */
 .cert-modal {
     position: fixed;
     inset: 0;
@@ -830,33 +830,123 @@ body::before {
 .cert-modal-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(2, 6, 23, 0.75);
-    backdrop-filter: blur(5px);
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(6px);
 }
 
 .cert-modal-dialog {
     position: relative;
     z-index: 1;
-    width: min(920px, 92vw);
-    max-height: 90vh;
-    background: var(--panel);
-    border: 1px solid var(--border);
+    width: min(920px, 94vw);
+    max-height: 92vh;
+    background: var(--bg-card, #0f172a);
+    border: 1px solid var(--border-panel, rgba(148, 163, 184, 0.28));
     border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 24px 60px rgba(2, 6, 23, 0.45);
+    padding: 16px 20px;
+    box-shadow: 0 24px 60px rgba(2, 6, 23, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cert-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    flex-shrink: 0;
 }
 
 .cert-modal-title {
-    margin: 0 0 10px;
+    margin: 0;
+    font-size: 1.15rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text-primary, #ffffff);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cert-modal-close {
+    position: static;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    background: rgba(15, 23, 42, 0.6);
+    color: var(--text-primary, #ffffff);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.cert-modal-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #ef4444;
 }
 
 .cert-modal-actions {
     display: flex;
-    gap: 8px;
-    margin: 0 0 10px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
     flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.pdf-toolbar-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 999px;
+    padding: 4px 10px;
+}
+
+.pdf-toolbar-group .toolbar-sep {
+    width: 1px;
+    height: 16px;
+    background: rgba(148, 163, 184, 0.25);
+    margin: 0 4px;
+}
+
+.cert-modal-action-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary, #ffffff);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.cert-modal-action-btn:hover:not(:disabled) {
+    background: rgba(249, 115, 22, 0.25);
+    color: #f97316;
+}
+
+.cert-modal-action-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.pdf-action-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .cert-modal-action-link {
@@ -866,51 +956,92 @@ body::before {
     font-size: 0.8rem;
     border-radius: 999px;
     border: 1px solid rgba(148, 163, 184, 0.35);
-    background: rgba(15, 23, 42, 0.45);
-    color: var(--text);
-    padding: 6px 10px;
+    background: rgba(15, 23, 42, 0.6);
+    color: var(--text-primary, #ffffff);
+    padding: 6px 12px;
     text-decoration: none;
+    transition: all 0.2s ease;
 }
 
 .cert-modal-action-link:hover {
-    border-color: rgba(249, 115, 22, 0.45);
+    border-color: rgba(249, 115, 22, 0.6);
+    background: rgba(249, 115, 22, 0.15);
+    color: #f97316;
 }
 
 .cert-modal-dialog img {
     width: auto;
     height: auto;
     max-width: 100%;
-    max-height: calc(90vh - 120px);
-    border-radius: 16px;
+    max-height: calc(85vh - 120px);
+    border-radius: 12px;
     border: 1px solid rgba(148, 163, 184, 0.28);
     background: transparent;
     display: block;
+    margin: 0 auto;
 }
 
 #certModalPdf {
     display: none;
-    width: min(980px, 88vw);
-    height: min(72vh, 980px);
-    border-radius: 14px;
+    width: 100%;
+    height: min(72vh, 850px);
+    border-radius: 12px;
     border: 1px solid rgba(148, 163, 184, 0.28);
     background: #0b1223;
 }
 
 .cert-modal-media {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    width: fit-content;
-    max-width: 100%;
+    width: 100%;
     margin: 0 auto;
-    padding: 6px;
-    border-radius: 18px;
-    background: rgba(2, 6, 23, 0.35);
-    border: 1px solid rgba(148, 163, 184, 0.22);
-    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.18), 0 0 20px rgba(56, 189, 248, 0.22),
-        0 0 42px rgba(249, 115, 22, 0.18);
+    padding: 4px;
+    border-radius: 16px;
+    background: rgba(2, 6, 23, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.2);
     overflow: hidden;
+    flex: 1;
+}
+
+.pdf-viewer-container {
+    width: 100%;
+    height: min(72vh, 820px);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: #0b1223;
+    border-radius: 12px;
+    padding: 14px;
+    box-sizing: border-box;
+}
+
+.pdf-canvas-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    width: 100%;
+}
+
+#certModalPdfCanvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    background: #ffffff;
+}
+
+.pdf-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    gap: 8px;
 }
 
 .cert-modal-details {
@@ -1030,19 +1161,6 @@ body::before {
     background: rgba(194, 65, 12, 0.14);
 }
 
-.cert-modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 35px;
-    height: 35px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: rgba(15, 23, 42, 0.85);
-    color: var(--text);
-    cursor: pointer;
-}
-
 .command-key {
     background: rgba(100, 116, 139, 0.2);
     padding: 2px 6px;
@@ -1051,7 +1169,8 @@ body::before {
 }
 
 .cert-modal-dialog.is-pdf-preview {
-    width: min(1100px, 96vw);
+    width: min(1050px, 96vw);
+    max-height: 94vh;
 }
 
 /* Education section */
@@ -1068,11 +1187,40 @@ body::before {
 .edu-doc-row {
     border: 1px solid rgba(148, 163, 184, 0.28);
     background: rgba(15, 23, 42, 0.02);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+.edu-doc-row:hover {
+    border-color: rgba(249, 115, 22, 0.5);
+    background: rgba(249, 115, 22, 0.08);
+    transform: translateX(4px);
 }
 
 [data-theme="dark"] .edu-doc-row {
     border: 1px solid rgba(148, 163, 184, 0.35);
     background: rgba(15, 23, 42, 0.48);
+}
+
+.cert-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cert-card .border-t {
+    margin-top: auto;
+}
+
+[data-theme="dark"] .cert-card .border-slate-200 {
+    border-color: rgba(148, 163, 184, 0.15);
+}
+
+[data-theme="dark"] .cert-card .bg-slate-100 {
+    background-color: rgba(30, 41, 59, 0.8);
+    color: #e2e8f0;
 }
 
 .edu-score-badge {
@@ -1837,25 +1985,17 @@ details > summary::-webkit-details-marker {
     transform: scale(1.03);
 }
 
-/* Project Popovers */
+/* Project Cards */
 .project-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.project-card .live-demo {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 6;
-    background: rgba(16, 185, 129, 0.92);
-    color: #0B1320;
-    border: 1px solid rgba(16, 185, 129, 0.9);
-    animation: live-pulse 1.8s ease-out infinite;
-}
-
-.project-card .live-demo:hover {
-    animation: none;
-    background: rgba(16, 185, 129, 1);
+.project-card > .flex-1 {
+    display: flex;
+    flex-direction: column;
 }
 
 .project-summary {
@@ -1865,28 +2005,23 @@ details > summary::-webkit-details-marker {
     overflow: hidden;
 }
 
-.project-popover {
-    position: absolute;
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
-    background: rgba(15, 23, 42, 0.95);
-    color: #E2E8F0;
-    border: 1px solid rgba(248, 250, 252, 0.12);
-    border-radius: 14px;
-    padding: 12px 14px;
-    font-size: 0.8rem;
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    box-shadow: 0 12px 30px rgba(2, 6, 23, 0.35);
-    z-index: 5;
+.project-card .project-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.35);
 }
 
-.project-card:hover .project-popover {
-    opacity: 1;
-    transform: translateY(0);
+.project-card .live-demo {
+    margin-left: auto;
+    animation: live-pulse 1.8s ease-out infinite;
+}
+
+.project-card .live-demo:hover {
+    animation: none;
 }
 
 .project-thumb {
@@ -1898,6 +2033,57 @@ details > summary::-webkit-details-marker {
     opacity: 0.95;
 }
 
+.image-wrap {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-card h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+[data-theme="dark"] .project-card h3 {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .project-card .project-summary {
+    color: #94a3b8;
+}
+
+.project-popover {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    background: rgba(15, 23, 42, 0.95);
+    color: #E2E8F0;
+    border: 1px solid rgba(248, 250, 252, 0.12);
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 12px 30px rgba(2, 6, 23, 0.35);
+    z-index: 5;
+}
+
+.project-popover > div + div {
+    margin-top: 4px;
+}
+
+.project-card:hover .project-popover,
 .project-card.show-popover .project-popover,
 .project-card:focus-within .project-popover {
     opacity: 1;
@@ -1906,8 +2092,11 @@ details > summary::-webkit-details-marker {
 }
 
 [data-theme="dark"] .project-popover {
-    background: rgba(2, 6, 23, 0.95);
-    color: #E2E8F0;
+    background: rgba(2, 6, 23, 0.97);
+}
+
+[data-theme="dark"] .project-card .project-footer {
+    border-top-color: rgba(248, 250, 252, 0.08);
 }
 
 /* Mobile project collapse */
@@ -2302,9 +2491,9 @@ details > summary::-webkit-details-marker {
 }
 
 @keyframes live-pulse {
-    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45); }
-    70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.45); }
+    70% { box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
 }
 
 /* Lazy Images */

@@ -46,6 +46,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
 
+    <!-- PDF.js for in-website PDF Preview -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
     <!-- App Scripts -->
     <script src="js/CommandPalette.js" defer></script>
     <script src="js/enhancements.js" defer></script>
@@ -166,9 +169,17 @@
                     class="flex items-center gap-2 px-6 py-3 rounded-xl bg-black text-white font-bold hover:bg-gray-700 transition-colors">
                     <i class="fa-brands fa-github"></i> GitHub
                 </a>
-                <a href="https://www.linkedin.com/in/ug5711" target="_blank" rel="noopener noreferrer"
+                <a href="http://t.me/@ug_5711" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-2 px-6 py-3 rounded-xl bg-black text-white font-bold hover:bg-blue-500 transition-colors">
-                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                    <i class="fa-brands fa-telegram"></i> Telegram
+                </a>
+                <a href="https://wa.me/9621272014" target="_blank" rel="noopener noreferrer"
+                    class="flex items-center gap-2 px-6 py-3 rounded-xl bg-black text-white font-bold hover:bg-green-500 transition-colors">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="mailto:raghavans5711+portfolio@gmail.com"
+                    class="flex items-center gap-2 px-6 py-3 rounded-xl bg-black text-white font-bold hover:bg-red-500 transition-colors">
+                    <i class="fa-solid fa-envelope"></i> Email
                 </a>
             </div>
 
@@ -479,11 +490,53 @@
                 Tools</span>
 
             <div id="projectsGrid" class="projects-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- PROJECT 0: Cleanify (TOP TIER) -->
+                <div class="project-card group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border-2 border-soc-primary/40 hover:border-soc-primary hover:shadow-xl hover:shadow-soc-primary/20 cursor-pointer" data-repo="https://github.com/mini-page/Cleanify" role="article" tabindex="0">
+
+                    <div class="image-wrap bg-soc-primary/10 border border-soc-primary/20">
+                        <div class="text-center text-soc-primary">
+                            <i class="fa-solid fa-mobile-screen text-2xl mb-2 block"></i>
+                            <span class="text-xs font-mono text-soc-primary/60">Cleanify</span>
+                        </div>
+                        <span
+                            class="absolute top-2 right-2 z-10 text-xs font-bold text-soc-primary bg-white/90 px-3 py-1 rounded-full border border-soc-primary/30 uppercase tracking-wider shadow-sm">Top
+                            Tier</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-xs font-mono text-slate-400 mb-1">ANDROID • MEDIA MANAGEMENT</div>
+                        <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-soc-primary transition-colors">
+                            <a href="https://github.com/mini-page/Cleanify" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center justify-between"><span>Cleanify</span> <i class="fa-brands fa-github text-sm opacity-70"></i></a></h3>
+                        <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
+                            A modern, powerful and feature-rich media management app for Android featuring a
+                            swipe-to-sort interface and advanced duplicate/similar media detection & many more.
+                        </p>
+                        <div class="project-popover">
+                            <div><span class="text-xs font-mono text-slate-300">Problem:</span> Cluttered media
+                                galleries and duplicate files waste storage.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Approach:</span> Swipe-to-sort UI +
+                                similarity detection algorithm.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Outcome:</span> Fast media cleanup
+                                & organization.</div>
+                            <div><span class="text-xs font-mono text-slate-300">Impact:</span> Reclaimed storage,
+                                cleaner gallery.</div>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Kotlin</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Android</span>
+                        <span class="text-xs font-mono px-2 py-1 tag-colored">Jetpack</span>
+                        <a href="https://home-cleanify.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            onclick="event.stopPropagation()"
+                            class="live-demo ml-auto text-xs font-mono px-3 py-1 rounded-lg bg-soc-accent text-white hover:bg-orange-500 transition-colors">
+                            Live Demo
+                        </a>
+                    </div>
+                </div>
+
                 <!-- PROJECT 1: asllock -->
                 <a href="https://github.com/mini-page/asllock" target="_blank" rel="noopener noreferrer"
                     class="project-card group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
-                    <div
-                        class="w-full h-32 bg-soc-dark rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                    <div class="image-wrap bg-soc-dark rounded-lg overflow-hidden">
                         <img src="assets/project-asllock.svg" alt="asllock thumbnail" class="project-thumb">
                     </div>
                     <div class="flex-1">
@@ -505,23 +558,21 @@
                                 cycles.</div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="project-footer">
                         <span class="text-xs font-mono px-2 py-1 tag-colored">PowerShell</span>
                         <span class="text-xs font-mono px-2 py-1 tag-colored">TUI</span>
                     </div>
                 </a>
 
                 <!-- PROJECT 2: TheSecretJuice -->
-                <div onclick="window.location.href='https://github.com/mini-page/TheSecretJuice'"
-                    class="project-card group cursor-pointer glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
-                    <div
-                        class="w-full h-32 bg-slate-800 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                <div class="project-card group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30 cursor-pointer" data-repo="https://github.com/mini-page/TheSecretJuice" role="article" tabindex="0">
+                    <div class="image-wrap bg-slate-800 rounded-lg overflow-hidden">
                         <img src="assets/project-secretjuice.svg" alt="TheSecretJuice thumbnail" class="project-thumb">
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">CLI ENHANCER</div>
                         <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-soc-accent transition-colors">
-                            TheSecretJuice</h3>
+                            <a href="https://github.com/mini-page/TheSecretJuice" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center justify-between"><span>TheSecretJuice</span> <i class="fa-brands fa-github text-sm opacity-70"></i></a></h3>
                         <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
                             PowerShell module that extends common CLI tools to speed up security workflows.
                         </p>
@@ -536,7 +587,7 @@
                                 quicker execution.</div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="project-footer">
                         <span class="text-xs font-mono px-2 py-1 tag-colored">PowerShell</span>
                         <span class="text-xs font-mono px-2 py-1 tag-colored">Automation</span>
                         <a href="https://the-secret-juice.vercel.app/" target="_blank" rel="noopener noreferrer"
@@ -548,11 +599,10 @@
                 </div>
 
                 <!-- PROJECT 3: SejdaCrack -->
-                <div onclick="window.location.href='https://github.com/mini-page/SejdaCrack'"
-                    class="project-card group cursor-pointer glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
+                <div class="project-card group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-soc-primary/30 cursor-pointer" data-repo="https://github.com/mini-page/SejdaCrack" role="article" tabindex="0">
 
                     <!-- IMAGE -->
-                    <div class="w-full h-32 bg-slate-700 rounded-lg mb-4 overflow-hidden relative">
+                    <div class="image-wrap bg-slate-700 rounded-lg overflow-hidden">
                         <img src="assets/project-sejdacrack.svg" alt="SejdaCrack thumbnail" class="project-thumb">
                     </div>
 
@@ -564,7 +614,7 @@
 
                         <h3 class="font-bold text-lg mb-2 text-slate-800
                            group-hover:text-red-500 transition-colors">
-                            SejdaCrack
+                            <a href="https://github.com/mini-page/SejdaCrack" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center justify-between"><span>SejdaCrack</span> <i class="fa-brands fa-github text-sm opacity-70"></i></a>
                         </h3>
 
                         <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
@@ -583,24 +633,13 @@
                     </div>
 
                     <!-- TAGS + BUTTON ROW -->
-                    <div class="flex items-center gap-2 mt-4 pt-4
-                          border-t border-slate-100">
-
-                        <!-- TAGS -->
+                    <div class="project-footer">
                         <span class="text-xs font-mono tag-colored">Python</span>
                         <span class="text-xs font-mono tag-colored">HTML</span>
-
-                        <!-- HOVER BUTTON -->
                         <a href="https://mini-page.github.io/SejdaCrack/" target="_blank" rel="noopener noreferrer"
-                            onclick="event.stopPropagation()" class="ml-auto text-xs font-mono px-4 py-2 rounded-lg
-                          bg-red-600 text-white
-                          opacity-0 translate-y-2
-                          group-hover:opacity-100 group-hover:translate-y-0
-                          transition-all duration-300">
-
+                            class="live-demo ml-auto text-xs font-mono px-3 py-1 rounded-lg bg-soc-accent text-white hover:bg-orange-500 transition-colors">
                             Website
                         </a>
-
                     </div>
                 </div>
 
@@ -609,8 +648,7 @@
                 <!-- PROJECT 4: trackify -->
                 <a href="https://github.com/mini-page/trackify" target="_blank" rel="noopener noreferrer"
                     class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
-                    <div
-                        class="w-full h-32 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                    <div class="image-wrap bg-gradient-to-br from-green-100 to-blue-100 rounded-lg overflow-hidden">
                         <img src="assets/project-trackify.svg" alt="trackify thumbnail" class="project-thumb">
                     </div>
                     <div class="flex-1">
@@ -631,7 +669,7 @@
                                 visibility.</div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="project-footer">
                         <span class="text-xs font-mono px-2 py-1 tag-colored">Next.js</span>
                         <span class="text-xs font-mono px-2 py-1 tag-colored">TypeScript</span>
                         <span class="text-xs font-mono px-2 py-1 tag-colored">React</span>
@@ -641,8 +679,7 @@
                 <!-- PROJECT 5: sniprun -->
                 <a href="https://github.com/mini-page/sniprun" target="_blank" rel="noopener noreferrer"
                     class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
-                    <div
-                        class="w-full h-32 bg-indigo-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                    <div class="image-wrap bg-indigo-900 rounded-lg overflow-hidden">
                         <img src="assets/project-sniprun.svg" alt="sniprun thumbnail" class="project-thumb">
                     </div>
                     <div class="flex-1">
@@ -662,7 +699,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="project-footer">
                         <span class="text-xs font-mono px-2 py-1 tag-colored">Go</span>
                         <span class="text-xs font-mono px-2 py-1 tag-colored">Shell</span>
                     </div>
@@ -671,8 +708,7 @@
                 <!-- PROJECT 6: SyncMaster -->
                 <a href="https://github.com/mini-page/SyncMaster" target="_blank" rel="noopener noreferrer"
                     class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
-                    <div
-                        class="w-full h-32 bg-blue-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                    <div class="image-wrap bg-blue-900 rounded-lg overflow-hidden">
                         <img src="assets/project-syncmaster.svg" alt="SyncMaster thumbnail" class="project-thumb">
                     </div>
                     <div class="flex-1">
@@ -691,7 +727,7 @@
                                 backups.</div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="project-footer">
                         <span class="text-xs font-mono px-2 py-1 tag-colored">PowerShell</span>
                         <span class="text-xs font-mono px-2 py-1 tag-colored">Robocopy</span>
                     </div>
@@ -700,8 +736,7 @@
                 <!-- PROJECT 7: Cyber-path -->
                 <a href="https://github.com/mini-page/Cyber-path" target="_blank" rel="noopener noreferrer"
                     class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
-                    <div
-                        class="w-full h-32 bg-teal-900 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                    <div class="image-wrap bg-teal-900 rounded-lg overflow-hidden">
                         <img src="assets/project-cyberpath.svg" alt="Cyber-path thumbnail" class="project-thumb">
                     </div>
                     <div class="flex-1">
@@ -721,23 +756,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="project-footer">
                         <span class="text-xs font-mono px-2 py-1 tag-colored">TypeScript</span>
                         <span class="text-xs font-mono px-2 py-1 tag-colored">Docs</span>
                     </div>
                 </a>
 
                 <!-- PROJECT 8: skfitness -->
-                <div onclick="window.location.href='https://github.com/mini-page/skfitness'"
-                    class="project-card project-collapsible group cursor-pointer glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
-                    <div
-                        class="w-full h-32 bg-orange-50 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                <div class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30 cursor-pointer" data-repo="https://github.com/mini-page/skfitness" role="article" tabindex="0">
+                    <div class="image-wrap bg-orange-50 rounded-lg overflow-hidden">
                         <img src="assets/project-skfitness.svg" alt="skfitness thumbnail" class="project-thumb">
                     </div>
                     <div class="flex-1">
                         <div class="text-xs font-mono text-slate-400 mb-1">BUSINESS / WEB</div>
                         <h3 class="font-bold text-lg mb-2 text-slate-800 group-hover:text-orange-500 transition-colors">
-                            skfitness</h3>
+                            <a href="https://github.com/mini-page/skfitness" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center justify-between"><span>skfitness</span> <i class="fa-brands fa-github text-sm opacity-70"></i></a></h3>
                         <p class="project-summary text-sm text-slate-500 mb-4 leading-relaxed">
                             Premium gym website with clean layout, clear services, and strong branding.
                         </p>
@@ -752,7 +785,7 @@
                                 clarity.</div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="project-footer">
                         <span class="text-xs font-mono px-2 py-1 tag-colored">HTML</span>
                         <span class="text-xs font-mono px-2 py-1 tag-colored">CSS</span>
                         <a href="https://mini-page.github.io/skfitness/" target="_blank" rel="noopener noreferrer"
@@ -766,8 +799,7 @@
                 <!-- PROJECT 9: rahulsoni.in -->
                 <a href="https://github.com/mini-page/rahulsoni.in" target="_blank" rel="noopener noreferrer"
                     class="project-card project-collapsible group glass-panel p-6 rounded-2xl flex flex-col h-full hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-soc-primary/30">
-                    <div
-                        class="w-full h-32 bg-gray-100 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
+                    <div class="image-wrap bg-gray-100 rounded-lg overflow-hidden">
                         <img src="assets/project-rahulsoni.svg" alt="rahulsoni.in thumbnail" class="project-thumb">
                     </div>
                     <div class="flex-1">
@@ -787,7 +819,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="project-footer">
                         <span class="text-xs font-mono px-2 py-1 tag-colored">HTML</span>
                         <span class="text-xs font-mono px-2 py-1 tag-colored">Design</span>
                     </div>
@@ -864,7 +896,7 @@
                 <!-- Right: Download Action -->
                 <div class="flex flex-col gap-6 scroll-reveal-right lg:pt-2">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <a href="./assets/UmangGupta_Resume.pdf" target="_blank" rel="noopener noreferrer"
+                        <a href="./assets/UmangGupta_Resume.pdf" data-doc-pdf="./assets/UmangGupta_Resume.pdf" data-doc-title="Umang Gupta - Resume" target="_blank" rel="noopener noreferrer"
                             class="btn btn-primary btn-solid btn-orange inline-flex items-center justify-center gap-2 w-full">
                             <i class="fa-solid fa-eye"></i> Preview
                         </a>
@@ -914,7 +946,7 @@
                 </div>
             </div>
             <div class="mt-6 text-center">
-                <a href="./assets/UmangGupta_Resume.pdf" target="_blank" rel="noopener noreferrer"
+                <a href="./assets/UmangGupta_Resume.pdf" data-doc-pdf="./assets/UmangGupta_Resume.pdf" data-doc-title="Umang Gupta - Resume" target="_blank" rel="noopener noreferrer"
                     class="inline-flex items-center text-sm font-mono text-soc-primary hover:text-soc-accent transition-colors font-bold">
                     Preview Resume PDF <i class="fa-solid fa-eye ml-2"></i>
                 </a>
@@ -1224,6 +1256,95 @@
                         </span>
                     </div>
                 </div>
+                <div style="order:11"
+                    class="cert-card group glass-panel border border-zinc-800/50 p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:border-red-500/30 hover:shadow-lg hover:shadow-red-500/10 cursor-pointer"
+                    data-cert-image="assets/certs/google-play-academic.png" data-cert-title="Google Play Academic Certificate" role="button" tabindex="0"
+                    aria-label="Open certificate image for Google Play Academic Certificate">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center text-red-400">
+                            <i class="fa-brands fa-google-play text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-red-400 uppercase tracking-wider">Academic</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-red-300 transition-colors">Google Play Academic
+                        Certificate</h3>
+                    <p class="text-sm text-slate-500 mb-4 leading-relaxed">Academic achievement recognition</p>
+                    <div
+                        class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-200 pt-4">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-brands fa-google-play"></i>
+                            Google Play
+                        </span>
+                        <span class="bg-slate-100 px-2 py-1 rounded-full">2026</span>
+                    </div>
+                    <div class="mt-3">
+                        <span
+                            class="inline-flex items-center gap-1 text-xs text-red-700 bg-red-100 px-2 py-1 rounded">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Academic · Learning · Achievement
+                        </span>
+                    </div>
+                </div>
+
+                <div style="order:12"
+                    class="cert-card group glass-panel border border-zinc-800/50 p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/10 cursor-pointer"
+                    data-cert-image="assets/certs/bigdata-cloud.jpg" data-cert-title="BigData & Cloud Certificate"
+                    role="button" tabindex="0" aria-label="Open certificate image for BigData & Cloud Certificate">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                            <i class="fa-solid fa-database text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-indigo-400 uppercase tracking-wider">Data Engineering</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-indigo-300 transition-colors">BigData &
+                        Cloud Certificate</h3>
+                    <p class="text-sm text-slate-500 mb-4 leading-relaxed">Big data processing and cloud fundamentals</p>
+                    <div
+                        class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-200 pt-4">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-cloud"></i>
+                            Cloud Platform
+                        </span>
+                        <span class="bg-slate-100 px-2 py-1 rounded-full">2026</span>
+                    </div>
+                    <div class="mt-3">
+                        <span
+                            class="inline-flex items-center gap-1 text-xs text-indigo-700 bg-indigo-100 px-2 py-1 rounded">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Big Data • Cloud • AWS • Azure
+                        </span>
+                    </div>
+                </div>
+
+                <div style="order:13"
+                    class="cert-card group glass-panel border border-zinc-800/50 p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:border-red-500/30 hover:shadow-lg hover:shadow-red-500/10 cursor-pointer"
+                    data-cert-image="assets/certs/cyber-forensic.jpg" data-cert-title="Cyber Forensic Certificate"
+                    role="button" tabindex="0" aria-label="Open certificate image for Cyber Forensic Certificate">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center text-red-400">
+                            <i class="fa-solid fa-magnifying-glass-bug text-xl"></i>
+                        </div>
+                        <span class="text-xs font-medium text-red-400 uppercase tracking-wider">Forensics</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-red-300 transition-colors">Cyber Forensic
+                        Certificate</h3>
+                    <p class="text-sm text-slate-500 mb-4 leading-relaxed">Digital forensics and incident response</p>
+                    <div
+                        class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-200 pt-4">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            Cyber Forensics
+                        </span>
+                        <span class="bg-slate-100 px-2 py-1 rounded-full">2026</span>
+                    </div>
+                    <div class="mt-3">
+                        <span
+                            class="inline-flex items-center gap-1 text-xs text-red-700 bg-red-100 px-2 py-1 rounded">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Forensics • Incident Response • Evidence
+                        </span>
+                    </div>
+                </div>
 
                 <!-- Certification 7: Ongoing Learning -->
                 <div style="order:99"
@@ -1290,11 +1411,11 @@
                         </div>
                         <div class="edu-meta-card rounded-xl p-4">
                             <p class="text-xs uppercase tracking-wider text-slate-500 mb-1">Duration</p>
-                            <p class="font-semibold">Jul 2023 - Jun 2026</p>
+                            <p class="font-semibold">Jul 2023 - Jun 2026 <span class="text-xs bg-soc-success/10 text-soc-success px-2 py-0.5 rounded border border-soc-success/20">Graduated</span></p>
                         </div>
                         <div class="edu-meta-card rounded-xl p-4">
                             <p class="text-xs uppercase tracking-wider text-slate-500 mb-1">Grade</p>
-                            <p class="font-semibold">9.7</p>
+                            <p class="font-semibold">9.7 CGPA</p>
                         </div>
                     </div>
 
@@ -1371,6 +1492,20 @@
                             href="./assets/educationals/End%20Semester%205%20(Odd).pdf" target="_blank"
                             rel="noopener noreferrer">
                             <span>Semester 5 <span class="edu-score-badge">CGPA 9.7</span></span><i
+                                class="fa-solid fa-file-pdf text-red-500"></i>
+                        </a>
+                        <a class="edu-doc-row flex items-center justify-between rounded-lg px-3 py-2 hover:border-soc-primary/40 transition-colors"
+                            data-doc-pdf="./assets/educationals/Semester%206.pdf" data-doc-title="Semester 6"
+                            href="./assets/educationals/Semester%206.pdf" target="_blank"
+                            rel="noopener noreferrer">
+                            <span>Semester 6 <span class="edu-score-badge">Final</span></span><i
+                                class="fa-solid fa-file-pdf text-red-500"></i>
+                        </a>
+                        <a class="edu-doc-row flex items-center justify-between rounded-lg px-3 py-2 hover:border-soc-primary/40 transition-colors"
+                            data-doc-pdf="./assets/educationals/BCA%20Results.pdf" data-doc-title="BCA Results"
+                            href="./assets/educationals/BCA%20Results.pdf" target="_blank"
+                            rel="noopener noreferrer">
+                            <span>BCA Results <span class="edu-score-badge">Graduated</span></span><i
                                 class="fa-solid fa-file-pdf text-red-500"></i>
                         </a>
                     </div>
@@ -1853,24 +1988,59 @@
         </div>
     </div>
 
-    <!-- Certificate Preview Modal -->
+    <!-- Certificate & Document Preview Modal (with built-in PDF viewer) -->
     <div class="cert-modal" id="certModal" aria-hidden="true">
         <div class="cert-modal-backdrop" data-cert-close></div>
         <div class="cert-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="certModalTitle">
-            <h3 class="cert-modal-title" id="certModalTitle"></h3>
-            <div class="cert-modal-actions" id="certModalActions" hidden>
-                <a id="certModalOpenPdf" class="cert-modal-action-link" href="#" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Open In New Tab
-                </a>
-                <a id="certModalDownloadPdf" class="cert-modal-action-link" href="#" download>
-                    <i class="fa-solid fa-download"></i> Download
-                </a>
-            </div>
-            <div class="cert-modal-media">
-                <button class="cert-modal-close" type="button" aria-label="Close certificate preview" data-cert-close>
+            <div class="cert-modal-header">
+                <h3 class="cert-modal-title" id="certModalTitle"></h3>
+                <button class="cert-modal-close" type="button" aria-label="Close preview" data-cert-close>
                     <i class="fa-solid fa-xmark"></i>
                 </button>
+            </div>
+
+            <!-- PDF Viewer Toolbar -->
+            <div class="cert-modal-actions" id="certModalActions" hidden>
+                <div class="pdf-toolbar-group" id="pdfControls">
+                    <button type="button" id="pdfPrevPage" class="cert-modal-action-btn" title="Previous Page" aria-label="Previous Page">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <span class="pdf-page-indicator font-mono text-xs">
+                        Page <span id="pdfPageNum">1</span> / <span id="pdfPageCount">1</span>
+                    </span>
+                    <button type="button" id="pdfNextPage" class="cert-modal-action-btn" title="Next Page" aria-label="Next Page">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <span class="toolbar-sep"></span>
+                    <button type="button" id="pdfZoomOut" class="cert-modal-action-btn" title="Zoom Out" aria-label="Zoom Out">
+                        <i class="fa-solid fa-magnifying-glass-minus"></i>
+                    </button>
+                    <span id="pdfZoomLevel" class="font-mono text-xs text-slate-400">100%</span>
+                    <button type="button" id="pdfZoomIn" class="cert-modal-action-btn" title="Zoom In" aria-label="Zoom In">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    </button>
+                </div>
+                <div class="pdf-action-links">
+                    <a id="certModalOpenPdf" class="cert-modal-action-link" href="#" target="_blank" rel="noopener noreferrer" title="Open in New Tab">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> <span>Open</span>
+                    </a>
+                    <a id="certModalDownloadPdf" class="cert-modal-action-link" href="#" download title="Download PDF">
+                        <i class="fa-solid fa-download"></i> <span>Download</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cert-modal-media">
                 <img id="certModalImage" alt="Certificate preview" />
+                <div id="pdfViewerContainer" class="pdf-viewer-container" style="display: none;">
+                    <div id="pdfLoadingSpinner" class="pdf-spinner" style="display: none;">
+                        <i class="fa-solid fa-circle-notch fa-spin text-2xl text-soc-primary"></i>
+                        <span class="text-xs font-mono mt-2 text-slate-400">Loading PDF document...</span>
+                    </div>
+                    <div id="pdfCanvasWrapper" class="pdf-canvas-wrapper">
+                        <canvas id="certModalPdfCanvas"></canvas>
+                    </div>
+                </div>
                 <iframe id="certModalPdf" title="Document preview" loading="lazy"></iframe>
             </div>
             <div class="cert-modal-details" id="certModalDetails"></div>
