@@ -12,6 +12,7 @@ const commands = [
         quickAction: 'openGitHub',
         quickLabel: 'GitHub',
         chips: [
+            { label: 'Cleanify', url: 'https://github.com/mini-page/Cleanify' },
             { label: 'asllock', url: 'https://github.com/mini-page/asllock' },
             { label: 'TheSecretJuice', url: 'https://github.com/mini-page/TheSecretJuice' },
             { label: 'SejdaCrack', url: 'https://github.com/mini-page/SejdaCrack' },

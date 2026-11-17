@@ -7,27 +7,37 @@
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// ========== 1. LOADING SCREEN ==========
-window.addEventListener('load', () => {
+// ========== 1. LOADING SCREEN (FAST DISMISS) ==========
+const dismissLoadingScreen = () => {
     const loadingScreen = document.querySelector('.loading-screen');
-    if (loadingScreen) {
+    if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+        loadingScreen.style.transition = 'opacity 0.25s ease-out, visibility 0.25s ease-out';
+        loadingScreen.style.opacity = '0';
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
             document.body.classList.add('page-transition');
-        }, 1000);
+        }, 250);
     }
-});
+};
 
-// ========== 2. MATRIX RAIN EFFECT ==========
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    dismissLoadingScreen();
+} else {
+    document.addEventListener('DOMContentLoaded', dismissLoadingScreen, { once: true });
+}
+// Fallback in case anything blocks DOMContentLoaded
+setTimeout(dismissLoadingScreen, 1200);
+
+// ========== 2. MATRIX RAIN EFFECT (OPTIMIZED 30 FPS / ZERO REFLOW) ==========
 class MatrixRain {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) return;
-        
+
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-        
+
         this.chars = [
             '9621272014',
             'raghavans5711+portfolio@gmail.com',
@@ -42,75 +52,112 @@ class MatrixRain {
             'automation'
         ].join(' ');
         this.fontSize = 14;
-        this.columns = this.canvas.width / this.fontSize;
-        this.drops = Array(Math.floor(this.columns)).fill(1);
+        this.columns = Math.floor(this.canvas.width / this.fontSize);
+        this.drops = Array(this.columns).fill(1);
         this.theme = document.documentElement.getAttribute('data-theme') || 'light';
-        
-        this.intervalId = null;
+
+        this.animFrameId = null;
         this.isRunning = false;
+        this.lastTime = 0;
+        this.fpsInterval = 1000 / 30; // Cap at 30fps to save battery & CPU
+        this.cachedScrollRatio = 0;
+        this.cachedBaseHue = 24;
+        this.cachedRange = 22;
+        this.isPageVisible = !document.hidden;
+
+        this.updateThemeCache();
         this.init();
     }
-    
+
+    updateThemeCache() {
+        this.theme = document.documentElement.getAttribute('data-theme') || 'light';
+        const styles = getComputedStyle(document.documentElement);
+        this.cachedBaseHue = this.theme === 'dark'
+            ? parseFloat(styles.getPropertyValue('--matrix-hue-dark')) || 24
+            : parseFloat(styles.getPropertyValue('--matrix-hue-light')) || 28;
+        this.cachedRange = parseFloat(styles.getPropertyValue('--matrix-hue-range')) || 22;
+    }
+
     init() {
-        this.start();
-        window.addEventListener('resize', () => this.resize());
+        window.addEventListener('resize', () => this.resize(), { passive: true });
         window.addEventListener('themechange', (e) => {
             this.theme = e.detail?.theme || this.theme;
+            this.updateThemeCache();
+        }, { passive: true });
+        document.addEventListener('visibilitychange', () => {
+            this.isPageVisible = !document.hidden;
+            if (this.isPageVisible && this.isRunning && !this.animFrameId) {
+                this.loop(performance.now());
+            }
         });
+        this.start();
     }
 
     start() {
         if (this.isRunning) return;
         this.isRunning = true;
         this.canvas.style.display = 'block';
-        this.intervalId = setInterval(() => this.draw(), 33);
+        this.lastTime = performance.now();
+        this.loop(this.lastTime);
     }
 
     stop() {
         if (!this.isRunning) return;
         this.isRunning = false;
-        if (this.intervalId) {
-            clearInterval(this.intervalId);
-            this.intervalId = null;
+        if (this.animFrameId) {
+            cancelAnimationFrame(this.animFrameId);
+            this.animFrameId = null;
         }
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.canvas.style.display = 'none';
     }
-    
+
+    loop(currentTime) {
+        if (!this.isRunning) return;
+        this.animFrameId = requestAnimationFrame((t) => this.loop(t));
+
+        if (!this.isPageVisible) return;
+
+        const elapsed = currentTime - this.lastTime;
+        if (elapsed > this.fpsInterval) {
+            this.lastTime = currentTime - (elapsed % this.fpsInterval);
+            this.draw();
+        }
+    }
+
+    updateScrollRatio(ratio) {
+        this.cachedScrollRatio = ratio;
+    }
+
     draw() {
         const fade = this.theme === 'dark' ? 'rgba(2, 6, 23, 0.08)' : 'rgba(248, 250, 252, 0.12)';
         this.ctx.fillStyle = fade;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
-        const ratio = scrollMax > 0 ? Math.min(1, window.scrollY / scrollMax) : 0;
-        const styles = getComputedStyle(document.documentElement);
-        const baseHue = this.theme === 'dark'
-            ? parseFloat(styles.getPropertyValue('--matrix-hue-dark')) || 24
-            : parseFloat(styles.getPropertyValue('--matrix-hue-light')) || 28;
-        const range = parseFloat(styles.getPropertyValue('--matrix-hue-range')) || 22;
-        const hue = baseHue + (ratio * range);
+
+        const hue = this.cachedBaseHue + (this.cachedScrollRatio * this.cachedRange);
         const sat = this.theme === 'dark' ? 82 : 76;
         const light = this.theme === 'dark' ? 58 : 48;
         this.ctx.fillStyle = `hsl(${hue} ${sat}% ${light}%)`;
         this.ctx.font = this.fontSize + 'px monospace';
-        
+
+        const charsLen = this.chars.length;
+        const dropLimit = this.canvas.height;
         for (let i = 0; i < this.drops.length; i++) {
-            const text = this.chars[Math.floor(Math.random() * this.chars.length)];
+            const text = this.chars[Math.floor(Math.random() * charsLen)];
             this.ctx.fillText(text, i * this.fontSize, this.drops[i] * this.fontSize);
-            
-            if (this.drops[i] * this.fontSize > this.canvas.height && Math.random() > 0.975) {
+
+            if (this.drops[i] * this.fontSize > dropLimit && Math.random() > 0.975) {
                 this.drops[i] = 0;
             }
             this.drops[i]++;
         }
     }
-    
+
     resize() {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-        this.columns = this.canvas.width / this.fontSize;
-        this.drops = Array(Math.floor(this.columns)).fill(1);
+        this.columns = Math.floor(this.canvas.width / this.fontSize);
+        this.drops = Array(this.columns).fill(1);
     }
 }
 
@@ -141,54 +188,73 @@ window.toggleMatrixRain = () => {
     }
 };
 
-// ========== 3. SCROLL PROGRESS BAR ==========
-class ScrollProgress {
-    constructor() {
-        this.progressBar = document.querySelector('.scroll-progress');
-        if (!this.progressBar) return;
-        
-        window.addEventListener('scroll', () => this.update());
-    }
-    
-    update() {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        this.progressBar.style.width = scrolled + '%';
-    }
-}
+// ========== 3. UNIFIED HIGH-PERFORMANCE SCROLL MANAGER ==========
+let scrollTicking = false;
+let scrollProgressEl = null;
+let backToTopEl = null;
+let parallaxEls = [];
 
-new ScrollProgress();
+function initScrollManager() {
+    scrollProgressEl = document.querySelector('.scroll-progress');
+    backToTopEl = document.querySelector('.back-to-top');
+    parallaxEls = prefersReducedMotion ? [] : Array.from(document.querySelectorAll('.parallax'));
 
-// ========== 4. BACK TO TOP BUTTON ==========
-class BackToTop {
-    constructor() {
-        this.button = document.querySelector('.back-to-top');
-        if (!this.button) return;
-        
-        window.addEventListener('scroll', () => this.toggle());
-        this.button.addEventListener('click', () => this.scrollToTop());
-    }
-    
-    toggle() {
-        if (window.pageYOffset > 300) {
-            this.button.classList.add('visible');
-        } else {
-            this.button.classList.remove('visible');
-        }
-    }
-    
-    scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    if (backToTopEl) {
+        backToTopEl.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    const onScrollTick = () => {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollRatio = docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
+
+        // Progress bar
+        if (scrollProgressEl) {
+            scrollProgressEl.style.width = (scrollRatio * 100) + '%';
+        }
+
+        // Back to top visibility
+        if (backToTopEl) {
+            if (scrollY > 300) {
+                backToTopEl.classList.add('visible');
+            } else {
+                backToTopEl.classList.remove('visible');
+            }
+        }
+
+        // Parallax elements
+        if (parallaxEls.length) {
+            parallaxEls.forEach((el) => {
+                const speed = parseFloat(el.dataset.speed) || 0.5;
+                el.style.transform = `translate3d(0, ${-(scrollY * speed)}px, 0)`;
+            });
+        }
+
+        // Update Matrix Rain color hue based on scroll
+        if (window.matrixRain && window.matrixRain.isRunning) {
+            window.matrixRain.updateScrollRatio(scrollRatio);
+        }
+
+        scrollTicking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            requestAnimationFrame(onScrollTick);
+            scrollTicking = true;
+        }
+    }, { passive: true });
 }
 
-new BackToTop();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollManager, { once: true });
+} else {
+    initScrollManager();
+}
 
-// ========== 5. SCROLL-TRIGGERED ANIMATIONS ==========
+// ========== 4. SCROLL-TRIGGERED ANIMATIONS ==========
 class ScrollAnimations {
     constructor() {
         this.elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
@@ -200,48 +266,24 @@ class ScrollAnimations {
             (entries) => this.handleIntersection(entries),
             { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
         );
-        
+
         this.init();
     }
-    
+
     init() {
         this.elements.forEach(el => this.observer.observe(el));
     }
-    
+
     handleIntersection(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                // Optionally unobserve after animation
-                // this.observer.unobserve(entry.target);
             }
         });
     }
 }
 
 new ScrollAnimations();
-
-// ========== 6. PARALLAX EFFECT ==========
-class ParallaxEffect {
-    constructor() {
-        this.elements = document.querySelectorAll('.parallax');
-        if (this.elements.length === 0 || prefersReducedMotion) return;
-        
-        window.addEventListener('scroll', () => this.update());
-    }
-    
-    update() {
-        const scrolled = window.pageYOffset;
-        
-        this.elements.forEach(el => {
-            const speed = el.dataset.speed || 0.5;
-            const yPos = -(scrolled * speed);
-            el.style.transform = `translate3d(0, ${yPos}px, 0)`;
-        });
-    }
-}
-
-new ParallaxEffect();
 
 // ========== 7. LAZY LOADING IMAGES ==========
 class LazyLoader {
@@ -1013,9 +1055,28 @@ function initCertificateModal() {
     let pageRendering = false;
     let pageNumPending = null;
 
-    if (window.pdfjsLib) {
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    }
+    let pdfJsPromise = null;
+    const getPdfLib = () => {
+        if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+        if (!pdfJsPromise) {
+            pdfJsPromise = new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+                s.async = true;
+                s.onload = () => {
+                    if (window.pdfjsLib) {
+                        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+                        resolve(window.pdfjsLib);
+                    } else {
+                        reject(new Error('PDF.js not loaded'));
+                    }
+                };
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+        }
+        return pdfJsPromise;
+    };
 
     const renderPdfPage = (num) => {
         if (!currentPdfDoc || !pdfCanvas) return;
@@ -1126,7 +1187,7 @@ function initCertificateModal() {
             if (openPdfEl) openPdfEl.setAttribute('href', absolutePdfUrl);
             if (downloadPdfEl) downloadPdfEl.setAttribute('href', absolutePdfUrl);
 
-            if (window.pdfjsLib && pdfViewerContainer && pdfCanvas) {
+            if (pdfViewerContainer && pdfCanvas) {
                 pdfViewerContainer.style.display = 'flex';
                 if (pdfLoadingSpinner) pdfLoadingSpinner.style.display = 'flex';
                 if (pdfControls) pdfControls.style.display = 'inline-flex';
@@ -1135,13 +1196,15 @@ function initCertificateModal() {
                 currentPdfScale = containerWidth < 600 ? 0.75 : 1.1;
                 currentPdfPage = 1;
 
-                window.pdfjsLib.getDocument(absolutePdfUrl).promise.then((pdfDoc) => {
+                getPdfLib().then((pdfjsLib) => {
+                    return pdfjsLib.getDocument(absolutePdfUrl).promise;
+                }).then((pdfDoc) => {
                     currentPdfDoc = pdfDoc;
                     if (pdfLoadingSpinner) pdfLoadingSpinner.style.display = 'none';
                     if (pdfPageCount) pdfPageCount.textContent = pdfDoc.numPages;
                     renderPdfPage(currentPdfPage);
                 }).catch((err) => {
-                    console.warn('PDF.js render failed, falling back to iframe:', err);
+                    console.warn('PDF.js dynamic load/render failed, falling back to iframe:', err);
                     if (pdfLoadingSpinner) pdfLoadingSpinner.style.display = 'none';
                     if (pdfViewerContainer) pdfViewerContainer.style.display = 'none';
                     if (pdfControls) pdfControls.style.display = 'none';
