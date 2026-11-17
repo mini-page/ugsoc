@@ -3,8 +3,8 @@
  * Provides offline functionality and performance optimization through caching
  */
 
-const CACHE_NAME = 'ug-soc-v1.0.0';
-const RUNTIME_CACHE = 'ug-soc-runtime-v1.0.0';
+const CACHE_NAME = 'ug-soc-v1.1.0';
+const RUNTIME_CACHE = 'ug-soc-runtime-v1.1.0';
 
 // Resources to cache immediately
 const PRECACHE_URLS = [
@@ -22,7 +22,6 @@ const PRECACHE_URLS = [
     './js/CommandPalette.js',
     './js/enhancements.js',
     './pwa/manifest.json',
-    './assets/resume-preview.svg',
     './assets/project-asllock.svg',
     './assets/project-secretjuice.svg',
     './assets/project-sejdacrack.svg',
@@ -45,7 +44,7 @@ const PRECACHE_URLS = [
     './pwa/icon-512.png'
 ];
 
-// Install event - cache resources
+// Install event - cache resources safely
 self.addEventListener('install', event => {
     console.log('[ServiceWorker] Install event');
     
@@ -53,7 +52,13 @@ self.addEventListener('install', event => {
         caches.open(CACHE_NAME)
             .then(cache => {
                 console.log('[ServiceWorker] Pre-caching offline resources');
-                return cache.addAll(PRECACHE_URLS);
+                return Promise.allSettled(
+                    PRECACHE_URLS.map(url =>
+                        cache.add(url).catch(err => {
+                            console.warn(`[ServiceWorker] Failed to cache ${url}:`, err);
+                        })
+                    )
+                );
             })
             .then(() => self.skipWaiting())
     );
